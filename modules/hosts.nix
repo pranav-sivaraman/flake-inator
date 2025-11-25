@@ -8,28 +8,9 @@
       { config.facter.reportPath = ./facter.json; }
 
       {
-        system.stateVersion = "25.11";
-
-        nix.settings.experimental-features = [
-          "nix-command"
-          "flakes"
-        ];
-
-        nixpkgs.config.allowUnfree = true;
-
         networking = {
           hostName = "vm";
           hostId = "f204fc66";
-        };
-
-        boot = {
-          loader = {
-            systemd-boot.enable = true;
-            efi.canTouchEfiVariables = true;
-          };
-          zfs = {
-            forceImportRoot = false;
-          };
         };
       }
 
@@ -37,6 +18,7 @@
       inputs.disko.nixosModules.disko
 
       # Shared modules
+      defaultinator
       psivaram
       ssh
       zfs
