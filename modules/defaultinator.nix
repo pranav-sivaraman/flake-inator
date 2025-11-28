@@ -28,6 +28,11 @@
       };
     };
 
+    security.pam = {
+      rssh.enable = true;
+      services.sudo.rssh = true;
+    };
+
     nix = {
       channel.enable = false;
 
