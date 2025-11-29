@@ -23,6 +23,11 @@
     nixos-facter-modules = {
       url = "github:nix-community/nixos-facter-modules";
     };
+
+    dotfiles = {
+      url = "github:pranav-sivaraman/.dotfiles";
+      flake = false;
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);

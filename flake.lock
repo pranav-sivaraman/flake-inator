@@ -20,6 +20,22 @@
         "type": "github"
       }
     },
+    "dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1763938232,
+        "narHash": "sha256-arcwiUbD6Vr3fabMnNCY9rzON6vmw2WV92Q8aqZvYVM=",
+        "owner": "pranav-sivaraman",
+        "repo": ".dotfiles",
+        "rev": "7012affc011ad188238c4e353a85eda8602d318a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pranav-sivaraman",
+        "repo": ".dotfiles",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -89,6 +105,7 @@
     "root": {
       "inputs": {
         "disko": "disko",
+        "dotfiles": "dotfiles",
         "flake-parts": "flake-parts",
         "import-tree": "import-tree",
         "nixos-facter-modules": "nixos-facter-modules",
