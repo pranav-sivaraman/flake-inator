@@ -20,6 +20,13 @@ in
           gcc
           tree-sitter
           nodejs
+          nixd
+          nixfmt
+          lua-language-server
+          ruff
+          ty
+          tinymist
+          fzf
         ];
       };
 
