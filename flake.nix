@@ -24,6 +24,11 @@
       url = "github:nix-community/nixos-facter-modules";
     };
 
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dotfiles = {
       url = "github:pranav-sivaraman/.dotfiles";
       flake = false;

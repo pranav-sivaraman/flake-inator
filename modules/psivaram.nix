@@ -1,3 +1,4 @@
+{ inputs, ... }:
 let
   userName = "psivaram";
 in
@@ -39,6 +40,16 @@ in
               exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
             fi
           '';
+        };
+      };
+
+      imports = [ inputs.home-manager.nixosModules.home-manager ];
+      home-manager.users.${userName} = {
+        home = {
+          stateVersion = "25.05";
+          file = {
+            ".config/nvim".source = "${inputs.dotfiles.outPath}/nvim/.config/nvim";
+          };
         };
       };
     };
