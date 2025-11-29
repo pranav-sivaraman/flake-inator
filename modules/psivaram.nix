@@ -16,6 +16,10 @@ in
         ];
         packages = with pkgs; [
           jujutsu
+          difftastic
+          gcc
+          tree-sitter
+          nodejs
         ];
       };
 
