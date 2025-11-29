@@ -36,6 +36,8 @@
       services.sudo.rssh = true;
     };
 
+    nixpkgs.config.allowUnfree = true;
+
     nix = {
       channel.enable = false;
 
