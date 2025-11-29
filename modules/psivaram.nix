@@ -49,6 +49,9 @@ in
           stateVersion = "25.05";
           file = {
             ".config/nvim".source = "${inputs.dotfiles.outPath}/nvim/.config/nvim";
+            ".config/fish".source = "${inputs.dotfiles.outPath}/fish/.config/fish";
+            ".config/jj".source = "${inputs.dotfiles.outPath}/jj/.config/jj";
+            ".config/tmux".source = "${inputs.dotfiles.outPath}/tmux/.config/tmux";
           };
         };
       };
