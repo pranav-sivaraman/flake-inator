@@ -7,6 +7,7 @@ in
     { pkgs, ... }:
     {
       users.users.${userName}.packages = with pkgs; [
+        eza
         nixfmt-tree
         jujutsu
         difftastic
