@@ -7,12 +7,7 @@
       inputs.nixos-facter-modules.nixosModules.facter
       { config.facter.reportPath = ./facter.json; }
 
-      {
-        networking = {
-          hostName = "vm";
-          hostId = "f204fc66";
-        };
-      }
+      vm
 
       # Shared modules
       defaultinator
