@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.zfs = {
+  flake.modules.nixos.vm = {
     imports = [ inputs.disko.nixosModules.disko ];
     disko.devices = {
       disk = {
