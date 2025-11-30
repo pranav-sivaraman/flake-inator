@@ -7,6 +7,7 @@
       defaultinator
       psivaram
       ssh
+      zfs
     ];
   };
 }
