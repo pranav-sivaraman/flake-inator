@@ -14,9 +14,6 @@
         };
       }
 
-      # Disk management
-      inputs.disko.nixosModules.disko
-
       # Shared modules
       defaultinator
       psivaram
