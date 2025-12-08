@@ -1,5 +1,8 @@
-{ inputs, ... }:
+{ inputs, self, ... }:
 {
+  imports = [
+    inputs.agenix-rekey.flakeModule
+  ];
   flake.modules.nixos.secrets =
     { config, pkgs, ... }:
     {
@@ -10,7 +13,8 @@
       age = {
         rekey = {
           masterIdentities = [ ./secrets/gesha.pub ];
-          localStorageDir = ./. + "/modules/secrets/rekeyed/${config.networking.hostName}";
+          storageMode = "local";
+          localStorageDir = self + "/modules/secrets/rekeyed/${config.networking.hostName}";
           agePlugins = [ pkgs.age-plugin-yubikey ];
         };
       };
