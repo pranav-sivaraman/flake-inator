@@ -8,6 +8,7 @@
       psivaram
       ssh
       zfs
+      secrets
     ];
   };
 }
