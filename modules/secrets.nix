@@ -12,7 +12,7 @@
       ];
       age = {
         rekey = {
-          masterIdentities = [ ./secrets/gesha.pub ];
+          masterIdentities = [ ./secrets/gesha.pub ./secrets/arabica.pub ];
           storageMode = "local";
           localStorageDir = self + "/modules/secrets/rekeyed/${config.networking.hostName}";
           agePlugins = [ pkgs.age-plugin-yubikey ];
