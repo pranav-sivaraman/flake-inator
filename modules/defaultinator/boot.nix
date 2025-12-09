@@ -13,7 +13,7 @@
             ssh = {
               enable = true;
               port = 2222;
-              authorizedKeys = [ config.users.users.psivaram.openssh.authorizedKeys.keys ];
+              authorizedKeys = config.users.users.psivaram.openssh.authorizedKeys.keys;
             };
           };
         };
