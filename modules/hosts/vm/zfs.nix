@@ -51,7 +51,6 @@
               local = {
                 type = "zfs_fs";
                 options.mountpoint = "none";
-                postCreateHook = "zfs snapshot rpool/local/root@blank";
               };
               safe = {
                 type = "zfs_fs";
@@ -63,26 +62,29 @@
 
               "local/root" = {
                 type = "zfs_fs";
+                options.mountpoint = "/";
                 mountpoint = "/";
+                postCreateHook = "zfs list -t snapshot rpool/local/root@blank > /dev/null 2>&1 || zfs snapshot rpool/local/root@blank";
               };
               "local/nix" = {
                 type = "zfs_fs";
+                options.mountpoint = "/nix";
                 mountpoint = "/nix";
               };
               "safe/persist" = {
                 type = "zfs_fs";
+                options.mountpoint = "/persist";
                 mountpoint = "/persist";
               };
               "safe/home" = {
                 type = "zfs_fs";
+                options.mountpoint = "/home";
                 mountpoint = "/home";
               };
             };
           };
         };
       };
-
-      fileSystems."/persist".neededForBoot = true;
 
       boot.initrd.systemd.services.rollback = {
         description = "Rollback ZFS datasets to a pristine state";
