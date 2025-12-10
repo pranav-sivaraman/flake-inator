@@ -5,6 +5,7 @@
     modules = with inputs.self.modules.nixos; [
       vm
       boot
+      impermanence
       locale
       networking
       nix
