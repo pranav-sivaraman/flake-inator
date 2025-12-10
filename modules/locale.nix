@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.defaultinator = {
+  flake.modules.nixos.locale = {
     time.timeZone = "America/New_York";
 
     i18n = {

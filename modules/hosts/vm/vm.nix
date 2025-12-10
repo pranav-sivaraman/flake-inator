@@ -4,8 +4,13 @@
     system = "aarch64-linux";
     modules = with inputs.self.modules.nixos; [
       vm
-      defaultinator
+      boot
+      locale
+      networking
+      nix
       psivaram
+      secrets
+      security
       ssh
       zfs
     ];

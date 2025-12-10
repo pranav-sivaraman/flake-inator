@@ -3,7 +3,7 @@
   imports = [
     inputs.agenix-rekey.flakeModule
   ];
-  flake.modules.nixos.defaultinator =
+  flake.modules.nixos.secrets =
     { config, pkgs, ... }:
     {
       imports = with inputs; [

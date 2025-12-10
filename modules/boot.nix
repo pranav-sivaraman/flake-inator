@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  flake.modules.nixos.defaultinator = {
+  flake.modules.nixos.boot = {
     system.stateVersion = "25.05";
 
     boot = {

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.defaultinator = {
+  flake.modules.nixos.nix = {
     nixpkgs.config.allowUnfree = true;
 
     nix = {
