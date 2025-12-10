@@ -24,7 +24,7 @@
                 size = "100%";
                 content = {
                   type = "zfs";
-                  pool = "zroot";
+                  pool = "rpool";
                 };
               };
             };
@@ -32,36 +32,53 @@
         };
       };
       zpool = {
-        zroot = {
+        rpool = {
           type = "zpool";
-          rootFsOptions = {
-            mountpoint = "none";
-            compression = "zstd";
-            acltype = "posixacl";
-            xattr = "sa";
-            "com.sun:auto-snapshot" = "true";
+          options = {
+            ashift = "12";
+            autotrim = "on";
           };
-          options.ashift = "12";
+          rootFsOptions = {
+            acltype = "posixacl";
+            compression = "zstd";
+            mountpoint = "none";
+            xattr = "sa";
+          };
+
           datasets = {
-            "root" = {
+            local = {
+              type = "zfs_fs";
+              options.mountpoint = "none";
+            };
+            safe = {
               type = "zfs_fs";
               options = {
-                encryption = "aes-256-gcm";
-                keyformat = "passphrase";
-                #keylocation = "file:///tmp/secret.key";
-                keylocation = "prompt";
+                mountpoint = "none";
+                "com.sun:auto-snapshot" = "true";
               };
-              mountpoint = "/";
-
             };
-            "root/nix" = {
+
+            "local/root" = {
               type = "zfs_fs";
-              options.mountpoint = "/nix";
+              mountpoint = "/";
+            };
+            "local/nix" = {
+              type = "zfs_fs";
               mountpoint = "/nix";
+            };
+            "safe/persist" = {
+              type = "zfs_fs";
+              mountpoint = "/persist";
+            };
+            "safe/home" = {
+              type = "zfs_fs";
+              mountpoint = "/home";
             };
           };
         };
       };
     };
+
+    fileSystems."/persist".neededForBoot = true;
   };
 }
