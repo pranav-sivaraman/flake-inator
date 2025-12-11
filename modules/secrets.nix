@@ -21,5 +21,11 @@
           agePlugins = [ pkgs.age-plugin-yubikey ];
         };
       };
+
+      systemd.services.agenix-install-secrets = {
+        after = [
+          "persist-persist-etc-ssh-ssh_host_ed25519_key.pub.service"
+        ];
+      };
     };
 }

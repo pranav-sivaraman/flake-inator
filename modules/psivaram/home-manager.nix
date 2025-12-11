@@ -17,9 +17,15 @@ in
   flake.modules.nixos.${userName} =
     { config, ... }:
     {
-      imports = [ inputs.home-manager.nixosModules.home-manager ];
+      imports = [
+        inputs.home-manager.nixosModules.home-manager
+      ];
 
       home-manager.users.${userName} = {
+        imports = [
+          inputs.impermanence.homeManagerModules.impermanence
+        ];
+
         home = {
           stateVersion = config.system.stateVersion;
           file = builtins.listToAttrs (map mkConfigLink configDirs);

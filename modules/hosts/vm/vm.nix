@@ -5,6 +5,7 @@
     modules = with inputs.self.modules.nixos; [
       vm
       boot
+      impermanence
       locale
       networking
       nix
@@ -12,6 +13,7 @@
       secrets
       security
       ssh
+      users
       zfs
     ];
   };

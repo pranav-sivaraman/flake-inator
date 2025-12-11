@@ -38,6 +38,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    impermanence = {
+      url = "github:nix-community/impermanence";
+    };
+
     dotfiles = {
       url = "github:pranav-sivaraman/.dotfiles";
       flake = false;

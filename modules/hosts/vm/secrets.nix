@@ -5,7 +5,7 @@
     {
       age = {
         rekey = {
-          hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFuPTKBNA2RQBlZeiN1E7fUdg0V++U1Ln5HQlYg5NI6X root@vm";
+          hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIc8wYsYK3SfbSFpBJfEOGd75HWwfCiakfy4/G62NtbH root@vm";
         };
         secrets = {
           randomPassword = {
