@@ -8,6 +8,7 @@
       impermanence
       locale
       firewall
+      monitoring
       networkd
       nix
       psivaram
