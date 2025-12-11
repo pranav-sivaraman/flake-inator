@@ -9,6 +9,7 @@
       };
       sanoid = {
         enable = true;
+        interval = "*:0/10";  # Run every 10 minutes
         templates = {
           default = {
             autosnap = true;
