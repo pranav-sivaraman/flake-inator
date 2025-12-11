@@ -13,6 +13,7 @@
       secrets
       security
       ssh
+      users
       zfs
     ];
   };
