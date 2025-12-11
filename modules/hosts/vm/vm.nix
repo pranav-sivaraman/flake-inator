@@ -7,7 +7,8 @@
       boot
       impermanence
       locale
-      networking
+      firewall
+      networkd
       nix
       psivaram
       secrets
