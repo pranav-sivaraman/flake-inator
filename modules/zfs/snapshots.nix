@@ -7,7 +7,6 @@
         default = {
           autosnap = true;
           autoprune = true;
-          recursive = "zfs";
           frequent_period = 10;
           frequently = 12; # Every 10 min, keep for 2 hours
           hourly = 48; # Every hour, keep for 2 days
@@ -18,7 +17,10 @@
         };
       };
       datasets = {
-        "rpool/safe".useTemplate = [ "default" ];
+        "rpool/safe" = {
+          useTemplate = [ "default" ];
+          recursive = "zfs";
+        };
       };
     };
   };
