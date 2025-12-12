@@ -3,8 +3,8 @@
   flake.modules.nixos.remote-unlock =
     { config, ... }:
     {
-      system.stateVersion = "25.05";
-
+      # TODO: need to find a way to have 1 step deploy for initrd secrets
+      # TODO: 1 way is to use age-plugin-tpm?
       boot.initrd = {
         network = {
           enable = true;
@@ -37,5 +37,9 @@
           symlink = false;
         };
       };
+
+      environment.persistence."/persist".files = [
+        "/etc/initrd-hostkey"
+      ];
     };
 }
