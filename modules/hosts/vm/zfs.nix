@@ -43,6 +43,9 @@
             rootFsOptions = {
               acltype = "posixacl";
               compression = "zstd";
+              encryption = "aes-256-gcm";
+              keyformat = "passphrase";
+              keylocation = "prompt";
               mountpoint = "none";
               xattr = "sa";
             };
