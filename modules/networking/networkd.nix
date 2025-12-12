@@ -5,7 +5,18 @@
       useDHCP = false;
       dhcpcd.enable = false;
     };
-    systemd.network.enable = true;
+    systemd.network = {
+      enable = true;
+      networks = {
+        "89-ethernet" = {
+          matchConfig = {
+            Kind = "!*";
+            Type = "ether";
+          };
+          networkConfig.DHCP = "yes";
+        };
+      };
+    };
     services.resolved.enable = true;
   };
 }
