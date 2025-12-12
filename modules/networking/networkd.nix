@@ -8,6 +8,13 @@
     systemd.network = {
       enable = true;
       networks = {
+        "80-wifi-station" = {
+          matchConfig = {
+            Type = "wlan";
+            WLANInterfaceType = "station";
+          };
+          networkConfig.DHCP = "yes";
+        };
         "89-ethernet" = {
           matchConfig = {
             Kind = "!*";
