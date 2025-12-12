@@ -5,7 +5,6 @@
       hostId = "f204fc66";
     };
     systemd.network = {
-      enable = true;
       networks = {
         "10-enp0s1" = {
           matchConfig.Name = "enp0s1";
