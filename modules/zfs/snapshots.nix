@@ -19,7 +19,8 @@
       datasets = {
         "rpool/safe" = {
           useTemplate = [ "default" ];
-          recursive = "zfs";
+          recursive = true;
+          process_children_only = true;
         };
       };
     };
