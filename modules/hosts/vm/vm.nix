@@ -16,6 +16,7 @@
       security
       ssh
       users
+      uptime-kuma
       zfs
     ];
   };
