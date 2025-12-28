@@ -88,6 +88,29 @@
         "type": "github"
       }
     },
+    "dewclaw": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1752588537,
+        "narHash": "sha256-HvQEFCxzW4tLgdWTyNEEo7qYScU1UPnqOyXdIx5BvZI=",
+        "owner": "MakiseKurisu",
+        "repo": "dewclaw",
+        "rev": "a8ffa551625ae671654c2443da8d09ecc7641c1a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MakiseKurisu",
+        "repo": "dewclaw",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -348,6 +371,7 @@
       "inputs": {
         "agenix": "agenix",
         "agenix-rekey": "agenix-rekey",
+        "dewclaw": "dewclaw",
         "disko": "disko",
         "dotfiles": "dotfiles",
         "flake-parts": "flake-parts_2",

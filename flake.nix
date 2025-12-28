@@ -46,6 +46,14 @@
       url = "github:pranav-sivaraman/.dotfiles";
       flake = false;
     };
+
+    dewclaw = {
+      url = "github:MakiseKurisu/dewclaw";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
