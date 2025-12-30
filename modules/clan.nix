@@ -8,5 +8,9 @@
       name = "owca";
       domain = "praarthana.space";
     };
+
+    secrets.age.plugins = [
+      "age-plugin-yubikey"
+    ];
   };
 }

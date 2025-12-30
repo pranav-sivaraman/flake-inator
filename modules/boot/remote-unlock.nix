@@ -1,18 +1,33 @@
-{ self, lib, ... }:
+{
+  lib,
+  ...
+}:
 {
   flake.modules.nixos.remote-unlock =
-    { config, ... }:
+    { config, pkgs, ... }:
     {
-      # TODO: need to find a way to have 1 step deploy for initrd secrets
-      # TODO: 1 way is to use age-plugin-tpm?
+      clan.core.vars.generators.initrd-ssh = {
+        files."id_ed25519".neededFor = "activation";
+        files."id_ed25519.pub".secret = false;
+        runtimeInputs = [
+          pkgs.coreutils
+          pkgs.openssh
+        ];
+        script = ''
+          ssh-keygen -t ed25519 -N "" -f $out/id_ed25519
+        '';
+      };
+
       boot.initrd = {
         network = {
           enable = true;
           ssh = {
             enable = true;
             port = lib.mkDefault 2222;
+            hostKeys = [
+              config.clan.core.vars.generators.initrd-ssh.files.id_ed25519.path
+            ];
             authorizedKeys = config.users.users.psivaram.openssh.authorizedKeys.keys;
-            hostKeys = [ "/etc/initrd-hostkey" ];
           };
         };
         systemd = {
@@ -22,13 +37,5 @@
         };
       };
 
-      age.secrets = {
-        hostkey-initrd = {
-          rekeyFile = self + "/modules/secrets/${config.networking.hostName}/hostkey-initrd.age";
-          generator.script = "ssh-ed25519";
-          path = "/etc/initrd-hostkey";
-          symlink = false;
-        };
-      };
     };
 }
