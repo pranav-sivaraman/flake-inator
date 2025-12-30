@@ -9,6 +9,7 @@
     nixpkgs.hostPlatform = "aarch64-linux";
 
     imports = with inputs.self.modules.nixos; [
+      vm
       boot
       impermanence
       locale
@@ -17,7 +18,6 @@
       nix
       psivaram
       remote-unlock
-      # secrets
       security
       ssh
       users
