@@ -2,6 +2,9 @@
   "machines": {
     "vm": {
       "installedAt": 1767148604
+    },
+    "agentc": {
+      "installedAt": 1767209732
     }
   }
 }
