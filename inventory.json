@@ -2,6 +2,9 @@
   "machines": {
     "agentc": {
       "installedAt": 1767209732
+    },
+    "agentn": {
+      "installedAt": 1768090484
     }
   }
 }
