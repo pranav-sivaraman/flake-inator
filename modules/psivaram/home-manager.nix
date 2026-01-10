@@ -22,10 +22,6 @@ in
       ];
 
       home-manager.users.${userName} = {
-        imports = [
-          inputs.impermanence.homeManagerModules.impermanence
-        ];
-
         home = {
           stateVersion = config.system.stateVersion;
           file = builtins.listToAttrs (map mkConfigLink configDirs);
