@@ -21,11 +21,11 @@ in
         inputs.home-manager.nixosModules.home-manager
       ];
 
-      home-manager.users.${userName} = {
-        home = {
-          stateVersion = config.system.stateVersion;
-          file = builtins.listToAttrs (map mkConfigLink configDirs);
-        };
-      };
+      # home-manager.users.${userName} = {
+      #   home = {
+      #     stateVersion = config.system.stateVersion;
+      #     file = builtins.listToAttrs (map mkConfigLink configDirs);
+      #   };
+      # };
     };
 }
