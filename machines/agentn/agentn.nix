@@ -16,6 +16,7 @@
       networkd
       nix
       psivaram
+      users
       remote-unlock
       security
       ssh
