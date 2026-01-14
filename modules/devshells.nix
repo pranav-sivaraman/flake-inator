@@ -20,6 +20,7 @@ _: {
           '';
           packages = [
             inputs'.clan-core.packages.default
+            pkgs.nix-output-monitor
           ];
         };
       };
