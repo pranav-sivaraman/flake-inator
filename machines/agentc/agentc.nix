@@ -14,6 +14,7 @@
       remote-unlock
       security
       ssh
+      users
       zfs
     ];
   };

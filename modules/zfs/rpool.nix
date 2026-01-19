@@ -62,9 +62,14 @@
             type = "zfs_fs";
             mountpoint = "/home";
           };
+          "safe/keys" = {
+            type = "zfs_fs";
+            mountpoint = "/var/lib/sops-nix";
+          };
         };
       };
 
       fileSystems."/persist".neededForBoot = true;
+      fileSystems."/var/lib/sops-nix".neededForBoot = true;
     };
 }

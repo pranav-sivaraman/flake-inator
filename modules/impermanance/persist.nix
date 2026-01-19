@@ -9,7 +9,6 @@
         "/var/lib/nixos"
         "/var/log/systemd"
         "/var/log/journal"
-        "/var/lib/sops-nix"
       ];
       files = [
         "/etc/machine-id"
