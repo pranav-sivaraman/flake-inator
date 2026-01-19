@@ -6,20 +6,21 @@
     };
   };
   clan.machines.agentn = {
-    nixpkgs.hostPlatform = "aarch64-linux";
+    nixpkgs.hostPlatform = "x86_64-linux";
     imports = with inputs.self.modules.nixos; [
       agentn
       boot
       impermanence
       locale
       firewall
+      monitoring
       networkd
       nix
       psivaram
-      users
       remote-unlock
       security
       ssh
+      users
       zfs
     ];
   };

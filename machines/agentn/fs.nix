@@ -4,7 +4,7 @@
       disk = {
         boot = {
           type = "disk";
-          device = "/dev/vdb";
+          device = "/dev/disk/by-id/mmc-DV4064_0x03086a32";
           content = {
             type = "gpt";
             partitions = {
@@ -23,7 +23,7 @@
         };
         data1 = {
           type = "disk";
-          device = "/dev/vdc";
+          device = "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_4TB_S7U8NJ0Y405006Z";
           content = {
             type = "gpt";
             partitions = {
@@ -39,7 +39,7 @@
         };
         data2 = {
           type = "disk";
-          device = "/dev/vdd";
+          device = "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_4TB_S7U8NJ0Y514985X";
           content = {
             type = "gpt";
             partitions = {
@@ -55,7 +55,7 @@
         };
         data3 = {
           type = "disk";
-          device = "/dev/vde";
+          device = "/dev/disk/by-id/nvme-WD_BLACK_SN7100_4TB_25203H800223";
           content = {
             type = "gpt";
             partitions = {
