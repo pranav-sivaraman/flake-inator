@@ -2,7 +2,7 @@
 {
   clan.inventory.machines = {
     agentn = {
-      deploy.targetHost = "psivaram@192.168.4.4";
+      deploy.targetHost = "psivaram@192.168.1.2"; # TODO: define this somewhere to easily reference?
     };
   };
   clan.machines.agentn = {
