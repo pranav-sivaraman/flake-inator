@@ -1,7 +1,22 @@
 { ... }:
 {
+  clan.inventory.instances.localBackup = {
+    module.input = "self";
+    module.name = "backups";
+    roles.server.machines.agentn = { };
+    roles.client.settings.repositoryUrl = "rest:http://192.168.1.2:8000"; # TODO: use exporters
+    roles.client.machines.agentc = { };
+  };
+
+  clan.inventory.instances.s3Backup = {
+    module.input = "self";
+    module.name = "backups";
+    roles.client.settings.repositoryUrl = "s3:https://gateway.storjshare.io/backup";
+    roles.client.machines.agentn = { };
+  };
+
   clan.modules.backups =
-    { clanLib, ... }:
+    { clanLib, lib, ... }:
     {
       _class = "clan.service";
       manifest.name = "backups";
@@ -10,7 +25,7 @@
       roles.server = {
         description = "Hosts the restic REST server that stores backups.";
         perInstance =
-          { roles, ... }:
+          { roles, instanceName, ... }:
           {
             nixosModule =
               {
@@ -27,7 +42,7 @@
                     clanLib.getPublicValue {
                       flake = config.clan.core.settings.directory;
                       machine = name;
-                      generator = "restic-password";
+                      generator = "restic-password-${instanceName}";
                       file = "htpasswd-entry";
                       default = null;
                     }
@@ -57,46 +72,92 @@
 
       roles.client = {
         description = "Backs up data to the restic server.";
+
+        interface = {
+          options.repositoryUrl = lib.mkOption {
+            type = lib.types.str;
+            description = "Restic repository base URL. Hostname will be appended automatically.";
+            example = "rest:http://192.168.1.2:8000 or s3:https://gateway.storjshare.io/bucket-name";
+          };
+        };
+
         perInstance =
-          { ... }:
+          { instanceName, settings, ... }:
           {
             nixosModule =
-              { pkgs, config, lib, ... }:
               {
-                clan.core.vars.generators.restic-password = {
+                pkgs,
+                config,
+                lib,
+                ...
+              }:
+              let
+                generatorName = suffix: "restic-${suffix}-${instanceName}";
+              in
+              {
+                clan.core.vars.generators.${generatorName "password"} = {
                   files.passphrase = {
                     secret = true;
                     owner = "root";
                     mode = "0400";
                   };
-                  files.htpasswd-entry.secret = false;
+                  files.htpasswd-entry = lib.mkIf (lib.hasPrefix "rest:" settings.repositoryUrl) {
+                    secret = false;
+                  };
                   runtimeInputs = [
                     pkgs.coreutils
                     pkgs.xkcdpass
-                    pkgs.apacheHttpd
-                  ];
+                  ]
+                  ++ lib.optional (lib.hasPrefix "rest:" settings.repositoryUrl) pkgs.apacheHttpd;
                   script = ''
                     xkcdpass -n 6 -d - > $out/passphrase
+                  ''
+                  + lib.optionalString (lib.hasPrefix "rest:" settings.repositoryUrl) ''
                     htpasswd -nbB "${config.networking.hostName}" "$(cat $out/passphrase)" > $out/htpasswd-entry
                   '';
                 };
 
-                clan.core.vars.generators.restic-rest-env = {
-                  files.rest-env = {
-                    secret = true;
-                    owner = "root";
-                    mode = "0400";
-                  };
-                  dependencies = [ "restic-password" ];
-                  runtimeInputs = [ pkgs.coreutils ];
-                  script = ''
-                    passphrase=$(cat $in/restic-password/passphrase)
+                clan.core.vars.generators.${generatorName "env"} = lib.mkMerge [
+                  (lib.mkIf (lib.hasPrefix "rest:" settings.repositoryUrl) {
+                    files.env = {
+                      secret = true;
+                      owner = "root";
+                      mode = "0400";
+                    };
+                    dependencies = [ (generatorName "password") ];
+                    runtimeInputs = [ pkgs.coreutils ];
+                    script = ''
+                      passphrase=$(cat $in/${generatorName "password"}/passphrase)
+                      echo "RESTIC_REST_USERNAME=${config.networking.hostName}" > $out/env
+                      echo "RESTIC_REST_PASSWORD=$passphrase" >> $out/env
+                      echo "RESTIC_FEATURES=device-id-for-hardlinks" >> $out/env
+                    '';
+                  })
 
-                    echo "RESTIC_REST_USERNAME=${config.networking.hostName}" > $out/rest-env
-                    echo "RESTIC_REST_PASSWORD=$passphrase" >> $out/rest-env
-                    echo "RESTIC_FEATURES=device-id-for-hardlinks" >> $out/rest-env
-                  '';
-                };
+                  (lib.mkIf (lib.hasPrefix "s3:" settings.repositoryUrl) {
+                    files.env = {
+                      secret = true;
+                      owner = "root";
+                      mode = "0400";
+                    };
+                    prompts.access-key = {
+                      description = "S3 Access Key ID for ${instanceName}";
+                      type = "hidden";
+                    };
+                    prompts.secret-key = {
+                      description = "S3 Secret Access Key for ${instanceName}";
+                      type = "hidden";
+                    };
+                    runtimeInputs = [ pkgs.coreutils ];
+                    script = ''
+                      access_key=$(cat $prompts/access-key)
+                      secret_key=$(cat $prompts/secret-key)
+                      echo "AWS_ACCESS_KEY_ID=$access_key" > $out/env
+                      echo "AWS_SECRET_ACCESS_KEY=$secret_key" >> $out/env
+                      echo "RESTIC_FEATURES=device-id-for-hardlinks" >> $out/env
+                    '';
+                  })
+                ];
 
                 # TODO: change to specific databases
                 services.postgresqlBackup.enable = lib.mkIf config.services.postgresql.enable true;
@@ -107,9 +168,13 @@
                 services.restic.backups = {
                   primarybackup = {
                     initialize = true;
-                    passwordFile = config.clan.core.vars.generators.restic-password.files.passphrase.path;
-                    environmentFile = config.clan.core.vars.generators.restic-rest-env.files.rest-env.path;
-                    repository = "rest:http://192.168.1.2:8000/${config.networking.hostName}";
+                    repository = "${settings.repositoryUrl}/${config.networking.hostName}";
+                    passwordFile = config.clan.core.vars.generators.${generatorName "password"}.files.passphrase.path;
+                    environmentFile = config.clan.core.vars.generators.${generatorName "env"}.files.env.path;
+
+                    extraOptions = [
+                      "--verbose"
+                    ];
 
                     paths = [
                       "/persist/.zfs/snapshot/restic-backup"
@@ -167,10 +232,4 @@
           };
       };
     };
-
-  clan.inventory.instances.backups = {
-    module.input = "self";
-    roles.server.machines.agentn = { };
-    roles.client.machines.agentc = { };
-  };
 }
