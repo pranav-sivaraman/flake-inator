@@ -9,6 +9,7 @@
         "/var/lib/nixos"
         "/var/log/systemd"
         "/var/log/journal"
+        "/var/log/lastlog"
       ];
       files = [
         "/etc/machine-id"

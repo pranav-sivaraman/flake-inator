@@ -43,6 +43,14 @@
                 };
 
                 networking.firewall.allowedTCPPorts = [ 8000 ];
+
+                environment.persistence."/persist".directories = [
+                  {
+                    directory = "/var/lib/restic";
+                    user = "restic";
+                    group = "restic";
+                  }
+                ];
               };
           };
       };
