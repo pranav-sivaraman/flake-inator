@@ -140,6 +140,9 @@
                     ];
 
                     backupPrepareCommand = ''
+                      if ${pkgs.zfs}/bin/zfs list -t snapshot rpool/safe@restic-backup 2>/dev/null; then
+                        ${pkgs.zfs}/bin/zfs destroy -r rpool/safe@restic-backup
+                      fi
                       ${pkgs.zfs}/bin/zfs snapshot -r rpool/safe@restic-backup
                     '';
 
