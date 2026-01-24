@@ -46,7 +46,7 @@
 
                 environment.persistence."/persist".directories = [
                   {
-                    directory = "/var/lib/restic";
+                    directory = "${config.services.restic.server.dataDir}";
                     user = "restic";
                     group = "restic";
                   }
@@ -61,7 +61,7 @@
           { ... }:
           {
             nixosModule =
-              { pkgs, config, ... }:
+              { pkgs, config, lib, ... }:
               {
                 clan.core.vars.generators.restic-password = {
                   files.passphrase = {
@@ -97,6 +97,12 @@
                     echo "RESTIC_FEATURES=device-id-for-hardlinks" >> $out/rest-env
                   '';
                 };
+
+                # TODO: change to specific databases
+                services.postgresqlBackup.enable = lib.mkIf config.services.postgresql.enable true;
+                environment.persistence."/persist".directories = lib.mkIf config.services.postgresql.enable [
+                  "${config.services.postgresqlBackup.location}"
+                ];
 
                 services.restic.backups = {
                   primarybackup = {
