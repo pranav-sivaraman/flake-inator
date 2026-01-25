@@ -191,6 +191,14 @@
                     '';
                   };
 
+                  environment.persistence."/persist".directories = [
+                    {
+                      directory = config.services.caddy.dataDir;
+                      user = config.services.caddy.user;
+                      group = config.services.caddy.group;
+                    }
+                  ];
+
                   services.caddy = {
                     enable = true;
                     package = caddyWithCloudflare;
