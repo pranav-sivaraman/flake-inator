@@ -1,10 +1,12 @@
 {
   flake.modules.nixos.zfs =
-    { lib, ... }:
+    { lib, pkgs, ... }:
     {
       systemd.services.zfs-mount.enable = false;
 
       boot.zfs.devNodes = "/dev/disk/by-partuuid";
+
+      boot.zfs.package = pkgs.zfs_unstable;
 
       services.zfs = {
         trim.enable = true;
