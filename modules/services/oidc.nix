@@ -1,25 +1,20 @@
-{ ... }:
+{ lib, ... }:
 {
-
   clan.inventory.instances.oidc = {
     module.input = "self";
     module.name = "oidc";
 
-    roles.server.machines.agentc = {
-    };
+    roles.server.machines.agentc = { };
   };
 
-  clan.inventory.instances.publicProxy = {
-    roles.service.machines.agentc = {
-      settings.routes = [
-        {
-          subdomain = "pocket-id";
-          backend = "192.168.1.3:1411";
-          proxyServer = "agentc";
-        }
-      ];
-    };
-  };
+  flake.routes = [
+    {
+      subdomain = "pocket-id";
+      backend = "http://localhost:1411";
+      proxyServer = "agentc";
+    }
+  ];
+
   clan.modules.oidc = {
     _class = "clan.service";
     manifest.name = "oidc";
@@ -63,8 +58,6 @@
                   group = config.services.pocket-id.group;
                 }
               ];
-
-              networking.firewall.allowedTCPPorts = [ 1411 ];
             };
         };
       };

@@ -3,8 +3,8 @@
   clan.inventory.instances.homelabNFS = {
     module.input = "self";
     module.name = "nfs";
-    roles.server.machines.agentn = { };
-    roles.client.machines.agentc = { };
+    # roles.server.machines.agentn = { };
+    # roles.client.machines.agentc = { };
   };
 
   clan.modules.nfs =
