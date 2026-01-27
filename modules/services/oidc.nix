@@ -7,7 +7,7 @@
     roles.server.machines.agentc = { };
   };
 
-  flake.routes = [
+  reverseProxy.routes = [
     {
       subdomain = "pocket-id";
       backend = "http://localhost:1411";

@@ -4,38 +4,42 @@
   config,
   ...
 }:
+let
+  routeType = lib.types.submodule {
+    options = {
+      subdomain = lib.mkOption {
+        type = lib.types.str;
+        description = "Subdomain for this service";
+        example = "photos";
+      };
+
+      backend = lib.mkOption {
+        type = lib.types.str;
+        description = "Backend target (IP:port or container name)";
+        example = "http://192.168.1.2:8080";
+      };
+
+      proxyServer = lib.mkOption {
+        type = lib.types.str;
+        description = "Hostname of the reverse proxy server";
+      };
+
+      extraDirectives = lib.mkOption {
+        type = lib.types.lines;
+        default = "";
+        description = "Additional Caddy directives for this route";
+      };
+    };
+  };
+in
 {
-  options.flake.routes = lib.mkOption {
-    type = lib.types.listOf (
-      lib.types.submodule {
-        options = {
-          subdomain = lib.mkOption {
-            type = lib.types.str;
-            description = "Subdomain for this service";
-            example = "photos";
-          };
-
-          backend = lib.mkOption {
-            type = lib.types.str;
-            description = "Backend target (IP:port or container name)";
-            example = "http://192.168.1.2:8080";
-          };
-
-          proxyServer = lib.mkOption {
-            type = lib.types.str;
-            description = "Hostname of the reverse proxy server";
-          };
-
-          extraDirectives = lib.mkOption {
-            type = lib.types.lines;
-            default = "";
-            description = "Additional Caddy directives for this route";
-          };
-        };
-      }
-    );
+  options.reverseProxy.routes = lib.mkOption {
+    type = lib.types.listOf routeType;
     default = [ ];
-    description = "Routes to be configured on the reverse proxy. Each service file can append to this list.";
+    description = ''
+      Routes for reverse proxy. Services append to this list to register their routes.
+      Each route specifies which proxyServer handles it.
+    '';
   };
 
   config = {
@@ -46,8 +50,7 @@
       roles.server.machines.agentc = {
         settings = {
           domain = "praarthana.space";
-          # Collect routes from flake-level option
-          routes = config.flake.routes or [ ];
+          routes = config.reverseProxy.routes;
         };
       };
     };
@@ -66,14 +69,14 @@
           - Configure with base domain for wildcard certificates
           - Manages TLS via Cloudflare DNS-01 challenges
           - Handles subdomain routing to backend services
-          - Routes are collected from the flake-level `flake.routes` option
+          - Routes are collected from reverseProxy.routes
 
           ## Usage
 
-          Services declare routes using the flake-level `flake.routes` option:
+          Services register routes by adding to the shared route list:
 
           ```nix
-          flake.routes = [
+          reverseProxy.routes = [
             {
               subdomain = "myservice";
               backend = "http://192.168.1.2:8080";
@@ -83,7 +86,8 @@
           ];
           ```
 
-          Each service file can independently add routes without conflicts.
+          Multiple service files can independently append routes - they merge automatically.
+          Each route specifies which proxyServer handles it.
 
           ## Secrets
 
@@ -103,34 +107,9 @@
               };
 
               options.routes = lib.mkOption {
-                type = lib.types.listOf (
-                  lib.types.submodule {
-                    options = {
-                      subdomain = lib.mkOption {
-                        type = lib.types.str;
-                        description = "Subdomain for this service";
-                      };
-
-                      backend = lib.mkOption {
-                        type = lib.types.str;
-                        description = "Backend target (IP:port or container name)";
-                      };
-
-                      proxyServer = lib.mkOption {
-                        type = lib.types.str;
-                        description = "Hostname of the reverse proxy server";
-                      };
-
-                      extraDirectives = lib.mkOption {
-                        type = lib.types.lines;
-                        default = "";
-                        description = "Additional Caddy directives for this route";
-                      };
-                    };
-                  }
-                );
+                type = lib.types.listOf routeType;
                 default = [ ];
-                description = "Routes to configure (injected from flake.routes)";
+                description = "Routes to configure (collected from reverseProxy.routes)";
               };
             };
 
@@ -152,7 +131,7 @@
                   let
                     serverMachines = lib.attrNames (roles.server.machines or { });
 
-                    # Get routes from settings (injected from flake.routes)
+                    # Get routes from settings (collected from reverseProxy.routes)
                     allRoutes = settings.routes or [ ];
 
                     validateRoute =
@@ -169,33 +148,35 @@
                     subdomainCounts = lib.groupBy (r: r.subdomain) myRoutes;
                     duplicates = lib.filterAttrs (subdomain: routes: lib.length routes > 1) subdomainCounts;
 
-                    generateHandle = idx: route: ''
-                      @route_${toString idx} host ${route.subdomain}.${settings.domain}
-                      handle @route_${toString idx} {
-                        reverse_proxy ${route.backend}
-                        ${route.extraDirectives}
-                      }
-                    '';
-
-                    caddyfile = pkgs.writeText "Caddyfile" ''
-                      {
-                        skip_install_trust
-                      }
-
-                      https://*.${settings.domain} {
-                        tls {
-                          dns cloudflare {env.CF_API_TOKEN}
-                          resolvers 1.1.1.1
-                        }
-
-                        ${lib.concatImapStringsSep "\n" generateHandle myRoutes}
-                      }
-                    '';
-
                     caddyWithCloudflare = pkgs.caddy.withPlugins {
                       plugins = [ "github.com/caddy-dns/cloudflare@v0.2.2" ];
                       hash = "sha256-dnhEjopeA0UiI+XVYHYpsjcEI6Y1Hacbi28hVKYQURg=";
                     };
+
+                    generateHandle =
+                      idx: route:
+                      "@route_${toString idx} host ${route.subdomain}.${settings.domain}\n"
+                      + "handle @route_${toString idx} {\n"
+                      + "reverse_proxy ${route.backend}\n"
+                      + (if route.extraDirectives != "" then "${route.extraDirectives}\n" else "")
+                      + "}\n";
+
+                    unformattedCaddyfile = pkgs.writeText "Caddyfile.unformatted" (
+                      "{\n"
+                      + "skip_install_trust\n"
+                      + "}\n"
+                      + "https://*.${settings.domain} {\n"
+                      + "tls {\n"
+                      + "dns cloudflare {env.CF_API_TOKEN}\n"
+                      + "resolvers 1.1.1.1\n"
+                      + "}\n"
+                      + lib.concatImapStringsSep "" generateHandle myRoutes
+                      + "}\n"
+                    );
+
+                    caddyfile = pkgs.runCommand "Caddyfile" { } ''
+                      ${caddyWithCloudflare}/bin/caddy fmt - < ${unformattedCaddyfile} > $out
+                    '';
                   in
                   {
                     assertions = [
