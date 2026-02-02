@@ -95,10 +95,39 @@
                 generatorName = suffix: "restic-${suffix}-${instanceName}";
               in
               {
+                users = {
+                  users.restic = {
+                    group = "restic";
+                    isSystemUser = true;
+                  };
+                  groups.restic = { };
+                };
+
+                systemd.services.zfs-delegate-restic = {
+                  description = "Delegate ZFS permissions for restic backups";
+                  after = [ "zfs-import.target" ];
+                  wantedBy = [ "multi-user.target" ];
+                  serviceConfig = {
+                    Type = "oneshot";
+                    RemainAfterExit = true;
+                  };
+                  script = ''
+                    ${pkgs.zfs}/bin/zfs allow restic snapshot,destroy,mount rpool/safe
+                  '';
+                };
+
+                security.wrappers.restic = {
+                  source = lib.getExe pkgs.restic;
+                  owner = "restic";
+                  group = "restic";
+                  permissions = "500"; # or u=rx,g=,o=
+                  capabilities = "cap_dac_read_search+ep";
+                };
+
                 clan.core.vars.generators.${generatorName "password"} = {
                   files.passphrase = {
                     secret = true;
-                    owner = "root";
+                    owner = "restic";
                     mode = "0400";
                   };
                   files.htpasswd-entry = lib.mkIf (lib.hasPrefix "rest:" settings.repositoryUrl) {
@@ -121,7 +150,7 @@
                   (lib.mkIf (lib.hasPrefix "rest:" settings.repositoryUrl) {
                     files.env = {
                       secret = true;
-                      owner = "root";
+                      owner = "restic";
                       mode = "0400";
                     };
                     dependencies = [ (generatorName "password") ];
@@ -168,6 +197,10 @@
                 services.restic.backups = {
                   primarybackup = {
                     initialize = true;
+                    user = "restic";
+                    package = pkgs.writeShellScriptBin "restic" ''
+                      exec /run/wrappers/bin/restic "$@"
+                    '';
                     repository = "${settings.repositoryUrl}/${config.networking.hostName}";
                     passwordFile = config.clan.core.vars.generators.${generatorName "password"}.files.passphrase.path;
                     environmentFile = config.clan.core.vars.generators.${generatorName "env"}.files.env.path;
