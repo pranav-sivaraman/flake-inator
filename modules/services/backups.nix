@@ -112,7 +112,7 @@
                     RemainAfterExit = true;
                   };
                   script = ''
-                    ${pkgs.zfs}/bin/zfs allow restic snapshot,destroy,mount rpool/safe
+                    ${config.boot.zfs.package}/bin/zfs allow restic snapshot,destroy,mount rpool/safe
                   '';
                 };
 
