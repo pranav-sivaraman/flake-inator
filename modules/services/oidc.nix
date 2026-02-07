@@ -9,9 +9,11 @@
   clan.modules.oidc = {
     _class = "clan.service";
     manifest.name = "oidc";
+    manifest.readme = "Pocket-ID OIDC provider for authentication and identity management.";
 
     roles = {
       server = {
+        description = "Hosts the Pocket-ID OIDC authentication server.";
         perInstance =
           { mkExports, ... }:
           let

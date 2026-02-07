@@ -18,9 +18,11 @@
     {
       _class = "clan.service";
       manifest.name = "reverseProxy";
+      manifest.readme = "Caddy reverse proxy with automatic HTTPS and Cloudflare DNS integration.";
 
       roles = {
         server = {
+          description = "Runs the Caddy reverse proxy server with TLS termination.";
           perInstance =
             {
               instanceName,

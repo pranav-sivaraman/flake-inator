@@ -25,6 +25,7 @@
 
       roles = {
         server = {
+          description = "Hosts the restic REST server that stores backups.";
           perInstance =
             {
               instanceName,
@@ -98,6 +99,7 @@
             };
         };
         client = {
+          description = "Backs up data to the restic server.";
           interface = {
             options.repositoryUrl = lib.mkOption {
               type = lib.types.str;
@@ -117,7 +119,7 @@
                 { config, pkgs, ... }:
                 let
                   passphraseSecret = "restic-password-${instanceName}-${machine.name}";
-                  s3Secret = "restic-s3-${instanceName}";
+                  envSecret = "restic-env-${instanceName}";
                   hasS3 = lib.hasPrefix "s3:" settings.repositoryUrl;
                 in
                 {
@@ -140,9 +142,29 @@
                         '';
                       };
                     }
+                    (lib.mkIf (!hasS3) {
+                      "${envSecret}" = {
+                        share = false;
+                        dependencies = [ passphraseSecret ];
+                        files.env = {
+                          secret = true;
+                          owner = "restic";
+                          mode = "0400";
+                        };
+                        runtimeInputs = [ pkgs.coreutils ];
+                        script = ''
+                          passphrase=$(cat $in/${passphraseSecret}/passphrase)
+                          cat > $out/env <<EOF
+                          RESTIC_FEATURES=device-id-for-hardlinks
+                          RESTIC_REST_USERNAME=${machine.name}
+                          RESTIC_REST_PASSWORD=$passphrase
+                          EOF
+                        '';
+                      };
+                    })
                     (lib.mkIf (hasS3) {
-                      "${s3Secret}" = {
-                        # TODO: should this be share?
+                      "${envSecret}" = {
+                        share = false;
                         prompts.access-key = {
                           description = "S3 Access Key ID for ${instanceName}";
                           type = "hidden";
@@ -153,7 +175,7 @@
                           type = "hidden";
                           persist = false;
                         };
-                        files.credentials = {
+                        files.env = {
                           secret = true;
                           owner = "restic";
                           mode = "0400";
@@ -162,11 +184,10 @@
                         script = ''
                           access_key=$(cat $prompts/access-key)
                           secret_key=$(cat $prompts/secret-key)
-
-                          cat > $out/credentials <<EOF
-                          [default]
-                          aws_access_key_id=$access_key
-                          aws_secret_access_key=$secret_key
+                          cat > $out/env <<EOF
+                          RESTIC_FEATURES=device-id-for-hardlinks
+                          AWS_ACCESS_KEY_ID=$access_key
+                          AWS_SECRET_ACCESS_KEY=$secret_key
                           EOF
                         '';
                       };
@@ -205,19 +226,7 @@
                   services.restic.backups =
                     let
                       passwordFile = config.clan.core.vars.generators.${passphraseSecret}.files.passphrase.path;
-                      environmentFile = pkgs.writeText "restic-env" ''
-                        RESTIC_FEATURES=device-id-for-hardlinks
-                        ${
-                          if hasS3 then
-                            ''
-                              AWS_SHARED_CREDENTIALS_FILE=${config.clan.core.vars.generators.${s3Secret}.files.credentials.path}
-                            ''
-                          else
-                            ''
-                              RESTIC_REST_USERNAME=${machine.name}
-                            ''
-                        }
-                      '';
+                      environmentFile = config.clan.core.vars.generators.${envSecret}.files.env.path;
                     in
                     {
                       "primarybackup-${instanceName}" = {
@@ -231,7 +240,7 @@
                         ];
                         repository = "${settings.repositoryUrl}/${machine.name}";
                         passwordFile = passwordFile;
-                        environmentFile = toString environmentFile;
+                        environmentFile = environmentFile;
                         paths = [
                           "/persist/.zfs/snapshot/restic-backup"
                           "/home/.zfs/snapshot/restic-backup"
