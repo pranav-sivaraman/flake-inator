@@ -53,6 +53,43 @@
           }
         );
       };
+
+      # Define custom export schema for storage information
+      options.storage = lib.mkOption {
+        default = null;
+        type = lib.types.nullOr (
+          lib.types.submodule {
+            options = {
+              path = lib.mkOption {
+                type = lib.types.str;
+                description = "Path on the storage server where data should be stored";
+                example = "/srv/smb/myservice";
+              };
+              mountPoint = lib.mkOption {
+                type = lib.types.str;
+                description = "Path on the client where the storage should be mounted";
+                example = "/mnt/myservice";
+              };
+              user = lib.mkOption {
+                type = lib.types.str;
+                description = "User that owns the storage (will be created dynamically on server)";
+                example = "myservice";
+              };
+              group = lib.mkOption {
+                type = lib.types.str;
+                default = "";
+                description = "Group that owns the storage (defaults to user if empty)";
+                example = "myservice";
+              };
+              readOnly = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Whether the storage should be read-only";
+              };
+            };
+          }
+        );
+      };
     };
   };
 }
