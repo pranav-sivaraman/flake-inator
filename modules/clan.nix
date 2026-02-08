@@ -54,6 +54,7 @@
         );
       };
 
+      # TODO: define a list of dirs to create
       # Define custom export schema for storage information
       options.storage = lib.mkOption {
         default = null;

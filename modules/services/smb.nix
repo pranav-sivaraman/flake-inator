@@ -180,26 +180,49 @@
                 { config, pkgs, ... }:
                 {
                   # Import the same generators to receive passwords from server
-                  clan.core.vars.generators = lib.listToAttrs (
-                    map (username: {
-                      name = "smb-password-${instanceName}-${username}";
-                      value = {
-                        share = true;
-                        files.password = {
-                          secret = true;
-                          owner = "root";
-                          mode = "0400";
+                  clan.core.vars.generators =
+                    lib.listToAttrs (
+                      map (username: {
+                        name = "smb-password-${instanceName}-${username}";
+                        value = {
+                          share = true;
+                          files.password = {
+                            secret = true;
+                            owner = "root";
+                            mode = "0400";
+                          };
+                          runtimeInputs = [
+                            pkgs.coreutils
+                            pkgs.xkcdpass
+                          ];
+                          script = ''
+                            xkcdpass -n 6 -d - > $out/password
+                          '';
                         };
-                        runtimeInputs = [
-                          pkgs.coreutils
-                          pkgs.xkcdpass
-                        ];
-                        script = ''
-                          xkcdpass -n 6 -d - > $out/password
-                        '';
-                      };
-                    }) storageUsers
-                  );
+                      }) storageUsers
+                    )
+                    // lib.listToAttrs (
+                      map (username: {
+                        name = "smb-creds-${instanceName}-${username}";
+                        value = {
+                          share = false;
+                          dependencies = [ "smb-password-${instanceName}-${username}" ];
+                          files.creds = {
+                            secret = true;
+                            owner = "root";
+                            mode = "0600";
+                          };
+                          runtimeInputs = [ pkgs.coreutils ];
+                          script = ''
+                            password=$(cat $in/smb-password-${instanceName}-${username}/password)
+                            cat > $out/creds <<EOF
+                            username=${username}
+                            password=$password
+                            EOF
+                          '';
+                        };
+                      }) storageUsers
+                    );
 
                   # Client configuration
                   environment.systemPackages = [ pkgs.cifs-utils ];
@@ -213,12 +236,14 @@
                       # TODO: Replace .lan suffix with proper networking/DNS resolution
                       # Get server machine name from roles and add .lan suffix
                       serverMachine = "${lib.head (lib.attrNames (roles.server.machines or { }))}.lan";
+                      credsPath =
+                        config.clan.core.vars.generators."smb-creds-${instanceName}-${storage.user}".files.creds.path;
                     in
                     lib.nameValuePair storage.mountPoint {
                       device = "//${serverMachine}/${shareName}";
                       fsType = "cifs";
                       options = [
-                        "credentials=/run/secrets/smb-${instanceName}-${storage.user}.creds"
+                        "credentials=${credsPath}"
                         "uid=${storage.user}"
                         "gid=${if storage.group != "" then storage.group else storage.user}"
                         "file_mode=0644"
@@ -227,35 +252,6 @@
                         "x-systemd.idle-timeout=60"
                         "x-systemd.requires=network-online.target"
                       ];
-                    }
-                  ) storageExports;
-
-                  # Create credentials files for SMB mounts via systemd services
-                  systemd.services = lib.mapAttrs' (
-                    _scope: data:
-                    let
-                      storage = data.storage;
-                      credsFile = "/run/secrets/smb-${instanceName}-${storage.user}.creds";
-                      passwordPath =
-                        config.clan.core.vars.generators."smb-password-${instanceName}-${storage.user}".files.password.path;
-                      mountUnit = "${lib.replaceStrings [ "/" ] [ "-" ] (lib.removePrefix "/" storage.mountPoint)}.mount";
-                    in
-                    lib.nameValuePair "smb-creds-${instanceName}-${storage.user}" {
-                      description = "Create SMB credentials for ${storage.user}";
-                      before = [ mountUnit ];
-                      requiredBy = [ mountUnit ];
-                      serviceConfig = {
-                        Type = "oneshot";
-                        RemainAfterExit = true;
-                      };
-                      script = ''
-                        mkdir -p /run/secrets
-                        cat > ${credsFile} <<EOF
-                        username=${storage.user}
-                        password=$(cat ${passwordPath})
-                        EOF
-                        chmod 600 ${credsFile}
-                      '';
                     }
                   ) storageExports;
                 };

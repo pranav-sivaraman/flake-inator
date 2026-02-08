@@ -63,12 +63,6 @@
 
                   environment.persistence."/persist".directories = [
                     {
-                      directory = "/var/lib/postgresql";
-                      user = "postgres";
-                      group = "postgres";
-                      mode = "0750";
-                    }
-                    {
                       directory = "/var/lib/redis-immich";
                       user = "redis-immich";
                       group = "redis-immich";

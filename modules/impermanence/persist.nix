@@ -10,6 +10,12 @@
         "/var/log/systemd"
         "/var/log/journal"
         "/var/log/lastlog"
+        {
+          directory = "/var/lib/postgresql";
+          user = "postgres";
+          group = "postgres";
+          mode = "0750";
+        }
       ];
       files = [
         "/etc/machine-id"
