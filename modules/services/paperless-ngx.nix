@@ -26,13 +26,24 @@
             in
             {
               exports = mkExports {
-                storage = {
-                  path = "/persist/var/lib/paperless/media";
-                  mountPoint = "/var/lib/paperless/media";
-                  user = "paperless";
-                  group = "paperless";
-                  readOnly = false;
-                };
+                storage =
+                  let
+                    baseServerPath = "/persist/var/lib/paperless";
+                    baseClientPath = "/var/lib/paperless";
+                    dirs = [
+                      "media"
+                      "consume"
+                    ];
+                  in
+                  {
+                    exports = map (dir: {
+                      path = "${baseServerPath}/${dir}";
+                      mountPoint = "${baseClientPath}/${dir}";
+                    }) dirs;
+                    user = "paperless";
+                    group = "paperless";
+                    readOnly = false;
+                  };
                 route = {
                   subdomain = subdomain;
                   interface = "localhost";
@@ -117,21 +128,21 @@
                     };
                   };
 
-                  systemd.services.paperless-scheduler = {
-                    serviceConfig = {
-                      EnvironmentFile = config.clan.core.vars.generators.paperless-env.files.env.path;
-                    };
+                  systemd.services = {
+                    paperless-scheduler.serviceConfig.EnvironmentFile =
+                      config.clan.core.vars.generators.paperless-env.files.env.path;
+                    paperless-web.serviceConfig.EnvironmentFile =
+                      config.clan.core.vars.generators.paperless-env.files.env.path;
                   };
 
-                  systemd.services.paperless-web.serviceConfig = {
-                    EnvironmentFile = config.clan.core.vars.generators.paperless-env.files.env.path;
-                  };
-
-                  # TODO: Longterm check if exports are local or not proper?
-                  # environment.persistence."/persist".directories = [
-                  # ];
-
-                  # TODO: automounts need to come before DNS
+                  environment.persistence."/persist".directories = [
+                    {
+                      directory = "/var/lib/redis-paperless";
+                      user = "redis-paperless";
+                      group = "redis-paperless";
+                      mode = "0700";
+                    }
+                  ];
                 };
             };
         };

@@ -54,22 +54,40 @@
         );
       };
 
-      # TODO: define a list of dirs to create
       # Define custom export schema for storage information
       options.storage = lib.mkOption {
         default = null;
         type = lib.types.nullOr (
           lib.types.submodule {
             options = {
-              path = lib.mkOption {
-                type = lib.types.str;
-                description = "Path on the storage server where data should be stored";
-                example = "/srv/smb/myservice";
-              };
-              mountPoint = lib.mkOption {
-                type = lib.types.str;
-                description = "Path on the client where the storage should be mounted";
-                example = "/mnt/myservice";
+              exports = lib.mkOption {
+                type = lib.types.listOf (
+                  lib.types.submodule {
+                    options = {
+                      path = lib.mkOption {
+                        type = lib.types.str;
+                        description = "Path on the storage server where data should be stored";
+                        example = "/srv/smb/myservice/data";
+                      };
+                      mountPoint = lib.mkOption {
+                        type = lib.types.str;
+                        description = "Path on the client where the storage should be mounted";
+                        example = "/mnt/myservice/data";
+                      };
+                    };
+                  }
+                );
+                description = "List of directories to export and mount";
+                example = [
+                  {
+                    path = "/persist/var/lib/immich/upload";
+                    mountPoint = "/var/lib/immich/upload";
+                  }
+                  {
+                    path = "/persist/var/lib/immich/library";
+                    mountPoint = "/var/lib/immich/library";
+                  }
+                ];
               };
               user = lib.mkOption {
                 type = lib.types.str;

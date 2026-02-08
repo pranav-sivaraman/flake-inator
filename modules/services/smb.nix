@@ -33,26 +33,44 @@
               storageExports = lib.filterAttrs (_scope: data: data ? storage && data.storage != null) allExports;
               storageUsers = lib.unique (lib.mapAttrsToList (_scope: data: data.storage.user) storageExports);
 
-              shareConfigs = lib.mapAttrs' (
-                scope: data:
-                let
-                  storage = data.storage;
-                  shareName = lib.replaceStrings [ "." "/" ] [ "-" "-" ] scope;
-                  group = if storage.group != "" then storage.group else storage.user;
-                in
-                lib.nameValuePair shareName {
-                  path = storage.path;
-                  "valid users" = storage.user;
-                  "write list" = lib.mkIf (!storage.readOnly) storage.user;
-                  "read only" = if storage.readOnly then "yes" else "no";
-                  browseable = "yes";
-                  "guest ok" = "no";
-                  "create mask" = "0644";
-                  "directory mask" = "0755";
-                  "force user" = storage.user;
-                  "force group" = group;
-                }
-              ) storageExports;
+              # Flatten exports - each scope can have multiple directories
+              flattenedExports = lib.flatten (
+                lib.mapAttrsToList (
+                  scope: data:
+                  let
+                    storage = data.storage;
+                    exportsList = storage.exports;
+                  in
+                  lib.imap0 (idx: export: {
+                    inherit scope;
+                    inherit (storage) user group readOnly;
+                    inherit (export) path mountPoint;
+                    # Simple naming: user-0, user-1, etc.
+                    shareName = "${storage.user}-${toString idx}";
+                  }) exportsList
+                ) storageExports
+              );
+
+              shareConfigs = lib.listToAttrs (
+                map (
+                  export:
+                  let
+                    group = if export.group != "" then export.group else export.user;
+                  in
+                  lib.nameValuePair export.shareName {
+                    path = export.path;
+                    "valid users" = export.user;
+                    "write list" = lib.mkIf (!export.readOnly) export.user;
+                    "read only" = if export.readOnly then "yes" else "no";
+                    browseable = "yes";
+                    "guest ok" = "no";
+                    "create mask" = "0644";
+                    "directory mask" = "0755";
+                    "force user" = export.user;
+                    "force group" = group;
+                  }
+                ) flattenedExports
+              );
             in
             {
               nixosModule =
@@ -136,6 +154,7 @@
                   # Set up SMB passwords for users via systemd service
                   systemd.services."smb-setup-passwords-${instanceName}" = {
                     description = "Set up SMB passwords for ${instanceName} users";
+                    after = [ "userborn.service" ];
                     before = [ "samba.target" ];
                     requiredBy = [ "samba.target" ];
                     serviceConfig = {
@@ -144,6 +163,20 @@
                     };
                     script =
                       let
+                        # Ensure ownership of exported directories
+                        ensureOwnershipCommands = lib.concatMapStringsSep "\n" (
+                          export:
+                          let
+                            group = if export.group != "" then export.group else export.user;
+                          in
+                          ''
+                            if [ -d "${export.path}" ]; then
+                              chown -R ${export.user}:${group} "${export.path}"
+                              echo "Set ownership of ${export.path} to ${export.user}:${group}"
+                            fi
+                          ''
+                        ) flattenedExports;
+
                         addUserCommand = username: ''
                           password=$(cat ${
                             config.clan.core.vars.generators."smb-password-${instanceName}-${username}".files.password.path
@@ -151,7 +184,13 @@
                           (echo "$password"; echo "$password") | ${pkgs.samba}/bin/smbpasswd -a -s ${username}
                         '';
                       in
-                      lib.concatMapStringsSep "\n" addUserCommand storageUsers;
+                      ''
+                        # Ensure ownership of all exported directories
+                        ${ensureOwnershipCommands}
+
+                        # Add SMB users and passwords
+                        ${lib.concatMapStringsSep "\n" addUserCommand storageUsers}
+                      '';
                   };
                 };
             };
@@ -172,6 +211,24 @@
               allExports = clanLib.selectExports (_scope: true) exports;
               storageExports = lib.filterAttrs (_scope: data: data ? storage && data.storage != null) allExports;
               storageUsers = lib.unique (lib.mapAttrsToList (_scope: data: data.storage.user) storageExports);
+
+              # Flatten exports - each scope can have multiple directories
+              flattenedExports = lib.flatten (
+                lib.mapAttrsToList (
+                  scope: data:
+                  let
+                    storage = data.storage;
+                    exportsList = storage.exports;
+                  in
+                  lib.imap0 (idx: export: {
+                    inherit scope;
+                    inherit (storage) user group readOnly;
+                    inherit (export) path mountPoint;
+                    # Simple naming: user-0, user-1, etc.
+                    shareName = "${storage.user}-${toString idx}";
+                  }) exportsList
+                ) storageExports
+              );
             in
             {
               exports = mkExports { };
@@ -228,32 +285,32 @@
                   environment.systemPackages = [ pkgs.cifs-utils ];
 
                   # Mount SMB shares based on storage exports from this machine
-                  fileSystems = lib.mapAttrs' (
-                    scope: data:
-                    let
-                      storage = data.storage;
-                      shareName = lib.replaceStrings [ "." "/" ] [ "-" "-" ] scope;
-                      # TODO: Replace .lan suffix with proper networking/DNS resolution
-                      # Get server machine name from roles and add .lan suffix
-                      serverMachine = "${lib.head (lib.attrNames (roles.server.machines or { }))}.lan";
-                      credsPath =
-                        config.clan.core.vars.generators."smb-creds-${instanceName}-${storage.user}".files.creds.path;
-                    in
-                    lib.nameValuePair storage.mountPoint {
-                      device = "//${serverMachine}/${shareName}";
-                      fsType = "cifs";
-                      options = [
-                        "credentials=${credsPath}"
-                        "uid=${storage.user}"
-                        "gid=${if storage.group != "" then storage.group else storage.user}"
-                        "file_mode=0644"
-                        "dir_mode=0755"
-                        "x-systemd.automount"
-                        "x-systemd.idle-timeout=60"
-                        "x-systemd.requires=network-online.target"
-                      ];
-                    }
-                  ) storageExports;
+                  fileSystems = lib.listToAttrs (
+                    map (
+                      export:
+                      let
+                        # TODO: Replace .lan suffix with proper networking/DNS resolution
+                        # Get server machine name from roles and add .lan suffix
+                        serverMachine = "${lib.head (lib.attrNames (roles.server.machines or { }))}.lan";
+                        credsPath =
+                          config.clan.core.vars.generators."smb-creds-${instanceName}-${export.user}".files.creds.path;
+                      in
+                      lib.nameValuePair export.mountPoint {
+                        device = "//${serverMachine}/${export.shareName}";
+                        fsType = "cifs";
+                        options = [
+                          "credentials=${credsPath}"
+                          "uid=${export.user}"
+                          "gid=${if export.group != "" then export.group else export.user}"
+                          "file_mode=0644"
+                          "dir_mode=0755"
+                          "x-systemd.automount"
+                          "x-systemd.idle-timeout=60"
+                          "x-systemd.requires=network-online.target"
+                        ];
+                      }
+                    ) flattenedExports
+                  );
                 };
             };
         };

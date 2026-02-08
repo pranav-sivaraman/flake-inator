@@ -23,13 +23,28 @@
             }:
             {
               exports = mkExports {
-                storage = {
-                  path = "/persist/var/lib/immich";
-                  mountPoint = "/var/lib/immich";
-                  user = "immich";
-                  group = "immich";
-                  readOnly = false;
-                };
+                storage =
+                  let
+                    baseServerPath = "/persist/var/lib/immich";
+                    baseClientPath = "/var/lib/immich";
+                    dirs = [
+                      "backups"
+                      "encoded-video"
+                      "library"
+                      "profile"
+                      "thumbs"
+                      "upload"
+                    ];
+                  in
+                  {
+                    exports = map (dir: {
+                      path = "${baseServerPath}/${dir}";
+                      mountPoint = "${baseClientPath}/${dir}";
+                    }) dirs;
+                    user = "immich";
+                    group = "immich";
+                    readOnly = false;
+                  };
                 route = {
                   subdomain = "photos";
                   interface = "localhost";
@@ -54,13 +69,6 @@
                     package = pkgs.postgresql_14; # Remove once immich creates a DB backup on the latest version
                   };
 
-                  systemd.services.immich-server = {
-                    serviceConfig = {
-                      StateDirectory = lib.mkForce "";
-                      RequiresMountsFor = [ "/var/lib/immich" ];
-                    };
-                  };
-
                   environment.persistence."/persist".directories = [
                     {
                       directory = "/var/lib/redis-immich";
@@ -68,6 +76,12 @@
                       group = "redis-immich";
                       mode = "0700";
                     }
+                    # {
+                    #   directory = "/var/lib/immich";
+                    #   user = "immich";
+                    #   group = "immich";
+                    #   mode = "0700";
+                    # }
                   ];
                 };
             };
