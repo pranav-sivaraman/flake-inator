@@ -38,7 +38,12 @@
               };
 
               nixosModule =
-                { config, pkgs, ... }:
+                {
+                  config,
+                  pkgs,
+                  lib,
+                  ...
+                }:
                 {
                   services.immich = {
                     enable = true;
@@ -46,8 +51,14 @@
                   };
 
                   services.postgresql = {
-                    enable = true;
-                    package = pkgs.postgresql_14;
+                    package = pkgs.postgresql_14; # Remove once immich creates a DB backup on the latest version
+                  };
+
+                  systemd.services.immich-server = {
+                    serviceConfig = {
+                      StateDirectory = lib.mkForce "";
+                      RequiresMountsFor = [ "/var/lib/immich" ];
+                    };
                   };
 
                   environment.persistence."/persist".directories = [
