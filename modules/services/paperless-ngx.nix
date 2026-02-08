@@ -136,6 +136,7 @@
                   };
 
                   environment.persistence."/persist".directories = [
+                    "/var/lib/private/tika"
                     {
                       directory = "/var/lib/redis-paperless";
                       user = "redis-paperless";
