@@ -256,6 +256,23 @@
         "type": "github"
       }
     },
+    "nixpkgs-booklore": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1770222912,
+        "narHash": "sha256-YWOd3/lmJbvgjkTHnj8ngZU6PCipZoM02qF6uZxK3Kg=",
+        "owner": "jvanbruegge",
+        "repo": "nixpkgs",
+        "rev": "247baec32e57dbbffe47450ee8de54ae49757369",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jvanbruegge",
+        "ref": "booklore",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1770197578,
@@ -280,7 +297,8 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "import-tree": "import-tree",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "nixpkgs-booklore": "nixpkgs-booklore"
       }
     },
     "sops-nix": {

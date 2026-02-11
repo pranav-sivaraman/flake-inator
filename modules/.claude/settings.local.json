@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(superpowers:brainstorming)",
+      "WebFetch(domain:github.com)",
+      "WebSearch",
+      "WebFetch(domain:headscale.net)"
+    ]
+  }
+}

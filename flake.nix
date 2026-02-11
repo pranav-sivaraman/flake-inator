@@ -33,6 +33,11 @@
       url = "github:pranav-sivaraman/.dotfiles";
       flake = false;
     };
+
+    nixpkgs-booklore = {
+      url = "github:jvanbruegge/nixpkgs/booklore";
+      flake = false;
+    };
   };
 
   outputs =

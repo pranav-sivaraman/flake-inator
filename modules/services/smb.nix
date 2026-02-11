@@ -170,6 +170,7 @@
                             group = if export.group != "" then export.group else export.user;
                           in
                           ''
+                            mkdir -p "${export.path}"
                             if [ -d "${export.path}" ]; then
                               chown -R ${export.user}:${group} "${export.path}"
                               echo "Set ownership of ${export.path} to ${export.user}:${group}"

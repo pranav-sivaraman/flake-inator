@@ -45,6 +45,7 @@
                 default = "localhost";
                 description = "Interface/host to proxy to";
               };
+              # TODO: replace with type port
               port = lib.mkOption {
                 type = lib.types.str;
                 description = "Port to proxy to";
