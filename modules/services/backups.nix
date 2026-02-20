@@ -82,7 +82,7 @@
 
                   services.restic.server = {
                     enable = true;
-                    appendOnly = true;
+                    appendOnly = false;
                     # prometheus = true; # TODO
                   };
 
