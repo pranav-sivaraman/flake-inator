@@ -1,6 +1,6 @@
 { inputs, ... }:
 let
-  userName = import ./_config.nix;
+  userName = "psivaram";
 in
 {
   clan.inventory.instances = {
