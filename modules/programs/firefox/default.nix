@@ -91,7 +91,7 @@
               privateDefault = "google";
 
               engines = {
-                "Searchix Packages" = {
+                "Nix Packages" = {
                   urls = [
                     {
                       template = "https://searchix.ovh/packages/nixpkgs/search";
@@ -107,7 +107,7 @@
                   definedAliases = [ "@np" ];
                 };
 
-                "Searchix NixOS Options" = {
+                "NixOS Options" = {
                   urls = [
                     {
                       template = "https://searchix.ovh/options/nixos/search";
@@ -123,7 +123,7 @@
                   definedAliases = [ "@no" ];
                 };
 
-                "Searchix Darwin Options" = {
+                "Darwin Options" = {
                   urls = [
                     {
                       template = "https://searchix.ovh/options/darwin/search";
@@ -139,7 +139,7 @@
                   definedAliases = [ "@da" ];
                 };
 
-                "Searchix Home Manager Options" = {
+                "Home Manager Options" = {
                   urls = [
                     {
                       template = "https://searchix.ovh/options/home-manager/search";
