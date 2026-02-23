@@ -3,9 +3,11 @@
   flake.modules.nixos.monitoring =
     { lib, config, ... }:
     let
-      hasZfsPartition = disk:
-        lib.any (partition: (partition.content.type or "") == "zfs")
-          (lib.attrValues (disk.content.partitions or { }));
+      hasZfsPartition =
+        disk:
+        lib.any (partition: (partition.content.type or "") == "zfs") (
+          lib.attrValues (disk.content.partitions or { })
+        );
     in
     {
       services.smartd = {
