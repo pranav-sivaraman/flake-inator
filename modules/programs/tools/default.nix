@@ -12,6 +12,8 @@
             shellcheck
             # cvise # FIXME: add back somehow
             bear
+            gh
+            uv
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
