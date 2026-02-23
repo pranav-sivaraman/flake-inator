@@ -14,6 +14,7 @@
               "cmd-4" = "workspace 4";
               "cmd-5" = "workspace 5";
               "cmd-6" = "workspace 6";
+              "cmd-7" = "workspace 7";
             };
             on-window-detected = [
               {
@@ -35,6 +36,14 @@
               {
                 "if".app-id = "com.hnc.Discord";
                 run = "move-node-to-workspace 5";
+              }
+              {
+                "if".app-id = "com.microsoft.teams2";
+                run = "move-node-to-workspace 6";
+              }
+              {
+                "if".app-id = "com.microsoft.Outlook";
+                run = "move-node-to-workspace 7";
               }
             ];
           };
