@@ -83,7 +83,7 @@
     "firefox-bitwarden": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-H6HAdiEDuT12H+ym3c0RjmniHQjqMA/HQvi8eTuH27I=",
+        "narHash": "sha256-4fOHCr/vsIvaXMxV/F9R561PzL3xShfE1dEJTjwTT4Q=",
         "type": "file",
         "url": "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi"
       },
