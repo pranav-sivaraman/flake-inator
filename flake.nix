@@ -2,9 +2,8 @@
   description = "Behold my flake-inator!";
 
   inputs = {
-    nixpkgs = {
-      url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    flake-aspects.url = "github:vic/flake-aspects";
 
     clan-core = {
       url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
@@ -53,7 +52,6 @@
         ];
 
         imports = [
-          flake-parts.flakeModules.modules
           (import-tree ./modules)
           (import-tree ./machines)
         ];
