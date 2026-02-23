@@ -64,6 +64,9 @@ in
           home-manager.users.psivaram = {
             programs.ssh = {
               includes = [ "~/.ssh/config.hosts" ];
+              matchBlocks."*" = {
+                user = "sivaramp";
+              };
             };
           };
         }
