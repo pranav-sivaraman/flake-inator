@@ -1,6 +1,8 @@
 { inputs, ... }:
-{
-  flake.darwinConfigurations."personal" = inputs.nix-darwin.lib.darwinSystem {
+let
+  mkDarwinConfig = {
+    extraModules ? []
+  }: inputs.nix-darwin.lib.darwinSystem {
     system = "aarch64-darwin";
     modules = [
       inputs.self.aspects.nix.darwin
@@ -13,9 +15,7 @@
           enable = true;
           casks = [
             "flux-app"
-            "kobo"
             "yubico-authenticator"
-            "calibre"
           ];
           onActivation = {
             cleanup = "zap";
@@ -42,6 +42,32 @@
           };
         };
       }
-    ];
+    ] ++ extraModules;
+  };
+in
+{
+  flake.darwinConfigurations = {
+    personal = mkDarwinConfig {
+      extraModules = [
+        {
+          homebrew.casks = [
+            "kobo"
+            "calibre"
+          ];
+        }
+      ];
+    };
+
+    work = mkDarwinConfig {
+      extraModules = [
+        {
+          home-manager.users.psivaram = {
+            programs.ssh = {
+              includes = [ "~/.ssh/config.hosts" ];
+            };
+          };
+        }
+      ];
+    };
   };
 }
