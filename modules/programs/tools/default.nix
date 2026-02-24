@@ -29,6 +29,10 @@
         programs = {
           ripgrep.enable = true;
           fd.enable = true;
+          direnv = {
+            enable = true;
+            nix-direnv.enable = true;
+          };
         };
       };
 
