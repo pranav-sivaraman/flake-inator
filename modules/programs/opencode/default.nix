@@ -1,5 +1,5 @@
 {
-  flake.aspects.shell = {
+  flake.aspects.llm = {
     homeManager = {
       programs.opencode = {
         enable = true;

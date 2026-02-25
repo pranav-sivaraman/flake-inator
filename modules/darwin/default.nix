@@ -3,6 +3,7 @@ let
   mkDarwinConfig =
     {
       extraModules ? [ ],
+      homeManagerModules ? inputs.self.homeManagerModules.full,
     }:
     inputs.nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
@@ -28,19 +29,10 @@ let
         }
         {
           home-manager = {
-            # TODO: guard this maybe?
-            # when importing this needs to check the context
             useGlobalPkgs = true;
             useUserPackages = true;
             users.psivaram = {
-              imports = with inputs.self.modules.homeManager; [
-                psivaram
-                window-manager
-                desktop
-                shell
-                mac
-                nix
-              ];
+              imports = homeManagerModules;
             };
           };
         }

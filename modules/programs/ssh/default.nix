@@ -1,5 +1,5 @@
 {
-  flake.aspects.shell = {
+  flake.aspects.ssh = {
     homeManager =
       { pkgs, ... }:
       let
