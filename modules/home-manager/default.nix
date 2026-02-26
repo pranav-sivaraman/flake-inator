@@ -14,6 +14,7 @@ in
       ++ (with inputs.self.aspects; [
         window-manager.homeManager
         desktop.homeManager
+        container.homeManager
         mac.homeManager
         ssh.homeManager
         llm.homeManager
