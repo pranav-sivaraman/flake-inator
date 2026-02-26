@@ -17,6 +17,7 @@
               cuda
               fortran
               csv
+              tcl
               dockerfile
             ];
           };
