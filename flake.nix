@@ -55,6 +55,11 @@
       inputs.systems.follows = "systems";
     };
 
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     systems = {
       url = "github:nix-systems/default";
     };
