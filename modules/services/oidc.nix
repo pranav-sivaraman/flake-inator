@@ -52,6 +52,8 @@
                     TRUST_PROXY = true;
                     APP_URL = "https://${subdomain}.${config.clan.core.settings.domain}";
                     ANALYTICS_DISABLED = true;
+                    RELYING_PARTY_ID = "${subdomain}.${config.clan.core.settings.domain}";
+                    RELYING_PARTY_ORIGIN = "https://${subdomain}.${config.clan.core.settings.domain}";
                   };
                   credentials = {
                     ENCRYPTION_KEY = config.clan.core.vars.generators.pocket-id-encryption-key.files.key.path;
