@@ -174,7 +174,21 @@
             };
 
             settings = {
-              "privacy.resistFingerprinting" = true;
+              # Disabled: This setting can interfere with WebAuthn/FIDO2 (YubiKey) functionality
+              # and potentially break OIDC flows that rely on hardware security keys.
+              # "privacy.resistFingerprinting" = true;
+
+              # Enable WebAuthn/Passkey support for YubiKey and platform authenticators
+              "security.webauth.webauthn" = true;
+              "security.webauth.webauthn_enable_softtoken" = true;
+              "security.webauth.webauthn_enable_usbtoken" = true;
+              "security.webauth.webauthn_enable_android_fido2" = true;
+              "security.webauth.u2f" = true;
+
+              # Enable macOS platform authenticator (Touch ID/Face ID)
+              "security.webauthn.ctap2" = true;
+              "security.webauthn.enable_macos_passkeys" = true;
+
               "browser.toolbars.bookmarks.visibility" = "always";
               "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
             };
