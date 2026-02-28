@@ -17,18 +17,15 @@
   ];
 
   flake.aspects.shell = {
-    homeManager =
-      { pkgs, ... }:
-      {
-        imports = [
-          inputs.nvf.homeManagerModules.nvf
-        ];
+    homeManager = {
+      imports = [
+        inputs.nvf.homeManagerModules.nvf
+      ];
 
-        programs.nvf = {
-          enable = true;
-          defaultEditor = true;
-          settings.vim.package = inputs.neovim-nightly.packages.${pkgs.system}.default;
-        };
+      programs.nvf = {
+        enable = true;
+        defaultEditor = true;
       };
+    };
   };
 }
