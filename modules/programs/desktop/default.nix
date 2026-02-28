@@ -6,7 +6,7 @@
         home = {
           packages = with pkgs; [
             slack
-            zotero
+            # zotero FIXME: uncomment when you actually use it
           ];
         };
         programs.discord.enable = true;

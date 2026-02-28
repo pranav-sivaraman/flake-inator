@@ -107,7 +107,7 @@
     "firefox-dark-reader": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-HpbRUkSa5/0BIofVg6nJGhl9x1NOOLvh5P5jCEQlb94=",
+        "narHash": "sha256-5L/V8VSk+T+clRHROjLC9X49KH1Dr6elfuS5pn8sY70=",
         "type": "file",
         "url": "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi"
       },
@@ -119,7 +119,7 @@
     "firefox-obsidian-web-clipper": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-3cnOCn8Yhjj8CWVP83yxwxOxsZiGyQizA2k9CpWgGjw=",
+        "narHash": "sha256-hAD8V8ihYGbqeRckMzGJSN9+LYy8eJx3reZEze5mkZs=",
         "type": "file",
         "url": "https://addons.mozilla.org/firefox/downloads/latest/web-clipper-obsidian/latest.xpi"
       },
