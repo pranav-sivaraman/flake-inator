@@ -74,6 +74,16 @@
       flake = false;
     };
 
+    rose-pine-zellij = {
+      url = "github:rose-pine/zellij";
+      flake = false;
+    };
+
+    vim-zellij-navigator = {
+      url = "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm";
+      flake = false;
+    };
+
     firefox-ublock-origin = {
       url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
       flake = false;

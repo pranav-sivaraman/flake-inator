@@ -440,7 +440,9 @@
         "rose-pine-btop": "rose-pine-btop",
         "rose-pine-fish": "rose-pine-fish",
         "rose-pine-tmtheme": "rose-pine-tmtheme",
-        "systems": "systems"
+        "rose-pine-zellij": "rose-pine-zellij",
+        "systems": "systems",
+        "vim-zellij-navigator": "vim-zellij-navigator"
       }
     },
     "rose-pine-btop": {
@@ -488,6 +490,22 @@
       "original": {
         "owner": "rose-pine",
         "repo": "tm-theme",
+        "type": "github"
+      }
+    },
+    "rose-pine-zellij": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1762352818,
+        "narHash": "sha256-eilCRSweo0wk4z6snBWFC67NMVvytfDfJqGWVXg6QRc=",
+        "owner": "rose-pine",
+        "repo": "zellij",
+        "rev": "f4b7c27f9515d964a78e07da8332530a45f060d5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rose-pine",
+        "repo": "zellij",
         "type": "github"
       }
     },
@@ -546,6 +564,18 @@
         "owner": "numtide",
         "repo": "treefmt-nix",
         "type": "github"
+      }
+    },
+    "vim-zellij-navigator": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-uOd2rSDM4Ruwr8JrYd8ucQei2PJyAykpIyR09sKvnYg=",
+        "type": "file",
+        "url": "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm"
       }
     }
   },
