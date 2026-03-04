@@ -11,9 +11,11 @@ let
         inputs.self.aspects.nix.darwin
         inputs.self.aspects.psivaram.darwin
         inputs.home-manager.darwinModules.home-manager
+        inputs.nix-rosetta-builder.darwinModules.default
         {
           system.stateVersion = 5;
           nix.enable = false;
+          nix-rosetta-builder.onDemand = true;
           homebrew = {
             enable = true;
             casks = [
