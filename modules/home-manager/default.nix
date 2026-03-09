@@ -50,8 +50,8 @@ in
           { ... }:
           {
             home = {
-              username = lib.mkForce "sivaramp";
-              homeDirectory = lib.mkForce (builtins.getEnv "HOME");
+              username = lib.mkOverride 10 "sivaramp";
+              homeDirectory = lib.mkOverride 10 (builtins.getEnv "HOME");
             };
             programs.bash.enable = lib.mkForce false;
           }
