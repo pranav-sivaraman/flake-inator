@@ -125,11 +125,6 @@
       url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
       flake = false;
     };
-
-    nix-rosetta-builder = {
-      url = "github:cpick/nix-rosetta-builder";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
