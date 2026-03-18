@@ -48,6 +48,8 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    llm-agents.url = "github:numtide/llm-agents.nix";
+
     nvf = {
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
