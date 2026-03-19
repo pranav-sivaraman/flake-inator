@@ -5,19 +5,30 @@
       system.stateVersion = 5;
       nix.enable = false;
       system = {
-        defaults.dock = {
-          autohide = true;
-          mru-spaces = false;
-          show-recents = false;
-        };
-        defaults.finder = {
-          AppleShowAllExtensions = true;
-          ShowPathbar = true;
-          FXDefaultSearchScope = "SCcf";
-        };
-        defaults.trackpad = {
-          Clicking = true;
-          TrackpadCornerSecondaryClick = 2;
+        defaults = {
+          controlcenter = {
+            AirDrop = true;
+            Sound = true;
+            FocusModes = true;
+            Display = true;
+            NowPlaying = true;
+            Bluetooth = true;
+            BatteryShowPercentage = true;
+          };
+          dock = {
+            autohide = true;
+            mru-spaces = false;
+            show-recents = false;
+          };
+          finder = {
+            AppleShowAllExtensions = true;
+            ShowPathbar = true;
+            FXDefaultSearchScope = "SCcf";
+          };
+          trackpad = {
+            Clicking = true;
+            TrackpadCornerSecondaryClick = 2;
+          };
         };
         keyboard = {
           enableKeyMapping = true;
