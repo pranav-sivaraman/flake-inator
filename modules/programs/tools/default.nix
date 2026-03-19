@@ -14,6 +14,7 @@
             bear
             gh
             uv
+            zstd
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
