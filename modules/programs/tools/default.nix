@@ -3,6 +3,7 @@
     homeManager =
       { pkgs, ... }:
       {
+        xdg.enable = true;
         home = {
           packages = with pkgs; [
             sccache
