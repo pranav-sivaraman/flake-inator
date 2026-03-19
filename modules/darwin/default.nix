@@ -1,71 +1,53 @@
 { inputs, ... }:
-let
-  mkDarwinConfig =
-    {
-      extraModules ? [ ],
-      homeManagerModules ? inputs.self.homeManagerModules.full,
-    }:
-    inputs.nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      modules = [
-        inputs.self.aspects.nix.darwin
-        inputs.self.aspects.psivaram.darwin
-        inputs.home-manager.darwinModules.home-manager
-        {
-          system.stateVersion = 5;
-          nix.enable = false;
-          homebrew = {
-            enable = true;
-            casks = [
-              "flux-app"
-              "yubico-authenticator"
-            ];
-            onActivation = {
-              cleanup = "zap";
-              autoUpdate = true;
-              upgrade = true;
-            };
-          };
-        }
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.psivaram = {
-              imports = homeManagerModules;
-            };
-          };
-        }
-      ]
-      ++ extraModules;
-    };
-in
 {
-  flake.darwinConfigurations = {
-    personal = mkDarwinConfig {
-      extraModules = [
-        {
-          homebrew.casks = [
-            "kobo"
-            "calibre"
-          ];
-        }
-      ];
+  flake.aspects.darwin = {
+    base = {
+      system.stateVersion = 5;
+      nix.enable = false;
+      system = {
+        defaults.dock = {
+          autohide = true;
+          mru-spaces = false;
+          show-recents = false;
+        };
+        defaults.finder = {
+          AppleShowAllExtensions = true;
+          ShowPathbar = true;
+          FXDefaultSearchScope = "SCcf";
+        };
+        defaults.trackpad = {
+          Clicking = true;
+          TrackpadCornerSecondaryClick = 2;
+        };
+        keyboard = {
+          enableKeyMapping = true;
+          remapCapsLockToControl = true;
+        };
+      };
+
     };
 
-    work = mkDarwinConfig {
-      extraModules = [
-        {
-          home-manager.users.psivaram = {
-            programs.ssh = {
-              includes = [ "~/.ssh/config.hosts" ];
-              matchBlocks."*" = {
-                user = "sivaramp";
-              };
-            };
-          };
-        }
-      ];
+    homebrew = {
+      homebrew = {
+        enable = true;
+        casks = [
+          "flux-app"
+          "yubico-authenticator"
+        ];
+        onActivation = {
+          cleanup = "zap";
+          autoUpdate = true;
+          upgrade = true;
+        };
+      };
+    };
+
+    home-manager = {
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        users.psivaram.imports = inputs.self.homeManagerModules.full;
+      };
     };
   };
 }
