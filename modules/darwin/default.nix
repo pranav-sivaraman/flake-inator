@@ -6,6 +6,12 @@
       nix.enable = false;
       system = {
         defaults = {
+          menuExtraClock = {
+            ShowAMPM = true;
+            ShowDayOfWeek = true;
+            ShowDayOfMonth = true;
+            ShowDate = 1;
+          };
           controlcenter = {
             AirDrop = true;
             Sound = true;
