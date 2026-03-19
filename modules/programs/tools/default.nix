@@ -16,6 +16,7 @@
             gh
             uv
             zstd
+            nix-output-monitor
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
