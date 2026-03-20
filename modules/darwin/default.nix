@@ -17,7 +17,7 @@
             Sound = true;
             FocusModes = true;
             Display = true;
-            NowPlaying = true;
+            NowPlaying = false;
             Bluetooth = true;
             BatteryShowPercentage = true;
           };
