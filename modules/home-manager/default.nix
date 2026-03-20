@@ -43,19 +43,27 @@ in
 
   flake.homeConfigurations =
     mkHomeConfigurations "psivaram" baseModules
-    // mkHomeConfigurations "sivaramp" (
-      baseModules
-      ++ [
-        (
-          { ... }:
-          {
-            home = {
-              username = lib.mkOverride 10 "sivaramp";
-              homeDirectory = lib.mkOverride 10 (builtins.getEnv "HOME");
-            };
-            programs.bash.enable = lib.mkForce false;
-          }
-        )
-      ]
+    // lib.genAttrs (map (system: "sivaramp@${system}") systems) (
+      key:
+      let
+        system = lib.removePrefix "sivaramp@" key;
+        isDarwin = lib.hasSuffix "-darwin" system;
+        homeDir = if isDarwin then "/Users/sivaramp" else "/home/sivaramp";
+      in
+      inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = inputs.nixpkgs.legacyPackages.${system};
+        modules = baseModules ++ [
+          (
+            { ... }:
+            {
+              home = {
+                username = lib.mkOverride 10 "sivaramp";
+                homeDirectory = lib.mkOverride 10 homeDir;
+              };
+              programs.bash.enable = lib.mkForce false;
+            }
+          )
+        ];
+      }
     );
 }
