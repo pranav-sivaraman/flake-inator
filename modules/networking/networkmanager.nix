@@ -1,5 +1,7 @@
 {
-  flake.modules.nixos.networkmanager = {
-    networking.networkmanager.enable = true;
+  flake.aspects.networkmanager = {
+    nixos = {
+      networking.networkmanager.enable = true;
+    };
   };
 }

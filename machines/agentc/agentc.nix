@@ -7,21 +7,24 @@
   };
   clan.machines.agentc = {
     nixpkgs.hostPlatform = "x86_64-linux";
-    imports = with inputs.self.modules.nixos; [
-      agentc
-      impermanence
-      locale
-      firewall
-      monitoring
-      networkd
-      psivaram
-      security
-      ssh
-      users
-      inputs.self.aspects.boot.nixos
-      inputs.self.aspects.nix.nixos
-      inputs.self.aspects.zfs.nixos
-    ];
+    imports =
+      (with inputs.self.modules.nixos; [
+        agentc
+        monitoring
+        psivaram
+      ])
+      ++ (with inputs.self.aspects; [
+        boot.nixos
+        firewall.nixos
+        impermanence.nixos
+        locale.nixos
+        networkd.nixos
+        nix.nixos
+        security.nixos
+        ssh.nixos
+        users.nixos
+        zfs.nixos
+      ]);
   };
 
 }
