@@ -16,12 +16,12 @@
       monitoring
       networkd
       inputs.self.aspects.nix.nixos
+      inputs.self.aspects.zfs.nixos
       psivaram
       remote-unlock
       security
       ssh
       users
-      zfs
     ];
   };
 
