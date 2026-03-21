@@ -15,7 +15,7 @@
       firewall
       monitoring
       networkd
-      nix
+      inputs.self.aspects.nix.nixos
       psivaram
       remote-unlock
       security

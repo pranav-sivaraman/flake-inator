@@ -6,7 +6,16 @@ in
 {
   flake.aspects.nix = {
     darwin = sharedNixpkgsConfig;
-    nixos = sharedNixpkgsConfig;
+    nixos = sharedNixpkgsConfig // {
+      nix = {
+        channel.enable = false;
+        optimise.automatic = true;
+        settings.experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+      };
+    };
     homeManager = { };
   };
 }
