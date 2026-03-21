@@ -203,7 +203,6 @@
           perInstance =
             {
               instanceName,
-              mkExports,
               machine,
               roles,
               ...
@@ -232,8 +231,6 @@
               );
             in
             {
-              exports = mkExports { };
-
               nixosModule =
                 { config, pkgs, ... }:
                 {

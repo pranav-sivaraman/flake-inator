@@ -12,6 +12,7 @@
       _class = "clan.service";
       manifest.name = "paperless-ngx";
       manifest.readme = "A community-supported open-source document management system that transforms your physical documents into a searchable online archive so you can keep, well, less paper.";
+      manifest.exports.out = [ "route" "storage" ];
 
       roles = {
         server = {

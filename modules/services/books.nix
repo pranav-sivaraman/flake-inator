@@ -14,6 +14,7 @@
       _class = "clan.service";
       manifest.name = "booklore";
       manifest.readme = "BookLore is a self-hosted service to manage and explore books, with support for PDFs, eBooks, reading progress, metadata, and stats.";
+      manifest.exports.out = [ "route" "storage" ];
 
       roles = {
         server = {

@@ -10,6 +10,7 @@
     _class = "clan.service";
     manifest.name = "oidc";
     manifest.readme = "Pocket-ID OIDC provider for authentication and identity management.";
+    manifest.exports.out = [ "route" ];
 
     roles = {
       server = {
