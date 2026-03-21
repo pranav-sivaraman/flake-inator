@@ -17,7 +17,7 @@
   };
 
   clan.modules.backups =
-    { clanLib, lib, ... }:
+    { lib, ... }:
     {
       _class = "clan.service";
       manifest.name = "backups";
@@ -30,7 +30,6 @@
             {
               instanceName,
               roles,
-              machine,
               ...
             }:
             {
