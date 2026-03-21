@@ -11,7 +11,6 @@
       (with inputs.self.modules.nixos; [
         agentc
         monitoring
-        psivaram
       ])
       ++ (with inputs.self.aspects; [
         boot.nixos
@@ -20,6 +19,7 @@
         locale.nixos
         networkd.nixos
         nix.nixos
+        psivaram.nixos
         security.nixos
         ssh.nixos
         users.nixos
