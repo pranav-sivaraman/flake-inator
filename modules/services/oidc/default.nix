@@ -8,9 +8,11 @@
 
   clan.modules.oidc = {
     _class = "clan.service";
-    manifest.name = "oidc";
-    manifest.readme = "Pocket-ID OIDC provider for authentication and identity management.";
-    manifest.exports.out = [ "route" ];
+    manifest = {
+      name = "oidc";
+      description = "Pocket-ID OIDC provider for authentication and identity management.";
+      exports.out = [ "route" ];
+    };
 
     roles = {
       server = {
@@ -23,8 +25,8 @@
           {
             exports = mkExports {
               route = {
-                subdomain = subdomain;
-                interface = "localhost"; # TODO: switch to DNS name?
+                inherit subdomain;
+                interface = "localhost";
                 port = "1411";
               };
             };
@@ -64,8 +66,8 @@
                 environment.persistence."/persist".directories = [
                   {
                     directory = config.services.pocket-id.dataDir;
-                    user = config.services.pocket-id.user;
-                    group = config.services.pocket-id.group;
+                    inherit (config.services.pocket-id) user;
+                    inherit (config.services.pocket-id) group;
                   }
                 ];
               };
