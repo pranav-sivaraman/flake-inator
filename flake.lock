@@ -80,11 +80,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1774070159,
-        "narHash": "sha256-jR+7UDr7yi7iUXhmyOSSzOU6hKvLcewoVFTSeqH0yK4=",
-        "rev": "52d41df4df5bc90e68569603a1a14885696d1e4a",
+        "lastModified": 1774106420,
+        "narHash": "sha256-xAZVxPyFZcYH0HpiiROCYCmVErlHr9JegWWmQVzUqXo=",
+        "rev": "905e37b645657e653685345c213ac01fecda5566",
         "type": "tarball",
-        "url": "https://git.clan.lol/api/v1/repos/clan/clan-core/archive/52d41df4df5bc90e68569603a1a14885696d1e4a.tar.gz"
+        "url": "https://git.clan.lol/api/v1/repos/clan/clan-core/archive/905e37b645657e653685345c213ac01fecda5566.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -107,11 +107,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773778527,
-        "narHash": "sha256-aY8MXq/+K6HK/4Ww05/dPgU2Ruh+6skp/6+pFWQQmnk=",
-        "rev": "31f8e9abb6e80bd57fbf482c459c73ac058d462a",
+        "lastModified": 1774087718,
+        "narHash": "sha256-UU4KzRMTFJttIoSnRm1SWheFcfAVAsNqG+4JauKib3g=",
+        "rev": "734047b2dd1e67c3a803999777cdf749f3199342",
         "type": "tarball",
-        "url": "https://git.clan.lol/api/v1/repos/clan/data-mesher/archive/31f8e9abb6e80bd57fbf482c459c73ac058d462a.tar.gz"
+        "url": "https://git.clan.lol/api/v1/repos/clan/data-mesher/archive/734047b2dd1e67c3a803999777cdf749f3199342.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -385,16 +385,18 @@
         "blueprint": "blueprint",
         "bun2nix": "bun2nix",
         "flake-parts": "flake-parts_2",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "systems": "systems",
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1774063450,
-        "narHash": "sha256-p1Y2iUsWyLKk1z35OdAGcEpmbpRTG3AgjdyAVh5kmc8=",
+        "lastModified": 1774104280,
+        "narHash": "sha256-kQeR1qqTFleJzMWsOttJMWUxMsykcKrUA2ttPIg2O4k=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "71c3b957aeb56aea79fd9a964e3f0bff2b794251",
+        "rev": "4f6fca6b05c5b59b6bbb442a262596ddf86661e8",
         "type": "github"
       },
       "original": {
@@ -475,16 +477,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1773628058,
-        "narHash": "sha256-hpXH0z3K9xv0fHaje136KY872VT2T5uwxtezlAskQgY=",
-        "owner": "NixOS",
+        "lastModified": 1773821835,
+        "narHash": "sha256-TJ3lSQtW0E2JrznGVm8hOQGVpXjJyXY2guAxku2O9A4=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f8573b9c935cfaa162dd62cc9e75ae2db86f85df",
+        "rev": "b40629efe5d6ec48dd1efba650c797ddbd39ace0",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
+        "owner": "nixos",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -506,22 +508,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1773821835,
-        "narHash": "sha256-TJ3lSQtW0E2JrznGVm8hOQGVpXjJyXY2guAxku2O9A4=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "b40629efe5d6ec48dd1efba650c797ddbd39ace0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nvf": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -538,11 +524,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773970322,
-        "narHash": "sha256-xyO9ZV+cZk+HVmjS6P5Jzwl6ioRCKgeLQSSbUFtPrZk=",
+        "lastModified": 1774106254,
+        "narHash": "sha256-t/rImG4Y0Xd5+LD0QIbF+zp5T0M8kDM0Ecq2nrbUBjM=",
         "owner": "notashelf",
         "repo": "nvf",
-        "rev": "8aad181ec9057c56b6fe5d6081a399427e1d1dec",
+        "rev": "5e491e9659b3fa4d707baf9320d3bcc86a59b692",
         "type": "github"
       },
       "original": {
@@ -569,7 +555,7 @@
         "import-tree": "import-tree",
         "llm-agents": "llm-agents",
         "nix-darwin": "nix-darwin",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "nixpkgs-booklore": "nixpkgs-booklore",
         "nvf": "nvf",
         "rose-pine-btop": "rose-pine-btop",

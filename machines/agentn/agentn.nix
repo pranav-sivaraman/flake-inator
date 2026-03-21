@@ -15,6 +15,7 @@
       ++ (with inputs.self.aspects; [
         boot.nixos
         firewall.nixos
+        home-manager.nixos
         impermanence.nixos
         locale.nixos
         networkd.nixos

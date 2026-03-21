@@ -1,3 +1,4 @@
+{ inputs, ... }:
 let
   username = "psivaram";
 in
@@ -12,21 +13,21 @@ in
           "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIHiGaA36EZ/k/prPZpZwDN2e85UCTkmlCSmk1StomRqhAAAAEnNzaDphdXRoZW50aWNhdGlvbg=="
         ];
       };
+      home-manager.users.${username}.imports = inputs.self.homeManagerModules.base;
     };
 
     darwin = {
       system.primaryUser = username;
+      users.users.${username}.home = "/Users/${username}";
+      home-manager.users.${username}.imports = inputs.self.homeManagerModules.full;
     };
 
-    homeManager =
-      { lib, ... }:
-      {
-        home = {
-          inherit username;
-          homeDirectory = lib.mkForce "/Users/${username}";
-          stateVersion = "25.11";
-        };
-        programs.home-manager.enable = true;
+    homeManager = {
+      home = {
+        inherit username;
+        stateVersion = "25.11";
       };
+      programs.home-manager.enable = true;
+    };
   };
 }

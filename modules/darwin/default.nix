@@ -1,4 +1,3 @@
-{ inputs, ... }:
 {
   flake.aspects.darwin = {
     base = {
@@ -56,14 +55,6 @@
           autoUpdate = true;
           upgrade = true;
         };
-      };
-    };
-
-    home-manager = {
-      home-manager = {
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        users.psivaram.imports = inputs.self.homeManagerModules.full;
       };
     };
   };

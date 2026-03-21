@@ -19,14 +19,35 @@ let
       key:
       let
         system = lib.removePrefix "${name}@" key;
+        isDarwin = lib.hasSuffix "-darwin" system;
+        homeDir = if isDarwin then "/Users/${name}" else "/home/${name}";
       in
       inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages.${system};
-        inherit modules;
+        modules = modules ++ [
+          { home.homeDirectory = homeDir; }
+        ];
       }
     );
 in
 {
+  flake.aspects.home-manager = {
+    nixos = {
+      imports = [ inputs.home-manager.nixosModules.home-manager ];
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+      };
+    };
+    darwin = {
+      imports = [ inputs.home-manager.darwinModules.home-manager ];
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+      };
+    };
+  };
+
   flake.homeManagerModules = {
     base = baseModules;
     full =

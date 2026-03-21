@@ -34,7 +34,7 @@
             cmake.enable = true;
             clang.enable = true;
             rust.enable = true;
-            markdown.enable = true;
+            # markdown.enable = true; # TODO: enable when cached
             typst.enable = true;
             toml.enable = true;
             lua.enable = true;

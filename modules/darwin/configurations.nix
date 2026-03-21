@@ -11,8 +11,7 @@ let
           psivaram.darwin
           darwin.base
           darwin.homebrew
-          darwin.home-manager
-          inputs.home-manager.darwinModules.home-manager
+          home-manager.darwin
         ]
         ++ modules;
     };
