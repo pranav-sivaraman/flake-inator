@@ -10,6 +10,8 @@
           shiftwidth = 2;
           smartindent = true;
           shada = "!,'100,<50,s10,h";
+          foldlevel = 99;
+          foldlevelstart = 99;
         };
       };
     };
