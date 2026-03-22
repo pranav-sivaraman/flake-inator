@@ -10,7 +10,6 @@
     imports =
       (with inputs.self.modules.nixos; [
         agentc
-        monitoring
       ])
       ++ (with inputs.self.aspects; [
         boot.nixos
@@ -18,6 +17,7 @@
         home-manager.nixos
         impermanence.nixos
         locale.nixos
+        monitoring.nixos
         networkd.nixos
         nix.nixos
         psivaram.nixos
