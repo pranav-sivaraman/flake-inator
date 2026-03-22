@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.agentc = {
+  flake.aspects.agentc.nixos = {
     disko.devices = {
       disk = {
         root = {

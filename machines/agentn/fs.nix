@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.agentn = {
+  flake.aspects.agentn.nixos = {
     disko.devices = {
       disk = {
         boot = {
