@@ -49,6 +49,7 @@
         casks = [
           "flux-app"
           "yubico-authenticator"
+          "google-chrome"
         ];
         onActivation = {
           cleanup = "zap";
