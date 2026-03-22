@@ -392,11 +392,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1774104280,
-        "narHash": "sha256-kQeR1qqTFleJzMWsOttJMWUxMsykcKrUA2ttPIg2O4k=",
+        "lastModified": 1774551325,
+        "narHash": "sha256-Q2dh3zBu3oixlEWAbtXGL44O6jtEP/Tog0P44qu0RJY=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "4f6fca6b05c5b59b6bbb442a262596ddf86661e8",
+        "rev": "8348bf988abbbafa5f105f819a6153f1dbe22a2e",
         "type": "github"
       },
       "original": {
@@ -491,23 +491,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-booklore": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1770222912,
-        "narHash": "sha256-YWOd3/lmJbvgjkTHnj8ngZU6PCipZoM02qF6uZxK3Kg=",
-        "owner": "jvanbruegge",
-        "repo": "nixpkgs",
-        "rev": "247baec32e57dbbffe47450ee8de54ae49757369",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jvanbruegge",
-        "ref": "booklore",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nvf": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -556,7 +539,6 @@
         "llm-agents": "llm-agents",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-booklore": "nixpkgs-booklore",
         "nvf": "nvf",
         "rose-pine-btop": "rose-pine-btop",
         "rose-pine-fish": "rose-pine-fish",

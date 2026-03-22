@@ -6,11 +6,6 @@
       url = "github:nixos/nixpkgs?ref=nixos-unstable";
     };
 
-    nixpkgs-booklore = {
-      url = "github:jvanbruegge/nixpkgs/booklore";
-      flake = false;
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
