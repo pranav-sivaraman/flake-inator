@@ -33,7 +33,7 @@ _: {
             };
 
             nixosModule =
-              { config, pkgs, ... }:
+              { config, pkgs, lib, ... }:
               let
                 cfg = config.services.kavita;
               in
@@ -44,11 +44,25 @@ _: {
                     owner = cfg.user;
                     mode = "0400";
                   };
-                  runtimeInputs = [
-                    pkgs.coreutils
-                  ];
+                  runtimeInputs = [ pkgs.coreutils ];
                   script = ''
                     head -c 64 /dev/urandom | base64 --wrap=0 > $out/tokenKey
+                  '';
+                };
+
+                clan.core.vars.generators."kavita-oidc" = {
+                  prompts.client-secret = {
+                    description = "OpenID Connect Client Secret for Kavita";
+                    type = "hidden";
+                  };
+                  files.secret = {
+                    secret = true;
+                    owner = cfg.user;
+                    mode = "0400";
+                  };
+                  runtimeInputs = [ pkgs.coreutils ];
+                  script = ''
+                    cat $prompts/client-secret > $out/secret
                   '';
                 };
 
@@ -57,8 +71,19 @@ _: {
                   tokenKeyFile = config.clan.core.vars.generators.kavita-tokenKeyFile.files.tokenKey.path;
                   settings = {
                     IpAddresses = "localhost";
+                    OpenIdConnectSettings = {
+                      Authority = "https://pocket-id.${config.clan.core.settings.domain}/";
+                      ClientId  = "Kavita";
+                      Secret    = "@OIDC_SECRET@";
+                    };
                   };
                 };
+
+                systemd.services.kavita.preStart = lib.mkAfter ''
+                  ${pkgs.replace-secret}/bin/replace-secret '@OIDC_SECRET@' \
+                    ${config.clan.core.vars.generators."kavita-oidc".files.secret.path} \
+                    '${cfg.dataDir}/config/appsettings.json'
+                '';
 
                 environment.persistence."/persist".directories = [
                   {
