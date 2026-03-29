@@ -544,6 +544,7 @@
         "rose-pine-fish": "rose-pine-fish",
         "rose-pine-tmtheme": "rose-pine-tmtheme",
         "rose-pine-zellij": "rose-pine-zellij",
+        "superpowers": "superpowers",
         "systems": "systems_2",
         "vim-zellij-navigator": "vim-zellij-navigator"
       }
@@ -630,6 +631,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "superpowers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774462089,
+        "narHash": "sha256-r/Z+UxSFQIx99HnSPoU/toWMddXDcnLsbFXpQfLfj1k=",
+        "owner": "obra",
+        "repo": "superpowers",
+        "rev": "eafe962b18f6c5dc70fb7c8cc7e83e61f4cdde06",
+        "type": "github"
+      },
+      "original": {
+        "owner": "obra",
+        "repo": "superpowers",
         "type": "github"
       }
     },

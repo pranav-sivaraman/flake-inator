@@ -123,6 +123,11 @@
       url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
       flake = false;
     };
+
+    superpowers = {
+      url = "github:obra/superpowers";
+      flake = false;
+    };
   };
 
   outputs =
