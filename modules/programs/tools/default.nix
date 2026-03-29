@@ -18,6 +18,7 @@
             zstd
             nix-output-monitor
             age-plugin-yubikey
+            texliveFull
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
