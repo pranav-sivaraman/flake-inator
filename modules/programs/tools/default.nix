@@ -21,6 +21,8 @@
             texliveFull
             typst
             typst-live
+            rustc
+            cargo
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
