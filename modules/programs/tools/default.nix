@@ -19,6 +19,8 @@
             nix-output-monitor
             age-plugin-yubikey
             texliveFull
+            typst
+            typst-live
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
