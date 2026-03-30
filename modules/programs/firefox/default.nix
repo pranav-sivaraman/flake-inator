@@ -1,8 +1,14 @@
 { inputs, ... }:
+let
+  firefox-addons = system: inputs.nur.legacyPackages.${system}.repos.rycee.firefox-addons;
+in
 {
   flake.aspects.desktop = {
     homeManager =
       { pkgs, ... }:
+      let
+        addons = firefox-addons pkgs.stdenv.hostPlatform.system;
+      in
       {
         programs.firefox = {
           enable = true;
@@ -37,54 +43,21 @@
             DontCheckDefaultBrowser = true;
             HardwareAcceleration = true;
             OfferToSaveLogins = false;
-
-            # Extensions
-            ExtensionSettings = {
-              "*".installation_mode = "blocked";
-
-              "uBlock0@raymondhill.net" = {
-                install_url = "file://${inputs.firefox-ublock-origin}";
-                installation_mode = "force_installed";
-              };
-
-              "sponsorBlocker@ajay.app" = {
-                install_url = "file://${inputs.firefox-sponsorblock}";
-                installation_mode = "force_installed";
-              };
-
-              "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-                install_url = "file://${inputs.firefox-bitwarden}";
-                installation_mode = "force_installed";
-              };
-
-              "magnolia@12.34" = {
-                install_url = "file://${inputs.firefox-bypass-paywalls-clean}";
-                installation_mode = "force_installed";
-              };
-
-              "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = {
-                install_url = "file://${inputs.firefox-refined-github}";
-                installation_mode = "force_installed";
-              };
-
-              "clipper@obsidian.md" = {
-                install_url = "file://${inputs.firefox-obsidian-web-clipper}";
-                installation_mode = "force_installed";
-              };
-
-              "jid1-xUfzOsOFlzSOXg@jetpack" = {
-                install_url = "file://${inputs.firefox-reddit-enhancement-suite}";
-                installation_mode = "force_installed";
-              };
-
-              "addon@darkreader.org" = {
-                install_url = "file://${inputs.firefox-dark-reader}";
-                installation_mode = "force_installed";
-              };
-            };
           };
 
           profiles.default = {
+            extensions.packages = with addons; [
+              ublock-origin
+              sponsorblock
+              bitwarden
+              bypass-paywalls-clean
+              refined-github
+              web-clipper-obsidian
+              reddit-enhancement-suite
+              zotero-connector
+              darkreader
+            ];
+
             search = {
               force = true;
               default = "google";

@@ -139,102 +139,6 @@
         "type": "github"
       }
     },
-    "firefox-bitwarden": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-4fOHCr/vsIvaXMxV/F9R561PzL3xShfE1dEJTjwTT4Q=",
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi"
-      }
-    },
-    "firefox-bypass-paywalls-clean": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-obAay872KBYx48sfHZNR/QRdVGBapDl/C1BUKoiMcwU=",
-        "type": "file",
-        "url": "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-latest.xpi"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-latest.xpi"
-      }
-    },
-    "firefox-dark-reader": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-Yvm7uywTJHhpPiPPm+vWKOPq68nTkDDmKPCqOBpXcpc=",
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi"
-      }
-    },
-    "firefox-obsidian-web-clipper": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-hAD8V8ihYGbqeRckMzGJSN9+LYy8eJx3reZEze5mkZs=",
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/web-clipper-obsidian/latest.xpi"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/web-clipper-obsidian/latest.xpi"
-      }
-    },
-    "firefox-reddit-enhancement-suite": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-SWY5q7yGiuKd+FdsaCjjWH9pSJoBYt6fifnhdL/48yA=",
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/reddit-enhancement-suite/latest.xpi"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/reddit-enhancement-suite/latest.xpi"
-      }
-    },
-    "firefox-refined-github": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-yIfhNg8vH3NWIN9IfVo5mMeUaug6bqhcB5Ra0S4iaQ4=",
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/refined-github-/latest.xpi"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/refined-github-/latest.xpi"
-      }
-    },
-    "firefox-sponsorblock": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-SfGm4MeoZI5Frct/PFKDYpaoGbr8a2L6WDQ9AtAx9LY=",
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi"
-      }
-    },
-    "firefox-ublock-origin": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-OrWBuU/cpdC+4aWemZoVlpE8Kcy1EjW4J8UjCCAUgsc=",
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
-      }
-    },
     "flake-aspects": {
       "locked": {
         "lastModified": 1773552804,
@@ -491,6 +395,29 @@
         "type": "github"
       }
     },
+    "nur": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1774831470,
+        "narHash": "sha256-sMd+JZEHEebxpcKTxm+TZVJChyyyaYZ/NCEDx+TGHFw=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "fe44457a504d3046e81f02be1223c8a674d16fd1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "nvf": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -523,14 +450,6 @@
     "root": {
       "inputs": {
         "clan-core": "clan-core",
-        "firefox-bitwarden": "firefox-bitwarden",
-        "firefox-bypass-paywalls-clean": "firefox-bypass-paywalls-clean",
-        "firefox-dark-reader": "firefox-dark-reader",
-        "firefox-obsidian-web-clipper": "firefox-obsidian-web-clipper",
-        "firefox-reddit-enhancement-suite": "firefox-reddit-enhancement-suite",
-        "firefox-refined-github": "firefox-refined-github",
-        "firefox-sponsorblock": "firefox-sponsorblock",
-        "firefox-ublock-origin": "firefox-ublock-origin",
         "flake-aspects": "flake-aspects",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
@@ -539,6 +458,7 @@
         "llm-agents": "llm-agents",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
+        "nur": "nur",
         "nvf": "nvf",
         "rose-pine-btop": "rose-pine-btop",
         "rose-pine-fish": "rose-pine-fish",

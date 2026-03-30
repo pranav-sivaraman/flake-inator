@@ -59,6 +59,12 @@
       url = "github:nix-systems/default";
     };
 
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
     rose-pine-btop = {
       url = "github:rose-pine/btop";
       flake = false;
@@ -81,46 +87,6 @@
 
     vim-zellij-navigator = {
       url = "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm";
-      flake = false;
-    };
-
-    firefox-ublock-origin = {
-      url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-      flake = false;
-    };
-
-    firefox-sponsorblock = {
-      url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
-      flake = false;
-    };
-
-    firefox-bitwarden = {
-      url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-      flake = false;
-    };
-
-    firefox-bypass-paywalls-clean = {
-      url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-latest.xpi";
-      flake = false;
-    };
-
-    firefox-refined-github = {
-      url = "https://addons.mozilla.org/firefox/downloads/latest/refined-github-/latest.xpi";
-      flake = false;
-    };
-
-    firefox-obsidian-web-clipper = {
-      url = "https://addons.mozilla.org/firefox/downloads/latest/web-clipper-obsidian/latest.xpi";
-      flake = false;
-    };
-
-    firefox-reddit-enhancement-suite = {
-      url = "https://addons.mozilla.org/firefox/downloads/latest/reddit-enhancement-suite/latest.xpi";
-      flake = false;
-    };
-
-    firefox-dark-reader = {
-      url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
       flake = false;
     };
 
