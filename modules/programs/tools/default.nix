@@ -23,6 +23,7 @@
             typst-live
             rustc
             cargo
+            zig
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
