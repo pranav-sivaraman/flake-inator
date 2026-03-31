@@ -13,8 +13,6 @@
             shellcheck
             # cvise # FIXME: add back somehow
             bear
-            gh
-            uv
             zstd
             nix-output-monitor
             age-plugin-yubikey
