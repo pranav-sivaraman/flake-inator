@@ -25,6 +25,7 @@
             cargo
             zig
             duckdb
+            youplot
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
