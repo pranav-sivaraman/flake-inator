@@ -33,7 +33,12 @@ _: {
             };
 
             nixosModule =
-              { config, pkgs, lib, ... }:
+              {
+                config,
+                pkgs,
+                lib,
+                ...
+              }:
               let
                 cfg = config.services.kavita;
               in
@@ -73,8 +78,8 @@ _: {
                     IpAddresses = "localhost";
                     OpenIdConnectSettings = {
                       Authority = "https://pocket-id.${config.clan.core.settings.domain}/";
-                      ClientId  = "Kavita";
-                      Secret    = "@OIDC_SECRET@";
+                      ClientId = "Kavita";
+                      Secret = "@OIDC_SECRET@";
                     };
                   };
                 };

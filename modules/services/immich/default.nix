@@ -12,7 +12,10 @@
       _class = "clan.service";
       manifest.name = "immich";
       manifest.readme = "Immich self-hosted photo and video backup solution with SMB storage.";
-      manifest.exports.out = [ "route" "storage" ];
+      manifest.exports.out = [
+        "route"
+        "storage"
+      ];
 
       roles = {
         server = {
