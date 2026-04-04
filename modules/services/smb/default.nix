@@ -145,7 +145,7 @@
                           pkgs.xkcdpass
                         ];
                         script = ''
-                          xkcdpass -n 6 -d - > $out/password
+                          xkcdpass -n 2 -d - > $out/password
                         '';
                       };
                     }) storageUsers
@@ -251,7 +251,7 @@
                             pkgs.xkcdpass
                           ];
                           script = ''
-                            xkcdpass -n 6 -d - > $out/password
+                            xkcdpass -n 2 -d - > $out/password
                           '';
                         };
                       }) storageUsers
