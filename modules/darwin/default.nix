@@ -5,6 +5,7 @@
       nix.enable = false;
       system = {
         defaults = {
+          screencapture.target = "clipboard";
           menuExtraClock = {
             ShowAMPM = true;
             ShowDayOfWeek = true;
