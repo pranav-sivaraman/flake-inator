@@ -4,6 +4,8 @@ let
     psivaram.homeManager
     nix.homeManager
     shell.homeManager
+    container.homeManager
+    llm.homeManager
   ];
 
   systems = [
@@ -58,7 +60,6 @@ in
         container.homeManager
         mac.homeManager
         ssh.homeManager
-        llm.homeManager
       ]);
   };
 
