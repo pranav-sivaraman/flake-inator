@@ -27,6 +27,7 @@ in
     };
     nixos = sharedNixConfig // {
       nix.gc.dates = "weekly";
+      programs.nix-ld.enable = true;
     };
     homeManager = { };
   };
