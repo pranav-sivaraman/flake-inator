@@ -60,6 +60,7 @@ in
         container.homeManager
         mac.homeManager
         ssh.homeManager
+        vpn.homeManager
       ]);
   };
 

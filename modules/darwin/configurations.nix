@@ -23,6 +23,7 @@ in
         homebrew.casks = [
           "kobo"
           "calibre"
+          "tailscale-app"
         ];
       }
     ];
