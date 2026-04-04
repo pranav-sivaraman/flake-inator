@@ -129,6 +129,7 @@
                       PAPERLESS_APPS = "allauth.socialaccount.providers.openid_connect";
                       PAPERLESS_DISABLE_REGULAR_LOGIN = "True";
                       PAPERLESS_REDIRECT_LOGIN_TO_SSO = "True";
+                      PAPERLESS_CONSUMER_POLLING = "60";
                     };
                   };
 
