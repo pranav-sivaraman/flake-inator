@@ -31,6 +31,14 @@
           ];
         };
 
+        # Recursively fix ownership of any persisted directory that has a non-root owner.
+        # Impermanence only chowns the top-level dir, not its contents, so subdirs can
+        # accumulate wrong ownership after UID reshuffling. 'Z' = recursive relabel.
+        systemd.tmpfiles.rules = lib.concatMap
+          (dir: lib.optional (dir.user != "root")
+            "Z ${dir.dirPath} - ${dir.user} ${dir.group} - -")
+          (lib.concatMap (p: p.directories) (lib.attrValues config.environment.persistence));
+
         # Make all impermanence-generated mount units wait for userborn to create users/groups
         systemd.services = lib.mkIf config.services.userborn.enable {
           userborn = {
