@@ -53,7 +53,7 @@
           "google-chrome"
         ];
         onActivation = {
-          cleanup = "zap";
+          cleanup = "uninstall";
           autoUpdate = true;
           upgrade = true;
         };
