@@ -31,13 +31,11 @@
           ];
         };
 
-        # Make all impermanence-generated mount units wait for userborn to create users/groups.
-        # Impermanence bind mounts all have After=persist.mount, so ordering userborn before
-        # persist.mount ensures users/groups exist before any bind mount tries to chown dirs.
+        # Make all impermanence-generated mount units wait for userborn to create users/groups
         systemd.services = lib.mkIf config.services.userborn.enable {
           userborn = {
-            before = [ "persist.mount" ];
-            wantedBy = [ "persist.mount" ];
+            before = [ "local-fs.target" ];
+            wantedBy = [ "local-fs.target" ];
           };
         };
       };
