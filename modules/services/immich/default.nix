@@ -67,7 +67,6 @@
                 {
                   services.immich = {
                     enable = true;
-                    openFirewall = true;
                     host = config.networking.primaryIp;
                   };
 
