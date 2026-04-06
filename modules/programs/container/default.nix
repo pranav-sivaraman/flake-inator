@@ -1,19 +1,14 @@
 {
   flake.aspects.container = {
     homeManager =
-      { lib, pkgs, ... }:
-      lib.mkMerge [
-        (lib.mkIf pkgs.stdenv.isDarwin {
-          services.colima.enable = true;
-          home = {
-            packages = with pkgs; [
-              docker
-            ];
-          };
-        })
-        (lib.mkIf pkgs.stdenv.isLinux {
-          services.podman.enable = true;
-        })
-      ];
+      { ... }:
+      {
+        # Rosetta support for x86_64 container emulation on Apple Silicon (macOS Tahoe+):
+        # After first build, run:
+        #   podman machine ssh "sudo touch /etc/containers/enable-rosetta"
+        #   podman machine stop && podman machine start
+        # Verify with: podman machine ssh "cat /proc/sys/fs/binfmt_misc/rosetta"
+        services.podman.enable = true;
+      };
   };
 }
