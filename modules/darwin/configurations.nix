@@ -24,6 +24,7 @@ in
           "kobo"
           "calibre"
           "tailscale-app"
+          "prismlauncher"
         ];
       }
     ];
