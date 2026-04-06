@@ -18,7 +18,7 @@
       server = {
         description = "Hosts the Pocket-ID OIDC authentication server.";
         perInstance =
-          { mkExports, ... }:
+          { mkExports, machine, ... }:
           let
             subdomain = "pocket-id";
           in
@@ -26,7 +26,7 @@
             exports = mkExports {
               route = {
                 inherit subdomain;
-                interface = "localhost";
+                machineName = machine.name;
                 port = "1411";
               };
             };
@@ -52,6 +52,7 @@
                 services.pocket-id = {
                   enable = true;
                   settings = {
+                    HOST = config.networking.fqdn;
                     TRUST_PROXY = true;
                     APP_URL = "https://${subdomain}.${config.clan.core.settings.domain}";
                     ANALYTICS_DISABLED = true;
