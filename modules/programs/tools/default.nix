@@ -24,6 +24,7 @@
             zig
             duckdb
             youplot
+            lean4
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";

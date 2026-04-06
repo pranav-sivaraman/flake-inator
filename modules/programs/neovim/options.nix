@@ -2,6 +2,7 @@
   flake.aspects.shell = {
     homeManager = {
       programs.nvf.settings.vim = {
+        globals.maplocalleader = " ";
         preventJunkFiles = true;
         undoFile.enable = true;
         options = {
