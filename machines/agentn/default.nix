@@ -6,6 +6,7 @@
     };
   };
   clan.machines.agentn = {
+    networking.primaryIp = "192.168.1.2";
     nixpkgs.hostPlatform = "x86_64-linux";
     imports = with inputs.self.aspects; [
       agentn.nixos

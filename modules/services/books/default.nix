@@ -19,7 +19,7 @@ _: {
       server = {
         description = "Runs the Kavita server.";
         perInstance =
-          { mkExports, ... }:
+          { mkExports, machine, ... }:
           let
             subdomain = "books";
           in
@@ -27,7 +27,7 @@ _: {
             exports = mkExports {
               route = {
                 subdomain = subdomain;
-                interface = "localhost";
+                machineName = machine.name;
                 port = "5000";
               };
             };
@@ -75,7 +75,7 @@ _: {
                   enable = true;
                   tokenKeyFile = config.clan.core.vars.generators.kavita-tokenKeyFile.files.tokenKey.path;
                   settings = {
-                    IpAddresses = "localhost";
+                    IpAddresses = config.networking.primaryIp;
                     OpenIdConnectSettings = {
                       Authority = "https://pocket-id.${config.clan.core.settings.domain}/";
                       ClientId = "f5d03c86-ed61-4403-a40f-a899bb5abff0";

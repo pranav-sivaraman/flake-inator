@@ -1,6 +1,7 @@
 {
   flake.aspects.networkd = {
     nixos = {
+      imports = [ ./primary-ip.nix ];
       networking = {
         networkmanager.enable = false;
         useDHCP = false;
@@ -25,7 +26,10 @@
           };
         };
       };
-      services.resolved.enable = true;
+      services.resolved = {
+        enable = true;
+        settings.Resolve.ReadEtcHosts = false;
+      };
     };
   };
 }

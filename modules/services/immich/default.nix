@@ -23,6 +23,7 @@
           perInstance =
             {
               mkExports,
+              machine,
               ...
             }:
             {
@@ -51,7 +52,7 @@
                   };
                 route = {
                   subdomain = "photos";
-                  interface = "localhost";
+                  machineName = machine.name;
                   port = "2283";
                 };
               };
@@ -67,6 +68,7 @@
                   services.immich = {
                     enable = true;
                     openFirewall = true;
+                    host = config.networking.primaryIp;
                   };
 
                   services.postgresql = {

@@ -23,6 +23,7 @@
           perInstance =
             {
               mkExports,
+              machine,
               ...
             }:
             let
@@ -50,7 +51,7 @@
                   };
                 route = {
                   subdomain = subdomain;
-                  interface = "localhost";
+                  machineName = machine.name;
                   port = "28981";
                 };
               };
@@ -122,6 +123,7 @@
                   };
                   services.paperless = {
                     enable = true;
+                    address = config.networking.primaryIp;
                     domain = "${subdomain}.${config.clan.core.settings.domain}";
                     database.createLocally = true;
                     configureTika = true;

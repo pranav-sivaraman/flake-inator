@@ -19,7 +19,7 @@ _: {
       server = {
         description = "Runs the Headscale server.";
         perInstance =
-          { mkExports, ... }:
+          { mkExports, machine, ... }:
           let
             subdomain = "headscale";
             port = "8080";
@@ -28,7 +28,7 @@ _: {
             exports = mkExports {
               route = {
                 inherit subdomain port;
-                interface = "localhost";
+                machineName = machine.name;
               };
             };
 
@@ -69,7 +69,7 @@ _: {
                   enable = true;
                   settings = {
                     server_url = "https://${subdomain}.${config.clan.core.settings.domain}";
-                    listen_addr = "localhost:${port}";
+                    listen_addr = "${config.networking.primaryIp}:${port}";
                     dns = {
                       magic_dns = true;
                       base_domain = "ts.${config.clan.core.settings.domain}";

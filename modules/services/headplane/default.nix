@@ -19,7 +19,7 @@
       server = {
         description = "Runs the Headplane web UI.";
         perInstance =
-          { mkExports, ... }:
+          { mkExports, machine, ... }:
           let
             subdomain = "headplane";
             port = "3001";
@@ -28,7 +28,7 @@
             exports = mkExports {
               route = {
                 inherit subdomain port;
-                interface = "127.0.0.1";
+                machineName = machine.name;
               };
             };
 
@@ -110,7 +110,7 @@
                   enable = true;
                   settings = {
                     server = {
-                      host = "127.0.0.1";
+                      host = config.networking.primaryIp;
                       port = lib.toInt port;
                       cookie_secret_path = config.clan.core.vars.generators."headplane-cookie-secret".files.secret.path;
                       base_url = "https://${subdomain}.${config.clan.core.settings.domain}";
