@@ -22,7 +22,6 @@
         visuals = {
           fidget-nvim.enable = true;
           cellular-automaton.enable = true;
-          syntax-gaslighting.enable = true;
           rainbow-delimiters.enable = true;
           nvim-web-devicons.enable = true;
 
