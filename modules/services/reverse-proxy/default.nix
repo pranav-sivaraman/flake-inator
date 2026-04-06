@@ -75,6 +75,27 @@
                           resolvers 1.1.1.1 # TODO change
                         }
 
+                        header {
+                          # Force HTTPS for 1 year, include subdomains
+                          Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                          # Prevent clickjacking
+                          X-Frame-Options "SAMEORIGIN"
+                          # Prevent MIME type sniffing
+                          X-Content-Type-Options "nosniff"
+                          # Control referrer information
+                          Referrer-Policy "strict-origin-when-cross-origin"
+                          # Restrict browser features
+                          Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=(), usb=(), interest-cohort=()"
+                          # Basic CSP — tighten per-service as needed
+                          Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+                          # Cross-Origin isolation headers
+                          Cross-Origin-Embedder-Policy "require-corp"
+                          Cross-Origin-Opener-Policy "same-origin"
+                          Cross-Origin-Resource-Policy "same-origin"
+                          # Remove server fingerprinting
+                          -Server
+                        }
+
                         ${handleBlocks}
 
                         # Temporary public hello page for testing internet exposure.
