@@ -287,9 +287,7 @@
                     map (
                       export:
                       let
-                        # TODO: Replace .lan suffix with proper networking/DNS resolution
-                        # Get server machine name from roles and add .lan suffix
-                        serverMachine = "${lib.head (lib.attrNames (roles.server.machines or { }))}.lan";
+                        serverMachine = "${lib.head (lib.attrNames (roles.server.machines or { }))}.${config.clan.core.settings.domain}";
                         credsPath =
                           config.clan.core.vars.generators."smb-creds-${instanceName}-${export.user}".files.creds.path;
                       in
