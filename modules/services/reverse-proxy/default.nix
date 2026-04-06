@@ -47,10 +47,17 @@
                       _scope: data:
                       let
                         route = data.route;
+                        isPublic = route.public or false;
                       in
                       ''
                         @${route.subdomain} host ${route.subdomain}.${config.clan.core.settings.domain}
                         handle @${route.subdomain} {
+                          ${lib.optionalString (!isPublic) ''
+                          @not_private not remote_ip private_ranges
+                          handle @not_private {
+                            respond "Access denied" 403
+                          }
+                          ''}
                           reverse_proxy http://${route.machineName}.${config.clan.core.settings.domain}:${toString route.port}
                         }
                       ''
@@ -69,6 +76,13 @@
                         }
 
                         ${handleBlocks}
+
+                        # Temporary public hello page for testing internet exposure.
+                        # Remove this block when no longer needed.
+                        @hello host hello.${config.clan.core.settings.domain}
+                        handle @hello {
+                          respond "Hello from {host}!" 200
+                        }
                     }
                   '');
 
