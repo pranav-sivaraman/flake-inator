@@ -51,7 +51,7 @@
                       ''
                         @${route.subdomain} host ${route.subdomain}.${config.clan.core.settings.domain}
                         handle @${route.subdomain} {
-                          reverse_proxy http://${if route.machineName != null then "${route.machineName}.${config.clan.core.settings.domain}" else route.interface}:${toString route.port}
+                          reverse_proxy http://${route.machineName}.${config.clan.core.settings.domain}:${toString route.port}
                         }
                       ''
                     ) routeExports

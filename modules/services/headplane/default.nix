@@ -22,7 +22,7 @@
           { mkExports, machine, ... }:
           let
             subdomain = "headplane";
-            port = "3001";
+            port = 3001;
           in
           {
             exports = mkExports {
@@ -111,7 +111,7 @@
                   settings = {
                     server = {
                       host = config.networking.primaryIp;
-                      port = lib.toInt port;
+                      port = port;
                       cookie_secret_path = config.clan.core.vars.generators."headplane-cookie-secret".files.secret.path;
                       base_url = "https://${subdomain}.${config.clan.core.settings.domain}";
                     };

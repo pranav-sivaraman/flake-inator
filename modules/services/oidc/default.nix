@@ -27,7 +27,7 @@
               route = {
                 inherit subdomain;
                 machineName = machine.name;
-                port = "1411";
+                port = 1411;
               };
             };
 

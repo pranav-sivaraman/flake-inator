@@ -23,19 +23,12 @@
               type = lib.types.str;
               description = "Subdomain for the route";
             };
-            interface = lib.mkOption {
-              type = lib.types.str;
-              default = "localhost";
-              description = "Interface/host to proxy to (legacy, use machineName instead)";
-            };
             machineName = lib.mkOption {
-              type = lib.types.nullOr lib.types.str;
-              default = null;
-              description = "Machine name to proxy to, domain will be appended automatically. Preferred over interface.";
-            };
-            # TODO: replace with type port
-            port = lib.mkOption {
               type = lib.types.str;
+              description = "Machine name to proxy to, domain will be appended automatically.";
+            };
+            port = lib.mkOption {
+              type = lib.types.port;
               description = "Port to proxy to";
             };
           };

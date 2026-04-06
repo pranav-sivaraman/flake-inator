@@ -52,7 +52,7 @@
                 route = {
                   subdomain = subdomain;
                   machineName = machine.name;
-                  port = "28981";
+                  port = 28981;
                 };
               };
 

@@ -22,7 +22,7 @@ _: {
           { mkExports, machine, ... }:
           let
             subdomain = "headscale";
-            port = "8080";
+            port = 8080;
           in
           {
             exports = mkExports {
@@ -69,7 +69,7 @@ _: {
                   enable = true;
                   settings = {
                     server_url = "https://${subdomain}.${config.clan.core.settings.domain}";
-                    listen_addr = "${config.networking.primaryIp}:${port}";
+                    listen_addr = "${config.networking.primaryIp}:${toString port}";
                     dns = {
                       magic_dns = true;
                       base_domain = "ts.${config.clan.core.settings.domain}";
