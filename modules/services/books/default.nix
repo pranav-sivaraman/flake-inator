@@ -78,7 +78,7 @@ _: {
                     IpAddresses = "localhost";
                     OpenIdConnectSettings = {
                       Authority = "https://pocket-id.${config.clan.core.settings.domain}/";
-                      ClientId = "Kavita";
+                      ClientId = "f5d03c86-ed61-4403-a40f-a899bb5abff0";
                       Secret = "@OIDC_SECRET@";
                     };
                   };
