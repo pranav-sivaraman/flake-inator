@@ -16,7 +16,7 @@
             AirDrop = true;
             Sound = true;
             FocusModes = true;
-            Display = false;
+            Display = true;
             NowPlaying = false;
             Bluetooth = true;
             BatteryShowPercentage = true;
