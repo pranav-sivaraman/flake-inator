@@ -53,10 +53,10 @@
                         @${route.subdomain} host ${route.subdomain}.${config.clan.core.settings.domain}
                         handle @${route.subdomain} {
                           ${lib.optionalString (!isPublic) ''
-                          @not_private not remote_ip private_ranges
-                          handle @not_private {
-                            respond "Access denied" 403
-                          }
+                            @not_private not remote_ip private_ranges
+                            handle @not_private {
+                              respond "Access denied" 403
+                            }
                           ''}
                           reverse_proxy http://${route.machineName}.${config.clan.core.settings.domain}:${toString route.port}
                         }
@@ -87,11 +87,11 @@
                           # Restrict browser features
                           Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=(), usb=(), interest-cohort=()"
                           # Basic CSP — tighten per-service as needed
-                          Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+                          #Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
                           # Cross-Origin isolation headers
-                          Cross-Origin-Embedder-Policy "require-corp"
-                          Cross-Origin-Opener-Policy "same-origin"
-                          Cross-Origin-Resource-Policy "same-origin"
+                          # Cross-Origin-Embedder-Policy "require-corp"
+                          # Cross-Origin-Opener-Policy "same-origin"
+                          # Cross-Origin-Resource-Policy "same-origin"
                           # Remove server fingerprinting
                           -Server
                         }
