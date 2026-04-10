@@ -6,6 +6,11 @@
       system = {
         defaults = {
           screencapture.target = "clipboard";
+          NSGlobalDomain = {
+            # Need to logout to apply this
+            NSStatusItemSpacing = 10;
+            NSStatusItemSelectionPadding = 6;
+          };
           menuExtraClock = {
             ShowAMPM = true;
             ShowDayOfWeek = true;
