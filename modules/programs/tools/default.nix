@@ -25,6 +25,9 @@
             duckdb
             youplot
             lean4
+            skopeo
+            rpm
+            shfmt
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
