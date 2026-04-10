@@ -45,6 +45,10 @@
                 "if".app-id = "com.microsoft.Outlook";
                 run = "move-node-to-workspace 7";
               }
+              {
+                "if".app-id = "org.zotero.zotero-source";
+                run = "move-node-to-workspace 8";
+              }
             ];
           };
         };
