@@ -28,6 +28,8 @@
             skopeo
             rpm
             shfmt
+            hledger
+            fava
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
