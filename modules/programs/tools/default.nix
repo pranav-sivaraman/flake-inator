@@ -28,6 +28,7 @@
             skopeo
             rpm
             shfmt
+            pi-coding-agent
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
