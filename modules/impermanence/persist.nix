@@ -38,11 +38,22 @@
           dir: lib.optional (dir.user != "root") "Z ${dir.dirPath} - ${dir.user} ${dir.group} - -"
         ) (lib.concatMap (p: p.directories) (lib.attrValues config.environment.persistence));
 
-        # Make all impermanence-generated mount units wait for userborn to create users/groups
+        # Ensure users/groups exist before tmpfiles applies recursive ownership (Z rules)
+        # for persisted directories.
         systemd.services = lib.mkIf config.services.userborn.enable {
           userborn = {
             before = [ "local-fs.target" ];
             wantedBy = [ "local-fs.target" ];
+          };
+
+          systemd-tmpfiles-setup = {
+            after = [ "userborn.service" ];
+            wants = [ "userborn.service" ];
+          };
+
+          systemd-tmpfiles-resetup = {
+            after = [ "userborn.service" ];
+            wants = [ "userborn.service" ];
           };
         };
       };
