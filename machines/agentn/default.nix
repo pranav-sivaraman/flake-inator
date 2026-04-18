@@ -18,6 +18,7 @@
       monitoring.nixos
       networkd.nixos
       nix.nixos
+      vpn.nixos
       psivaram.nixos
       security.nixos
       ssh.nixos
