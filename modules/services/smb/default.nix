@@ -287,7 +287,9 @@
                     map (
                       export:
                       let
-                        serverMachine = "${lib.head (lib.attrNames (roles.server.machines or { }))}.${config.clan.core.settings.domain}";
+                        serverMachine = "${
+                          lib.head (lib.attrNames (roles.server.machines or { }))
+                        }.${config.clan.core.settings.domain}";
                         credsPath =
                           config.clan.core.vars.generators."smb-creds-${instanceName}-${export.user}".files.creds.path;
                       in
