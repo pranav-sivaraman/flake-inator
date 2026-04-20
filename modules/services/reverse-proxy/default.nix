@@ -42,29 +42,37 @@
                   # Filter for exports that have a non-null route
                   routeExports = lib.filterAttrs (_scope: data: data ? route && data.route != null) allExports;
 
-                  handleBlocks = lib.concatStringsSep "\n\n" (
-                    lib.mapAttrsToList (
-                      _scope: data:
-                      let
-                        route = data.route;
-                        isPublic = route.public or false;
-                      in
-                      ''
-                        @${route.subdomain} host ${route.subdomain}.${config.clan.core.settings.domain}
-                        handle @${route.subdomain} {
-                          ${lib.optionalString (!isPublic) ''
-                            @not_private not remote_ip private_ranges
-                            handle @not_private {
-                              respond "Access denied" 403
-                            }
-                          ''}
-                          reverse_proxy http://${route.machineName}.${config.clan.core.settings.domain}:${toString route.port}
-                        }
-                      ''
-                    ) routeExports
+                  mkHandleBlock = data:
+                    let
+                      route = data.route;
+                    in
+                    ''
+                      @${route.subdomain} host ${route.subdomain}.${config.clan.core.settings.domain}
+                      handle @${route.subdomain} {
+                        reverse_proxy http://${route.machineName}.${config.clan.core.settings.domain}:${toString route.port}
+                      }
+                    '';
+
+                  publicHandleBlocks = lib.concatStringsSep "\n\n" (
+                    lib.mapAttrsToList (_scope: data: mkHandleBlock data) (
+                      lib.filterAttrs (_scope: data: data.route.public or false) routeExports
+                    )
                   );
 
-                  caddyfile = pkgs.writeText "Caddyfile" (''
+                  privateHandleBlocks = lib.concatStringsSep "\n\n" (
+                    lib.mapAttrsToList (_scope: data: mkHandleBlock data) (
+                      lib.filterAttrs (_scope: data: !(data.route.public or false)) routeExports
+                    )
+                  );
+
+                  privateAccessGuard = lib.optionalString (privateHandleBlocks != "") ''
+                    @non_private not remote_ip private_ranges
+                    handle @non_private {
+                      respond "Access denied" 403
+                    }
+                  '';
+
+                  rawCaddyfile = pkgs.writeText "Caddyfile.unformatted" (''
                     {
                         skip_install_trust
                     }
@@ -96,16 +104,27 @@
                           -Server
                         }
 
-                        ${handleBlocks}
+                        ${publicHandleBlocks}
 
-                        # Temporary public hello page for testing internet exposure.
-                        # Remove this block when no longer needed.
+                        ${privateAccessGuard}
+
+                        # Private hello page for testing private-range access.
                         @hello host hello.${config.clan.core.settings.domain}
                         handle @hello {
                           respond "Hello from {host}!" 200
                         }
+
+                        ${privateHandleBlocks}
                     }
                   '');
+
+                  caddyfile = pkgs.runCommand "Caddyfile" { nativeBuildInputs = [ pkgs.caddy ]; } ''
+                    tmp="$TMPDIR/Caddyfile"
+                    cp ${rawCaddyfile} "$tmp"
+                    chmod u+w "$tmp"
+                    caddy fmt --overwrite "$tmp"
+                    cp "$tmp" "$out"
+                  '';
 
                   caddyWithCloudflare = pkgs.caddy.withPlugins {
                     plugins = [ "github.com/caddy-dns/cloudflare@v0.2.2" ];
