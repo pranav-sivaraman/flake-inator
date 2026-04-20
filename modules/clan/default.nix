@@ -31,6 +31,11 @@
               type = lib.types.port;
               description = "Port to proxy to";
             };
+            public = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+              description = "Whether this route should be publicly reachable (not restricted to private_ranges).";
+            };
           };
         };
 

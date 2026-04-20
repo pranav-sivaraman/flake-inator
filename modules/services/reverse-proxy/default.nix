@@ -42,7 +42,8 @@
                   # Filter for exports that have a non-null route
                   routeExports = lib.filterAttrs (_scope: data: data ? route && data.route != null) allExports;
 
-                  mkHandleBlock = data:
+                  mkHandleBlock =
+                    data:
                     let
                       route = data.route;
                     in

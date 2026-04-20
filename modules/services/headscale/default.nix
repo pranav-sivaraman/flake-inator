@@ -29,6 +29,7 @@ _: {
               route = {
                 inherit subdomain port;
                 machineName = machine.name;
+                public = true;
               };
             };
 
