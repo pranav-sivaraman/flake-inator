@@ -11,7 +11,7 @@
 
           languages = {
             enableTreesitter = true;
-            enableDAP = true;
+            enableDAP = false;
             enableFormat = true;
             enableExtraDiagnostics = true;
 
