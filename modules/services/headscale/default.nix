@@ -37,7 +37,6 @@ _: {
               {
                 config,
                 pkgs,
-                lib,
                 ...
               }:
               {
@@ -71,11 +70,6 @@ _: {
                   settings = {
                     server_url = "https://${subdomain}.${config.clan.core.settings.domain}";
                     listen_addr = "${config.networking.primaryIp}:${toString port}";
-                    dns = {
-                      magic_dns = true;
-                      base_domain = "ts.${config.clan.core.settings.domain}";
-                      nameservers.global = [ "192.168.1.1" ];
-                    };
                     oidc = {
                       issuer = "https://pocket-id.${config.clan.core.settings.domain}";
                       client_id = "598c195e-0712-451c-96a2-e9cd39c4bec3";
