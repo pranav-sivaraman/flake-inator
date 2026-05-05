@@ -303,7 +303,6 @@
                           "file_mode=0644"
                           "dir_mode=0755"
                           "x-systemd.automount"
-                          "x-systemd.idle-timeout=60"
                           "x-systemd.requires=network-online.target"
                         ];
                       }
