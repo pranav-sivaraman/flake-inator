@@ -11,22 +11,9 @@
             ninja
             gnumake
             shellcheck
-            # cvise # FIXME: add back somehow
-            bear
-            zstd
             nix-output-monitor
             age-plugin-yubikey
             texliveFull
-            typst
-            typst-live
-            rustc
-            cargo
-            zig
-            duckdb
-            youplot
-            lean4
-            skopeo
-            rpm
             shfmt
             pi-coding-agent
           ];
