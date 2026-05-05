@@ -51,14 +51,6 @@
               "-n"
               "10"
             ];
-            tug = [
-              "bookmark"
-              "move"
-              "--from"
-              "heads(::@- & bookmarks())"
-              "--to"
-              "@-"
-            ];
             rebase-all = [
               "rebase"
               "-s"
