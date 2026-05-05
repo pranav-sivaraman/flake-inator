@@ -25,7 +25,7 @@
         };
 
         services.tailscale = {
-          enable = false;
+          enable = true;
           authKeyFile = config.clan.core.vars.generators."tailscale-authkey".files.key.path;
           extraUpFlags = [
             "--login-server=https://headscale.praarthana.space"
