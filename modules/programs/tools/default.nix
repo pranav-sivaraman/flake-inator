@@ -36,6 +36,7 @@
             CMAKE_C_COMPILER_LAUNCHER = "sccache";
             CMAKE_CXX_COMPILER_LAUNCHER = "sccache";
             CMAKE_CUDA_COMPILER_LAUNCHER = "sccache";
+            PI_OFFLINE = "1";
           };
           shellAliases = {
             sqs = "squeue -u $USER";
