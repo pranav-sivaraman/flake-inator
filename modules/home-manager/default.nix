@@ -5,7 +5,6 @@ let
     nix.homeManager
     shell.homeManager
     container.homeManager
-    llm.homeManager
   ];
 
   systems = [
