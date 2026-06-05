@@ -53,12 +53,6 @@
                 headscaleConfig = format.generate "headscale.yml" headscaleSettings;
               in
               {
-                imports = [
-                  inputs.headplane.nixosModules.headplane
-                ];
-
-                nixpkgs.overlays = [ inputs.headplane.overlays.default ];
-
                 clan.core.vars.generators."headplane-cookie-secret" = {
                   files.secret = {
                     secret = true;
@@ -107,7 +101,7 @@
                 };
 
                 services.headplane = {
-                  enable = true;
+                  enable = false;
                   settings = {
                     server = {
                       host = config.networking.primaryIp;

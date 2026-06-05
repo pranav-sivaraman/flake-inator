@@ -79,6 +79,11 @@ _: {
                         method = "S256";
                       };
                     };
+                    dns.base_domain = "praarthana.space";
+                    dns.nameservers.global = [
+                      "1.1.1.1"
+                      "8.8.8.8"
+                    ];
                   };
                 };
               };
