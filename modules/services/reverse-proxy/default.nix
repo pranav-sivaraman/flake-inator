@@ -35,6 +35,7 @@
                   config,
                   pkgs,
                   lib,
+                  self,
                   ...
                 }:
                 let
@@ -46,11 +47,12 @@
                     data:
                     let
                       route = data.route;
+                      upstreamHost = self.nixosConfigurations.${route.machineName}.config.networking.primaryIp;
                     in
                     ''
                       @${route.subdomain} host ${route.subdomain}.${config.clan.core.settings.domain}
                       handle @${route.subdomain} {
-                        reverse_proxy http://${route.machineName}.${config.clan.core.settings.domain}:${toString route.port}
+                        reverse_proxy http://${upstreamHost}:${toString route.port}
                       }
                     '';
 
