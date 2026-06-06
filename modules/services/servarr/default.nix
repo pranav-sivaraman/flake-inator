@@ -27,6 +27,13 @@
 
       roles.radarr.machines.agentc = { };
     };
+
+    prowlarr = {
+      module.input = "self";
+      module.name = "servarr";
+
+      roles.prowlarr.machines.agentc = { };
+    };
   };
 
   clan.modules.servarr = {
@@ -211,6 +218,37 @@
                   }
                 ];
               };
+          };
+      };
+
+      prowlarr = {
+        description = "Runs Prowlarr.";
+        perInstance =
+          { mkExports, machine, ... }:
+          let
+            subdomain = "prowlarr";
+            port = 9696;
+          in
+          {
+            exports = mkExports {
+              route = {
+                inherit subdomain port;
+                machineName = machine.name;
+              };
+            };
+
+            nixosModule = {
+              services.prowlarr.enable = true;
+
+              environment.persistence."/persist".directories = [
+                {
+                  directory = "/var/lib/private/prowlarr";
+                  user = "root";
+                  group = "root";
+                  mode = "0700";
+                }
+              ];
+            };
           };
       };
     };
