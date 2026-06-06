@@ -1,16 +1,25 @@
 {
-  clan.inventory.instances.jellyfin = {
-    module.input = "self";
-    module.name = "jellyfin";
+  clan.inventory.instances = {
+    jellyfin = {
+      module.input = "self";
+      module.name = "arrstack";
 
-    roles.server.machines.agentc = { };
+      roles.jellyfin.machines.agentc = { };
+    };
+
+    seerr = {
+      module.input = "self";
+      module.name = "arrstack";
+
+      roles.seerr.machines.agentc = { };
+    };
   };
 
-  clan.modules.jellyfin = {
+  clan.modules.arrstack = {
     _class = "clan.service";
     manifest = {
-      name = "jellyfin";
-      readme = "Jellyfin media server with SMB media storage.";
+      name = "arrstack";
+      readme = "Jellyfin media server and Seerr request manager stack.";
       exports.out = [
         "route"
         "storage"
@@ -18,7 +27,7 @@
     };
 
     roles = {
-      server = {
+      jellyfin = {
         description = "Runs the Jellyfin media server.";
         perInstance =
           {
@@ -70,6 +79,40 @@
                   }
                 ];
               };
+          };
+      };
+
+      seerr = {
+        description = "Runs the Seerr request manager.";
+        perInstance =
+          { mkExports, machine, ... }:
+          let
+            subdomain = "seerr";
+            port = 5055;
+          in
+          {
+            exports = mkExports {
+              route = {
+                inherit subdomain port;
+                machineName = machine.name;
+              };
+            };
+
+            nixosModule = {
+              services.seerr = {
+                enable = true;
+                inherit port;
+              };
+
+              environment.persistence."/persist".directories = [
+                {
+                  directory = "/var/lib/private/seerr";
+                  user = "root";
+                  group = "root";
+                  mode = "0700";
+                }
+              ];
+            };
           };
       };
     };
