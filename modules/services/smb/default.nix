@@ -51,21 +51,40 @@
                 ) storageExports
               );
 
+              normalizedGroup = export: if export.group != "" then export.group else export.user;
+
+              storageGroups = lib.unique (storageUsers ++ map normalizedGroup flattenedExports);
+
+              userExtraGroups = lib.listToAttrs (
+                map (
+                  username:
+                  lib.nameValuePair username (
+                    lib.unique (
+                      lib.filter (group: group != username) (
+                        map normalizedGroup (lib.filter (export: export.user == username) flattenedExports)
+                      )
+                    )
+                  )
+                ) storageUsers
+              );
+
               shareConfigs = lib.listToAttrs (
                 map (
                   export:
                   let
-                    group = if export.group != "" then export.group else export.user;
+                    group = normalizedGroup export;
                   in
                   lib.nameValuePair export.shareName {
                     path = export.path;
-                    "valid users" = export.user;
-                    "write list" = lib.mkIf (!export.readOnly) export.user;
+                    "valid users" = "${export.user} @${group}";
+                    "write list" = lib.mkIf (!export.readOnly) "${export.user} @${group}";
                     "read only" = if export.readOnly then "yes" else "no";
                     browseable = "yes";
                     "guest ok" = "no";
-                    "create mask" = "0644";
-                    "directory mask" = "0755";
+                    "create mask" = "0664";
+                    "directory mask" = "0775";
+                    "force create mode" = "0660";
+                    "force directory mode" = "0770";
                     "force user" = export.user;
                     "force group" = group;
                   }
@@ -101,16 +120,17 @@
                       value = {
                         isSystemUser = true;
                         group = username;
+                        extraGroups = userExtraGroups.${username} or [ ];
                         description = "SMB user for ${username}";
                       };
                     }) storageUsers
                   );
 
                   users.groups = lib.listToAttrs (
-                    map (username: {
-                      name = username;
+                    map (group: {
+                      name = group;
                       value = { };
-                    }) storageUsers
+                    }) storageGroups
                   );
 
                   # Persist samba state only
@@ -167,12 +187,17 @@
                         ensureOwnershipCommands = lib.concatMapStringsSep "\n" (
                           export:
                           let
-                            group = if export.group != "" then export.group else export.user;
+                            group = normalizedGroup export;
+                            chmodGroupWrite = lib.optionalString (!export.readOnly) ''
+                              chmod -R g+rwX "${export.path}"
+                              find "${export.path}" -type d -exec chmod g+s {} +
+                            '';
                           in
                           ''
                             mkdir -p "${export.path}"
                             if [ -d "${export.path}" ]; then
                               chown -R ${export.user}:${group} "${export.path}"
+                              ${chmodGroupWrite}
                               echo "Set ownership of ${export.path} to ${export.user}:${group}"
                             fi
                           ''
@@ -300,8 +325,8 @@
                           "credentials=${credsPath}"
                           "uid=${export.user}"
                           "gid=${if export.group != "" then export.group else export.user}"
-                          "file_mode=0644"
-                          "dir_mode=0755"
+                          "file_mode=0664"
+                          "dir_mode=0775"
                           "x-systemd.automount"
                           "x-systemd.requires=network-online.target"
                         ] ++ lib.optional export.readOnly "ro";
