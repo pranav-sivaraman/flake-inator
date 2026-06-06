@@ -50,7 +50,7 @@
                   }
                 ];
                 user = "jellyfin";
-                group = "jellyfin";
+                group = "media";
                 readOnly = false;
               };
               route = {
@@ -66,16 +66,19 @@
                 cfg = config.services.jellyfin;
               in
               {
+                users.groups.media = { };
+
                 services.jellyfin = {
                   enable = true;
                   dataDir = jellyfinDataDir;
+                  group = "media";
                 };
 
                 environment.persistence."/persist".directories = [
                   {
                     directory = cfg.dataDir;
                     inherit (cfg) user group;
-                    mode = "0700";
+                    mode = "0710";
                   }
                 ];
               };
