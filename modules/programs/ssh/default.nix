@@ -73,26 +73,24 @@
         programs.ssh = {
           enable = true;
           enableDefaultConfig = false;
-          matchBlocks = {
+          settings = {
             "github.com" = {
-              user = "git";
+              User = "git";
             };
             "*" = {
-              compression = true;
-              controlMaster = "auto";
-              controlPath = "/tmp/%r@%h:%p";
-              controlPersist = "yes";
-              forwardAgent = true;
-              # forwardX11 = true;
-              # forwardX11Trusted = true;
-              serverAliveCountMax = 15;
-              serverAliveInterval = 15;
-              setEnv = {
+              Compression = true;
+              ControlMaster = "auto";
+              ControlPath = "/tmp/%r@%h:%p";
+              ControlPersist = "yes";
+              ForwardAgent = true;
+              # ForwardX11 = true;
+              # ForwardX11Trusted = true;
+              ServerAliveCountMax = 15;
+              ServerAliveInterval = 15;
+              SetEnv = {
                 TERM = "xterm-256color";
               };
-              extraOptions = {
-                SecurityKeyProvider = "${pkgs'.openssh}/lib/${skLib}";
-              };
+              SecurityKeyProvider = "${pkgs'.openssh}/lib/${skLib}";
             };
           };
         };
