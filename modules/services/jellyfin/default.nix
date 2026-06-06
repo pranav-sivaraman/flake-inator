@@ -60,7 +60,6 @@
                 services.jellyfin = {
                   enable = true;
                   dataDir = jellyfinDataDir;
-                  openFirewall = true;
                 };
 
                 environment.persistence."/persist".directories = [
