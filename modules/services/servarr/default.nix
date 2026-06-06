@@ -2,24 +2,38 @@
   clan.inventory.instances = {
     jellyfin = {
       module.input = "self";
-      module.name = "arrstack";
+      module.name = "servarr";
 
       roles.jellyfin.machines.agentc = { };
     };
 
     seerr = {
       module.input = "self";
-      module.name = "arrstack";
+      module.name = "servarr";
 
       roles.seerr.machines.agentc = { };
     };
+
+    sonarr = {
+      module.input = "self";
+      module.name = "servarr";
+
+      roles.sonarr.machines.agentc = { };
+    };
+
+    radarr = {
+      module.input = "self";
+      module.name = "servarr";
+
+      roles.radarr.machines.agentc = { };
+    };
   };
 
-  clan.modules.arrstack = {
+  clan.modules.servarr = {
     _class = "clan.service";
     manifest = {
-      name = "arrstack";
-      readme = "Jellyfin media server and Seerr request manager stack.";
+      name = "servarr";
+      readme = "Servarr stack.";
       exports.out = [
         "route"
         "storage"
@@ -78,9 +92,10 @@
                   {
                     directory = cfg.dataDir;
                     inherit (cfg) user group;
-                    mode = "0710";
+                    mode = "0750";
                   }
                 ];
+
               };
           };
       };
@@ -116,6 +131,86 @@
                 }
               ];
             };
+          };
+      };
+
+      sonarr = {
+        description = "Runs Sonarr.";
+        perInstance =
+          { mkExports, machine, ... }:
+          let
+            subdomain = "sonarr";
+            port = 8989;
+          in
+          {
+            exports = mkExports {
+              route = {
+                inherit subdomain port;
+                machineName = machine.name;
+              };
+            };
+
+            nixosModule =
+              { config, ... }:
+              let
+                cfg = config.services.sonarr;
+              in
+              {
+                users.groups.media = { };
+
+                services.sonarr = {
+                  enable = true;
+                  group = "media";
+                };
+
+                environment.persistence."/persist".directories = [
+                  {
+                    directory = cfg.dataDir;
+                    inherit (cfg) user group;
+                    mode = "0710";
+                  }
+                ];
+              };
+          };
+      };
+
+      radarr = {
+        description = "Runs Radarr.";
+        perInstance =
+          { mkExports, machine, ... }:
+          let
+            subdomain = "radarr";
+            port = 7878;
+          in
+          {
+            exports = mkExports {
+              route = {
+                inherit subdomain port;
+                machineName = machine.name;
+              };
+            };
+
+            nixosModule =
+              { config, ... }:
+              let
+                cfg = config.services.radarr;
+              in
+              {
+                users.groups.media = { };
+
+                services.radarr = {
+                  enable = true;
+                  group = "media";
+                };
+
+                environment.persistence."/persist".directories = [
+                  {
+                    directory = cfg.dataDir;
+                    inherit (cfg) user group;
+                    mode = "0710";
+                  }
+                ];
+              };
           };
       };
     };

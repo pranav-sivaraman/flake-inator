@@ -329,7 +329,8 @@
                           "dir_mode=0775"
                           "x-systemd.automount"
                           "x-systemd.requires=network-online.target"
-                        ] ++ lib.optional export.readOnly "ro";
+                        ]
+                        ++ lib.optional export.readOnly "ro";
                       }
                     ) flattenedExports
                   );
