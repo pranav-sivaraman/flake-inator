@@ -34,6 +34,13 @@
 
       roles.prowlarr.machines.agentc = { };
     };
+
+    sabnzbd = {
+      module.input = "self";
+      module.name = "servarr";
+
+      roles.sabnzbd.machines.agentc = { };
+    };
   };
 
   clan.modules.servarr = {
@@ -249,6 +256,54 @@
                 }
               ];
             };
+          };
+      };
+
+      sabnzbd = {
+        description = "Runs SABnzbd.";
+        perInstance =
+          { mkExports, machine, ... }:
+          let
+            subdomain = "sabnzbd";
+            port = 8081;
+          in
+          {
+            exports = mkExports {
+              route = {
+                inherit subdomain port;
+                machineName = machine.name;
+              };
+            };
+
+            nixosModule =
+              { config, ... }:
+              let
+                cfg = config.services.sabnzbd;
+              in
+              {
+                users.groups.media = { };
+
+                services.sabnzbd = {
+                  enable = true;
+                  configFile = null;
+                  group = "media";
+                  allowConfigWrite = true;
+                  settings.misc = {
+                    host = "0.0.0.0";
+                    inherit port;
+                    inet_exposure = "api+web (auth needed)";
+                    host_whitelist = "sabnzbd.praarthana.space,localhost,127.0.0.1";
+                  };
+                };
+
+                environment.persistence."/persist".directories = [
+                  {
+                    directory = "/var/lib/${cfg.stateDir}";
+                    inherit (cfg) user group;
+                    mode = "0750";
+                  }
+                ];
+              };
           };
       };
     };
