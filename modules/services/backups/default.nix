@@ -265,6 +265,9 @@
                           "**/.mozilla/firefox/*/cache2"
                           "**/.config/google-chrome/*/Cache"
                           "**/.config/chromium/*/Cache"
+                          # Large media libraries
+                          "/persist/.zfs/snapshot/restic-backup/var/lib/jellyfin/media"
+                          "/persist/.zfs/snapshot/restic-backup/var/lib/jellyfin/media/**"
                           # Nix
                           "**/.nix-profile"
                         ];
