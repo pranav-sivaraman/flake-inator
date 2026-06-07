@@ -79,7 +79,9 @@ _: {
                         method = "S256";
                       };
                     };
-                    dns.base_domain = "praarthana.space";
+                    # MagicDNS domain must not contain the Headscale server URL
+                    # (server_url is headscale.${config.clan.core.settings.domain}).
+                    dns.base_domain = "tailnet.${config.clan.core.settings.domain}";
                     dns.nameservers.global = [
                       "1.1.1.1"
                       "8.8.8.8"
