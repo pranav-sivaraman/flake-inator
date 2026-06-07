@@ -68,8 +68,13 @@
                     )
                   );
 
+                  privateAllowedRanges = [
+                    "private_ranges"
+                    "100.64.0.0/10"
+                  ];
+
                   privateAccessGuard = lib.optionalString (privateHandleBlocks != "") ''
-                    @non_private not remote_ip private_ranges
+                    @non_private not remote_ip ${lib.concatStringsSep " " privateAllowedRanges}
                     handle @non_private {
                       respond "Access denied" 403
                     }
@@ -110,12 +115,6 @@
                         ${publicHandleBlocks}
 
                         ${privateAccessGuard}
-
-                        # Private hello page for testing private-range access.
-                        @hello host hello.${config.clan.core.settings.domain}
-                        handle @hello {
-                          respond "Hello from {host}!" 200
-                        }
 
                         ${privateHandleBlocks}
                     }

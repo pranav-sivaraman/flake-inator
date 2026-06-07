@@ -9,4 +9,14 @@
     '';
     example = "192.168.1.3";
   };
+
+  options.networking.headscaleIp = lib.mkOption {
+    type = lib.types.nullOr lib.types.str;
+    default = null;
+    description = ''
+      The Headscale/Tailscale IP address of this machine, used for tailnet-only
+      DNS records and other VPN-facing references.
+    '';
+    example = "100.64.0.1";
+  };
 }

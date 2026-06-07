@@ -53,6 +53,14 @@
                 headscaleConfig = format.generate "headscale.yml" headscaleSettings;
               in
               {
+                disabledModules = [ "services/networking/headplane.nix" ];
+                imports = [
+                  inputs.headplane.nixosModules.headplane
+                  {
+                    nixpkgs.overlays = [ inputs.headplane.overlays.default ];
+                  }
+                ];
+
                 clan.core.vars.generators."headplane-cookie-secret" = {
                   files.secret = {
                     secret = true;
@@ -101,11 +109,11 @@
                 };
 
                 services.headplane = {
-                  enable = false;
+                  enable = true;
                   settings = {
                     server = {
                       host = config.networking.primaryIp;
-                      port = port;
+                      inherit port;
                       cookie_secret_path = config.clan.core.vars.generators."headplane-cookie-secret".files.secret.path;
                       base_url = "https://${subdomain}.${config.clan.core.settings.domain}";
                     };

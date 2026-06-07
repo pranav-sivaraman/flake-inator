@@ -28,6 +28,7 @@
                 inherit subdomain;
                 machineName = machine.name;
                 port = 1411;
+                public = true;
               };
             };
 

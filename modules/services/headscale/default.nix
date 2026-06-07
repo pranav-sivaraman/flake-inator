@@ -1,4 +1,5 @@
-_: {
+{ ... }:
+{
 
   clan.inventory.instances.headscale = {
     module.input = "self";
@@ -7,7 +8,14 @@ _: {
     roles.server.machines.agentc = { };
   };
 
-  clan.modules.headscale = {
+  clan.modules.headscale =
+    {
+      clanLib,
+      lib,
+      exports,
+      ...
+    }:
+    {
     _class = "clan.service";
     manifest = {
       name = "headscale";
@@ -29,7 +37,7 @@ _: {
               route = {
                 inherit subdomain port;
                 machineName = machine.name;
-                # public = true;
+                public = true;
               };
             };
 
@@ -39,6 +47,12 @@ _: {
                 pkgs,
                 ...
               }:
+              let
+                allExports = clanLib.selectExports (_scope: true) exports;
+                routeExports = lib.filterAttrs (_scope: data: data ? route && data.route != null) allExports;
+                privateRouteExports = lib.filterAttrs (_scope: data: !(data.route.public or false)) routeExports;
+                internalCaddyIp = config.networking.headscaleIp;
+              in
               {
                 clan.core.vars.generators."headscale-oidc" = {
                   prompts.client-secret = {
@@ -86,6 +100,11 @@ _: {
                       "1.1.1.1"
                       "8.8.8.8"
                     ];
+                    dns.extra_records = lib.mapAttrsToList (_scope: data: {
+                      name = "${data.route.subdomain}.${config.clan.core.settings.domain}";
+                      type = "A";
+                      value = internalCaddyIp;
+                    }) privateRouteExports;
                   };
                 };
               };

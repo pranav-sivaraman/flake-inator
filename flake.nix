@@ -60,6 +60,12 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
+    headplane = {
+      url = "github:tale/headplane";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.inputs.systems.follows = "systems";
+    };
+
     rose-pine-btop = {
       url = "github:rose-pine/btop";
       flake = false;
