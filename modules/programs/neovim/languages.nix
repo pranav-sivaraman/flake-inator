@@ -33,7 +33,16 @@
             make.enable = true;
             cmake.enable = true;
             clang.enable = true;
-            rust.enable = true;
+            rust = {
+              enable = true;
+              lsp.opts = ''
+                ['rust-analyzer'] = {
+                  files = {
+                    excludeDirs = { ".direnv" },
+                  },
+                },
+              '';
+            };
             # markdown.enable = true; # TODO: enable when cached
             typst.enable = true;
             toml.enable = true;
