@@ -6,10 +6,7 @@
       #   podman machine ssh "sudo touch /etc/containers/enable-rosetta"
       #   podman machine stop && podman machine start
       # Verify with: podman machine ssh "cat /proc/sys/fs/binfmt_misc/rosetta"
-      services.podman = {
-        enable = true;
-        useDefaultMachine = false;
-      };
+      services.podman.enable = true;
     };
   };
 }
