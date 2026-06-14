@@ -2,8 +2,6 @@
   flake.modules.homeManager.default =
     { lib, pkgs, ... }:
     let
-      skLib = "sk-libfido2${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}";
-
       ssh-askpass-mac = pkgs.writeShellScriptBin "ssh-askpass" ''
         # TODO: store in another file or figure out the inline syntax highlighting nix has
         exec /usr/bin/osascript - "$@" <<'APPLESCRIPT'
@@ -23,27 +21,14 @@
         APPLESCRIPT
       '';
 
-      # TODO: should be an override? or figure out how to not override openssh and ONLY build skFido2
-      pkgs' = pkgs.extend (
-        final: prev: {
-          openssh = prev.openssh.overrideAttrs (oldAttrs: {
-            configureFlags = (oldAttrs.configureFlags or [ ]) ++ [
-              "--with-security-key-standalone"
-            ];
-            postInstall = (oldAttrs.postInstall or "") + ''
-              mkdir -p "$out/lib"
-              cp ${skLib} "$out/lib"
-            '';
-          });
-        }
-      );
     in
     lib.mkMerge [
       {
-        home.packages = [ pkgs'.openssh ] ++ lib.optionals pkgs.stdenv.isDarwin [ ssh-askpass-mac ];
+        home.packages = lib.optionals pkgs.stdenv.isDarwin [ ssh-askpass-mac ];
 
         programs.ssh = {
           enable = true;
+          package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin pkgs.openssh;
           enableDefaultConfig = false;
           settings = {
             "github.com" = {
@@ -60,21 +45,17 @@
               SetEnv = {
                 TERM = "xterm-256color";
               };
-              SecurityKeyProvider = "${pkgs'.openssh}/lib/${skLib}";
             };
           };
         };
 
         services.ssh-agent = {
           enable = true;
-          package = pkgs'.openssh;
-          pkcs11Whitelist = [ "${pkgs'.openssh}/lib/${skLib}" ];
         };
 
       }
       (lib.mkIf pkgs.stdenv.isDarwin {
         launchd.agents.ssh-agent.config.EnvironmentVariables = {
-          SSH_SK_PROVIDER = "${pkgs'.openssh}/lib/${skLib}";
           SSH_ASKPASS = "${ssh-askpass-mac}/bin/ssh-askpass";
           SSH_ASKPASS_REQUIRE = "prefer";
           DISPLAY = ":0";
