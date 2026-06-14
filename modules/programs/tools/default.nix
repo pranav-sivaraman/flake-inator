@@ -14,7 +14,6 @@
             age-plugin-yubikey
             texliveFull
             shfmt
-            pi-coding-agent
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
@@ -35,6 +34,10 @@
         # Verify with: podman machine ssh "cat /proc/sys/fs/binfmt_misc/rosetta"
         services.podman.enable = true;
         programs = {
+          pi-coding-agent = {
+            enable = true;
+            extraPackages = [ pkgs.nodejs ];
+          };
           git = {
             enable = true;
             settings = {
