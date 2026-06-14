@@ -4,7 +4,6 @@ let
     psivaram.homeManager
     nix.homeManager
     shell.homeManager
-    container.homeManager
   ];
 
   systems = [
@@ -56,7 +55,6 @@ in
       ++ (with inputs.self.aspects; [
         window-manager.homeManager
         desktop.homeManager
-        container.homeManager
         mac.homeManager
         ssh.homeManager
       ]);

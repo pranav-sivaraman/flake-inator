@@ -1,5 +1,5 @@
 {
-  flake.aspects.container = {
+  flake.aspects.shell = {
     homeManager = _: {
       # Rosetta support for x86_64 container emulation on Apple Silicon (macOS Tahoe+):
       # After first build, run:
