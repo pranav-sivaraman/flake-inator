@@ -37,6 +37,7 @@
             enable = true;
             nix-direnv.enable = true;
           };
+          nh.enable = true;
         };
       };
 
