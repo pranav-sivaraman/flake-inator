@@ -1,27 +1,17 @@
 {
-  flake.aspects.desktop = {
-    homeManager =
-      { pkgs, ... }:
-      {
-        home = {
-          packages = with pkgs; [
-            slack
-            zotero
-          ];
-        };
-        programs.discord.enable = true;
-      };
-  };
-  flake.aspects.mac = {
-    homeManager =
-      { pkgs, ... }:
-      {
-        home = {
-          packages = with pkgs; [
-            aldente
-            monodraw
-          ];
-        };
-      };
-  };
+  flake.aspects.desktop.homeManager =
+    { lib, pkgs, ... }:
+    {
+      home.packages =
+        with pkgs;
+        [
+          slack
+          zotero
+        ]
+        ++ lib.optionals pkgs.stdenv.isDarwin [
+          aldente
+          monodraw
+        ];
+      programs.discord.enable = true;
+    };
 }
