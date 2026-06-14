@@ -11,7 +11,6 @@
   clan.modules.reverseProxy =
     {
       clanLib,
-      lib,
       exports,
       ...
     }:
@@ -26,7 +25,6 @@
           perInstance =
             {
               instanceName,
-              roles,
               ...
             }:
             {
@@ -46,7 +44,7 @@
                   mkHandleBlock =
                     data:
                     let
-                      route = data.route;
+                      inherit (data) route;
                       upstreamHost = self.nixosConfigurations.${route.machineName}.config.networking.primaryIp;
                     in
                     ''
@@ -80,7 +78,7 @@
                     }
                   '';
 
-                  rawCaddyfile = pkgs.writeText "Caddyfile.unformatted" (''
+                  rawCaddyfile = pkgs.writeText "Caddyfile.unformatted" ''
                     {
                         skip_install_trust
                     }
@@ -118,7 +116,7 @@
 
                         ${privateHandleBlocks}
                     }
-                  '');
+                  '';
 
                   caddyfile = pkgs.runCommand "Caddyfile" { nativeBuildInputs = [ pkgs.caddy ]; } ''
                     tmp="$TMPDIR/Caddyfile"
@@ -130,7 +128,7 @@
 
                   caddyWithCloudflare = pkgs.caddy.withPlugins {
                     plugins = [ "github.com/caddy-dns/cloudflare@v0.2.2" ];
-                    hash = "sha256-qEA6058svI8Q6yE97OkfnGWC8ayI3x8y2iU7PGkJ3Do=";
+                    hash = "sha256-wHW0l15aLswe7gV9WioXo//abd0sJI82I7zIroRG3uU=";
                   };
                 in
                 {

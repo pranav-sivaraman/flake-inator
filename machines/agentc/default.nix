@@ -2,7 +2,7 @@
 {
   clan.inventory.machines = {
     agentc = {
-      deploy.targetHost = "psivaram@agentc"; # TODO: define this somewhere to easily reference?
+      deploy.targetHost = "root@agentc"; # TODO: define this somewhere to easily reference?
     };
   };
   clan.machines.agentc = {

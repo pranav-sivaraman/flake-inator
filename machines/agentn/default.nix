@@ -2,7 +2,7 @@
 {
   clan.inventory.machines = {
     agentn = {
-      deploy.targetHost = "psivaram@agentn";
+      deploy.targetHost = "root@agentn";
     };
   };
   clan.machines.agentn = {

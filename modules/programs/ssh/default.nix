@@ -1,18 +1,25 @@
 {
   flake.aspects.ssh = {
-    nixos = {
-      services = {
-        openssh = {
-          enable = true;
-          settings = {
-            PasswordAuthentication = false;
-            KbdInteractiveAuthentication = false;
-            PermitRootLogin = "no";
-            AllowUsers = [ "psivaram" ];
+    nixos =
+      { config, ... }:
+      {
+        services = {
+          openssh = {
+            enable = true;
+            settings = {
+              PasswordAuthentication = false;
+              KbdInteractiveAuthentication = false;
+              PermitRootLogin = "prohibit-password";
+              AllowUsers = [
+                "psivaram"
+                "root"
+              ];
+            };
           };
         };
+
+        users.users.root.openssh.authorizedKeys.keys = config.users.users.psivaram.openssh.authorizedKeys.keys;
       };
-    };
 
     homeManager =
       { lib, pkgs, ... }:
