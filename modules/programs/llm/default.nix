@@ -5,7 +5,6 @@
       home.sessionVariables = {
         PI_OFFLINE = "1";
       };
-
       programs = {
         pi-coding-agent = {
           enable = true;
@@ -13,13 +12,9 @@
           settings = {
             packages = [
               "npm:@ff-labs/pi-fff"
+              "npm:context-mode"
+              "npm:@upstash/context7-pi"
             ];
-          };
-        };
-        mcp = {
-          enable = true;
-          servers.context7 = {
-            url = "https://mcp.context7.com/mcp";
           };
         };
       };
