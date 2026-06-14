@@ -1,5 +1,6 @@
 {
   flake.modules.darwin.default = {
+    security.pam.services.sudo_local.touchIdAuth = true;
     system = {
       defaults = {
         screencapture.target = "clipboard";
