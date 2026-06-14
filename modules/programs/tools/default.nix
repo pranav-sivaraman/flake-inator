@@ -11,7 +11,6 @@
             ninja
             gnumake
             shellcheck
-            nix-output-monitor
             age-plugin-yubikey
             texliveFull
             shfmt
