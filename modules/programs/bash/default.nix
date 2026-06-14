@@ -2,8 +2,8 @@
 {
   flake.aspects.shell = {
     homeManager =
-      { pkgs, ... }:
-      {
+      { lib, pkgs, ... }:
+      lib.mkIf pkgs.stdenv.isLinux {
         programs.bash = {
           enable = true;
           historyControl = [

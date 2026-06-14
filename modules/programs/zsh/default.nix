@@ -1,8 +1,8 @@
 {
   flake.aspects.shell = {
     homeManager =
-      { pkgs, config, ... }:
-      {
+      { lib, pkgs, config, ... }:
+      lib.mkIf pkgs.stdenv.isDarwin {
         programs.zsh = {
           enable = true;
           dotDir = "${config.xdg.configHome}/zsh";
