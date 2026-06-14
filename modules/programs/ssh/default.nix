@@ -68,8 +68,6 @@
                 ControlPath = "/tmp/%r@%h:%p";
                 ControlPersist = "yes";
                 ForwardAgent = true;
-                # ForwardX11 = true;
-                # ForwardX11Trusted = true;
                 ServerAliveCountMax = 15;
                 ServerAliveInterval = 15;
                 SetEnv = {
