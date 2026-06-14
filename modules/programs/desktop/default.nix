@@ -12,6 +12,9 @@
           aldente
           monodraw
         ];
-      programs.discord.enable = true;
+      programs = {
+        discord.enable = true;
+        obsidian.enable = true;
+      };
     };
 }
