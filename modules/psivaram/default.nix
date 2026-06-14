@@ -13,13 +13,12 @@ in
           "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIHiGaA36EZ/k/prPZpZwDN2e85UCTkmlCSmk1StomRqhAAAAEnNzaDphdXRoZW50aWNhdGlvbg=="
         ];
       };
-      home-manager.users.${username}.imports = inputs.self.homeManagerModules.base;
     };
 
     darwin = {
       system.primaryUser = username;
       users.users.${username}.home = "/Users/${username}";
-      home-manager.users.${username}.imports = inputs.self.homeManagerModules.full;
+      home-manager.users.${username}.imports = [ inputs.self.aspects.desktop.homeManager ];
     };
 
     homeManager = {

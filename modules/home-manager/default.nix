@@ -10,6 +10,7 @@ let
   homeManagerConfig = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    sharedModules = baseModules;
   };
 in
 {
@@ -22,15 +23,6 @@ in
       imports = [ inputs.home-manager.darwinModules.home-manager ];
       home-manager = homeManagerConfig;
     };
-  };
-
-  flake.homeManagerModules = {
-    base = baseModules;
-    full =
-      baseModules
-      ++ (with inputs.self.aspects; [
-        desktop.homeManager
-      ]);
   };
 
 }
