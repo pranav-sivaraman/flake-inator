@@ -89,9 +89,6 @@
                         client_id=$(cat $prompts/client-id)
                         client_secret=$(cat $prompts/client-secret)
 
-                        # Generate secret key
-                        secret_key=$(openssl rand -base64 32)
-
                         # Generate OIDC JSON config (compact, single line)
                         oidc_config=$(jq -c -n \
                           --arg client_id "$client_id" \
@@ -115,7 +112,6 @@
 
                         # Write environment file
                         cat > $out/env <<EOF
-                        PAPERLESS_SECRET_KEY=$secret_key
                         PAPERLESS_SOCIALACCOUNT_PROVIDERS=$oidc_config
                         EOF
                       '';
