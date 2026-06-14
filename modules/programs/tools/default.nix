@@ -21,7 +21,6 @@
             CMAKE_C_COMPILER_LAUNCHER = "sccache";
             CMAKE_CXX_COMPILER_LAUNCHER = "sccache";
             CMAKE_CUDA_COMPILER_LAUNCHER = "sccache";
-            PI_OFFLINE = "1";
           };
           shellAliases = {
             sqs = "squeue -u $USER";
@@ -34,10 +33,6 @@
         # Verify with: podman machine ssh "cat /proc/sys/fs/binfmt_misc/rosetta"
         services.podman.enable = true;
         programs = {
-          pi-coding-agent = {
-            enable = true;
-            extraPackages = [ pkgs.nodejs ];
-          };
           git = {
             enable = true;
             settings = {
