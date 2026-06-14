@@ -38,6 +38,14 @@
           interactiveShellInit = ''
             fish_config theme choose "Rosé Pine"
           '';
+          functions = {
+            nd = {
+              description = "Run nix develop using fish";
+              body = ''
+                nix develop $argv --command fish
+              '';
+            };
+          };
         };
 
         xdg.configFile = themeFiles // completionFiles;
