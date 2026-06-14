@@ -1,6 +1,4 @@
 {
-  imports = [ ./window-manager.nix ];
-
   flake.aspects.desktop.homeManager =
     { lib, pkgs, ... }:
     {
