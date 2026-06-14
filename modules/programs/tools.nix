@@ -14,7 +14,6 @@
         nix-output-monitor
         nvd
         texliveFull
-        qemu
       ];
     };
 }

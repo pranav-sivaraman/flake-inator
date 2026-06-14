@@ -53,7 +53,10 @@
           #     "npm:pi-mcp-adapter"
           #   ];
           # };
-          extraPackages = [ pkgs.nodejs ];
+          extraPackages = with pkgs; [
+            nodejs
+            qemu
+          ];
         };
       };
     };
