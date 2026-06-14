@@ -3,7 +3,6 @@
     { lib, pkgs, ... }:
     let
       ssh-askpass-mac = pkgs.writeShellScriptBin "ssh-askpass" ''
-        # TODO: store in another file or figure out the inline syntax highlighting nix has
         exec /usr/bin/osascript - "$@" <<'APPLESCRIPT'
         on run argv
           set message to argv as text
