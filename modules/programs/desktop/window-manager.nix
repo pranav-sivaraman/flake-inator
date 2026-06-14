@@ -1,5 +1,5 @@
 {
-  flake.aspects.window-manager = {
+  flake.aspects.desktop = {
     homeManager =
       { lib, pkgs, ... }:
       lib.mkIf pkgs.stdenv.isDarwin {

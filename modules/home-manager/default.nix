@@ -4,6 +4,7 @@ let
     psivaram.homeManager
     nix.homeManager
     shell.homeManager
+    ssh.homeManager
   ];
 
   homeManagerConfig = {
@@ -28,9 +29,7 @@ in
     full =
       baseModules
       ++ (with inputs.self.aspects; [
-        window-manager.homeManager
         desktop.homeManager
-        ssh.homeManager
       ]);
   };
 
