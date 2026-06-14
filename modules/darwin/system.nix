@@ -3,6 +3,10 @@
     security.pam.services.sudo_local.touchIdAuth = true;
     system = {
       defaults = {
+        iCal = {
+          "first day of week" = "Monday";
+          "TimeZone support enabled" = true;
+        };
         screencapture.target = "clipboard";
         NSGlobalDomain = {
           # Need to logout to apply this
