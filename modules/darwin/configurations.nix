@@ -90,5 +90,19 @@ in
 {
   flake.darwinConfigurations = {
     Pranavs-MacBook-Air = defaultConfig { };
+    HPE-C75C4DFH4W = defaultConfig {
+      extraModules = [
+        {
+          home-manager.users.psivaram = {
+            programs.ssh = {
+              includes = [ "~/.ssh/config.hosts" ];
+              matchBlocks."*" = {
+                user = "sivaramp";
+              };
+            };
+          };
+        }
+      ];
+    };
   };
 }
