@@ -14,6 +14,8 @@
             age-plugin-yubikey
             texliveFull
             shfmt
+            nix-output-monitor
+            nvd
           ];
           sessionVariables = {
             CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
