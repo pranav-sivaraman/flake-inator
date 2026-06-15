@@ -14,8 +14,11 @@
           historyFileSize = -1;
           initExtra = ''
             if [[ $(ps -p $PPID -o comm=) != "bash" && -z $BASH_EXECUTION_STRING ]] ; then
-              shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-              exec ${pkgs.fish}/bin/fish "$LOGIN_OPTION"
+              if shopt -q login_shell; then
+                exec ${pkgs.fish}/bin/fish --login
+              else
+                exec ${pkgs.fish}/bin/fish
+              fi
             fi
           '';
         };
