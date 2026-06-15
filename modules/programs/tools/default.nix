@@ -57,7 +57,10 @@
             enable = true;
             nix-direnv.enable = true;
           };
-          nh.enable = true;
+          nh = {
+            enable = true;
+            darwinFlake = "/Users/psivaram/Documents/flake-inator";
+          };
           gh.enable = true;
           uv = {
             enable = true;
