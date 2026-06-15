@@ -56,6 +56,7 @@
           direnv = {
             enable = true;
             nix-direnv.enable = true;
+            silent = true;
           };
           nh = {
             enable = true;
