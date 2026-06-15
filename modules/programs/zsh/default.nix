@@ -1,7 +1,12 @@
 {
   flake.aspects.shell = {
     homeManager =
-      { lib, pkgs, config, ... }:
+      {
+        lib,
+        pkgs,
+        config,
+        ...
+      }:
       lib.mkIf pkgs.stdenv.isDarwin {
         programs.zsh = {
           enable = true;
