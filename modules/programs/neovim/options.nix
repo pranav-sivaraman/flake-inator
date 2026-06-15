@@ -6,7 +6,6 @@
         preventJunkFiles = true;
         undoFile.enable = true;
         options = {
-          relativenumber = true;
           expandtab = true;
           tabstop = 2;
           shiftwidth = 2;
