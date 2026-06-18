@@ -11,7 +11,7 @@ let
     useGlobalPkgs = true;
     useUserPackages = true;
     sharedModules = baseModules;
-    backupFileExtension = ".bak";
+    backupFileExtension = "bak";
   };
 in
 {
