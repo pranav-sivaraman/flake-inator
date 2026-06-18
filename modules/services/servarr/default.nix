@@ -108,6 +108,12 @@
                     inherit (cfg) user group;
                     mode = "0750";
                   }
+                  {
+                    directory = mediaDir;
+                    user = "jellyfin";
+                    group = "media";
+                    mode = "2770";
+                  }
                 ];
 
               };
