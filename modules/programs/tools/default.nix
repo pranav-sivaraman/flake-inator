@@ -6,6 +6,7 @@
         xdg.enable = true;
         home = {
           packages = with pkgs; [
+            fastmod
             sccache
             cmake
             ninja
