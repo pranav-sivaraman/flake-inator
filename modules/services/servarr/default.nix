@@ -299,6 +299,7 @@
                     inherit port;
                     inet_exposure = "api+web (auth needed)";
                     host_whitelist = "sabnzbd.praarthana.space,localhost,127.0.0.1";
+                    permissions = "775";
                   };
                 };
 
