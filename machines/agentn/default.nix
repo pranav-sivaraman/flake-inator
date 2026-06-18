@@ -15,7 +15,6 @@
       firewall.nixos
       home-manager.nixos
       impermanence.nixos
-      locale.nixos
       monitoring.nixos
       networkd.nixos
       nix.nixos
