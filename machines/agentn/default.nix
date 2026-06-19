@@ -22,7 +22,6 @@
       vpn.nixos
       psivaram.nixos
       ssh.nixos
-      users.nixos
       zfs.nixos
     ];
   };

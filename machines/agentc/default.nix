@@ -22,7 +22,6 @@
       psivaram.nixos
       defaults.nixos
       ssh.nixos
-      users.nixos
       zfs.nixos
     ];
   };
