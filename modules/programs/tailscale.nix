@@ -24,6 +24,15 @@
           '';
         };
 
+        preservation.preserveAt."/persist".directories = [
+          {
+            directory = "/var/lib/tailscale";
+            user = "root";
+            group = "root";
+            mode = "0700";
+          }
+        ];
+
         services.tailscale = {
           enable = true;
           authKeyFile = config.clan.core.vars.generators."tailscale-authkey".files.key.path;
