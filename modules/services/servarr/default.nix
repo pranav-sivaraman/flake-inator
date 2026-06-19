@@ -138,9 +138,7 @@
 
               preservation.preserveAt."/persist".directories = [
                 {
-                  directory = "/var/lib/private/seerr";
-                  user = "root";
-                  group = "root";
+                  directory = "/var/lib/private/jellyseerr";
                   mode = "0700";
                 }
               ];
@@ -250,8 +248,6 @@
               preservation.preserveAt."/persist".directories = [
                 {
                   directory = "/var/lib/private/prowlarr";
-                  user = "root";
-                  group = "root";
                   mode = "0700";
                 }
               ];
