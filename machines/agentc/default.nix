@@ -20,7 +20,7 @@
       nix.nixos
       vpn.nixos
       psivaram.nixos
-      security.nixos
+      defaults.nixos
       ssh.nixos
       users.nixos
       zfs.nixos

@@ -1,5 +1,5 @@
 {
-  flake.aspects.security = {
+  flake.aspects.defaults = {
     nixos = {
       security.pam = {
         rssh.enable = true;

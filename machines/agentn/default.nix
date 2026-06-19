@@ -11,6 +11,7 @@
     nixpkgs.hostPlatform = "x86_64-linux";
     imports = with inputs.self.aspects; [
       agentn.nixos
+      defaults.nixos
       boot.nixos
       firewall.nixos
       home-manager.nixos
@@ -20,7 +21,6 @@
       nix.nixos
       vpn.nixos
       psivaram.nixos
-      security.nixos
       ssh.nixos
       users.nixos
       zfs.nixos
