@@ -14,24 +14,42 @@
 
           autocmds = [
             {
-              event = [ "ModeChanged" ];
-              pattern = [ "*:[V\x16i]*" ];
+              event = [
+                "VimEnter"
+                "BufWinEnter"
+                "WinEnter"
+              ];
+              pattern = [ "*" ];
               group = "RelativeNumberModes";
-              desc = "Show relative line numbers in visual and insert modes";
+              desc = "Enable relative line numbers by default";
               callback = lib.generators.mkLuaInline ''
                 function()
-                  vim.wo.relativenumber = vim.wo.number
+                  vim.wo.number = true
+                  vim.wo.relativenumber = true
                 end
               '';
             }
             {
               event = [ "ModeChanged" ];
-              pattern = [ "[V\x16i]*:*" ];
+              pattern = [ "*:c" ];
               group = "RelativeNumberModes";
-              desc = "Hide relative line numbers when leaving visual/insert modes";
+              desc = "Show absolute line numbers in command mode";
               callback = lib.generators.mkLuaInline ''
                 function()
-                  vim.wo.relativenumber = string.find(vim.fn.mode(), '^[V\22i]') ~= nil
+                  vim.wo.number = true
+                  vim.wo.relativenumber = false
+                end
+              '';
+            }
+            {
+              event = [ "ModeChanged" ];
+              pattern = [ "c:*" ];
+              group = "RelativeNumberModes";
+              desc = "Restore relative line numbers when leaving command mode";
+              callback = lib.generators.mkLuaInline ''
+                function()
+                  vim.wo.number = true
+                  vim.wo.relativenumber = true
                 end
               '';
             }

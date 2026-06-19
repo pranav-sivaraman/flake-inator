@@ -13,7 +13,7 @@
             enableTreesitter = true;
             enableDAP = false;
             enableFormat = true;
-            enableExtraDiagnostics = true;
+            enableExtraDiagnostics = false;
 
             python = {
               enable = true;
