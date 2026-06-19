@@ -1,0 +1,50 @@
+{
+  flake.aspects.defaults.darwin = {
+    system.stateVersion = 5;
+    nix.enable = false;
+
+    system = {
+      defaults = {
+        screencapture.target = "clipboard";
+        NSGlobalDomain = {
+          # Need to logout to apply this
+          NSStatusItemSpacing = 10;
+          NSStatusItemSelectionPadding = 6;
+        };
+        menuExtraClock = {
+          ShowAMPM = true;
+          ShowDayOfWeek = true;
+          ShowDayOfMonth = true;
+          ShowDate = 1;
+        };
+        controlcenter = {
+          AirDrop = true;
+          Sound = true;
+          FocusModes = true;
+          Display = true;
+          NowPlaying = false;
+          Bluetooth = true;
+          BatteryShowPercentage = true;
+        };
+        dock = {
+          autohide = true;
+          mru-spaces = false;
+          show-recents = false;
+        };
+        finder = {
+          AppleShowAllExtensions = true;
+          ShowPathbar = true;
+          FXDefaultSearchScope = "SCcf";
+        };
+        trackpad = {
+          Clicking = true;
+          TrackpadCornerSecondaryClick = 2;
+        };
+      };
+      keyboard = {
+        enableKeyMapping = true;
+        remapCapsLockToControl = true;
+      };
+    };
+  };
+}
