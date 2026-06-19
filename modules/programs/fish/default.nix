@@ -2,7 +2,7 @@
 {
   flake.aspects.shell = {
     homeManager =
-      { pkgs, ... }:
+      _:
       let
         themes = [
           "Rosé Pine"
@@ -16,21 +16,6 @@
             value.source = "${inputs.rose-pine-fish}/themes/${theme}.theme";
           }) themes
         );
-
-        mkCompletion = cmd: pkg: {
-          name = "fish/completions/${cmd}.fish";
-          value.source = "${pkg}/share/fish/vendor_completions.d/${cmd}.fish";
-        };
-
-        completionFiles = lib.listToAttrs [
-          (mkCompletion "eza" pkgs.eza)
-          (mkCompletion "nom" pkgs.nix-output-monitor)
-          (mkCompletion "podman" pkgs.podman)
-          (mkCompletion "skopeo" pkgs.skopeo)
-          (mkCompletion "fd" pkgs.fd)
-          (mkCompletion "rg" pkgs.ripgrep)
-          (mkCompletion "zellij" pkgs.zellij)
-        ];
       in
       {
         programs.fish = {
@@ -47,8 +32,7 @@
             };
           };
         };
-
-        xdg.configFile = themeFiles // completionFiles;
+        xdg.configFile = themeFiles;
       };
   };
 }
