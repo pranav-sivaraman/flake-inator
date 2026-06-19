@@ -41,11 +41,6 @@
         # Ensure users/groups exist before tmpfiles applies recursive ownership (Z rules)
         # for persisted directories.
         systemd.services = lib.mkIf config.services.userborn.enable {
-          userborn = {
-            before = [ "local-fs.target" ];
-            wantedBy = [ "local-fs.target" ];
-          };
-
           systemd-tmpfiles-setup = {
             after = [ "userborn.service" ];
             wants = [ "userborn.service" ];

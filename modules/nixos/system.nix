@@ -1,8 +1,10 @@
-{ lib, ... }:
 {
   flake.aspects.defaults = {
     nixos = {
-      services.userborn.enable = true;
+      services.userborn = {
+        enable = true;
+        passwordFilesLocation = "/persist/etc";
+      };
       users.mutableUsers = false;
       security.pam = {
         rssh.enable = true;
