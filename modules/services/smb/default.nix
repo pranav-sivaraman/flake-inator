@@ -257,7 +257,12 @@
             in
             {
               nixosModule =
-                { config, pkgs, ... }:
+                {
+                  config,
+                  pkgs,
+                  self,
+                  ...
+                }:
                 {
                   # Import the same generators to receive passwords from server
                   clan.core.vars.generators =
@@ -312,9 +317,8 @@
                     map (
                       export:
                       let
-                        serverMachine = "${
-                          lib.head (lib.attrNames (roles.server.machines or { }))
-                        }.${config.clan.core.settings.domain}";
+                        serverMachineName = lib.head (lib.attrNames (roles.server.machines or { }));
+                        serverMachine = self.nixosConfigurations.${serverMachineName}.config.networking.primaryIp;
                         credsPath =
                           config.clan.core.vars.generators."smb-creds-${instanceName}-${export.user}".files.creds.path;
                       in
