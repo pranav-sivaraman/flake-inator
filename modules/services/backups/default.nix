@@ -87,7 +87,7 @@
 
                   networking.firewall.allowedTCPPorts = [ 8000 ];
 
-                  environment.persistence."/persist".directories = [
+                  preservation.preserveAt."/persist".directories = [
                     {
                       directory = "${config.services.restic.server.dataDir}";
                       user = "restic";
@@ -289,7 +289,7 @@
                     };
 
                   services.postgresqlBackup.enable = lib.mkIf config.services.postgresql.enable true;
-                  environment.persistence."/persist".directories = lib.mkIf config.services.postgresql.enable [
+                  preservation.preserveAt."/persist".directories = lib.mkIf config.services.postgresql.enable [
                     "${config.services.postgresqlBackup.location}"
                   ];
                 };

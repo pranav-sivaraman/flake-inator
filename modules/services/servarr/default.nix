@@ -102,7 +102,7 @@
                   group = "media";
                 };
 
-                environment.persistence."/persist".directories = [
+                preservation.preserveAt."/persist".directories = [
                   {
                     directory = cfg.dataDir;
                     inherit (cfg) user group;
@@ -136,7 +136,7 @@
                 inherit port;
               };
 
-              environment.persistence."/persist".directories = [
+              preservation.preserveAt."/persist".directories = [
                 {
                   directory = "/var/lib/private/seerr";
                   user = "root";
@@ -177,7 +177,7 @@
                   group = "media";
                 };
 
-                environment.persistence."/persist".directories = [
+                preservation.preserveAt."/persist".directories = [
                   {
                     directory = cfg.dataDir;
                     inherit (cfg) user group;
@@ -217,7 +217,7 @@
                   group = "media";
                 };
 
-                environment.persistence."/persist".directories = [
+                preservation.preserveAt."/persist".directories = [
                   {
                     directory = cfg.dataDir;
                     inherit (cfg) user group;
@@ -247,7 +247,7 @@
             nixosModule = {
               services.prowlarr.enable = true;
 
-              environment.persistence."/persist".directories = [
+              preservation.preserveAt."/persist".directories = [
                 {
                   directory = "/var/lib/private/prowlarr";
                   user = "root";
@@ -297,7 +297,7 @@
                   };
                 };
 
-                environment.persistence."/persist".directories = [
+                preservation.preserveAt."/persist".directories = [
                   {
                     directory = "/var/lib/${cfg.stateDir}";
                     inherit (cfg) user group;

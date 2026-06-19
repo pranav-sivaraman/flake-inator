@@ -142,7 +142,7 @@
                       config.clan.core.vars.generators.paperless-env.files.env.path;
                   };
 
-                  environment.persistence."/persist".directories = [
+                  preservation.preserveAt."/persist".directories = [
                     "/var/lib/private/tika"
                     {
                       directory = "/var/lib/redis-paperless";

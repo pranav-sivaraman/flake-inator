@@ -90,7 +90,7 @@ _: {
                     '${cfg.dataDir}/config/appsettings.json'
                 '';
 
-                environment.persistence."/persist".directories = [
+                preservation.preserveAt."/persist".directories = [
                   {
                     directory = cfg.dataDir;
                     inherit (cfg) user;

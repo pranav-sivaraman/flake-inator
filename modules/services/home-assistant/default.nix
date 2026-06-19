@@ -64,7 +64,7 @@ _: {
                   };
                 };
 
-                environment.persistence."/persist".directories = [
+                preservation.preserveAt."/persist".directories = [
                   {
                     directory = cfg.configDir;
                     user = "hass";

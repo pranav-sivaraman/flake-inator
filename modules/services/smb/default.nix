@@ -134,7 +134,7 @@
                   );
 
                   # Persist samba state only
-                  environment.persistence."/persist".directories = [
+                  preservation.preserveAt."/persist".directories = [
                     {
                       directory = "/var/lib/samba";
                       user = "root";

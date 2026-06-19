@@ -74,7 +74,7 @@
                     package = pkgs.postgresql_14; # Remove once immich creates a DB backup on the latest version
                   };
 
-                  environment.persistence."/persist".directories = [
+                  preservation.preserveAt."/persist".directories = [
                     {
                       directory = "/var/lib/redis-immich";
                       user = "redis-immich";

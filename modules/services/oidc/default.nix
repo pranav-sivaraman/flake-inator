@@ -65,7 +65,7 @@
                   };
                 };
 
-                environment.persistence."/persist".directories = [
+                preservation.preserveAt."/persist".directories = [
                   {
                     directory = config.services.pocket-id.dataDir;
                     inherit (config.services.pocket-id) user;

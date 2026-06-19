@@ -157,7 +157,7 @@
 
                   networking.firewall.allowedTCPPorts = [ 443 ];
 
-                  environment.persistence."/persist".directories = [
+                  preservation.preserveAt."/persist".directories = [
                     {
                       directory = config.services.caddy.dataDir;
                       user = config.services.caddy.user;

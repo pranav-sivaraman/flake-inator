@@ -134,7 +134,7 @@
                   };
                 };
 
-                environment.persistence."/persist".directories = [
+                preservation.preserveAt."/persist".directories = [
                   {
                     directory = "/var/lib/headplane";
                     user = config.services.headscale.user;
