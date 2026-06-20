@@ -2,7 +2,6 @@
   flake.aspects.defaults.darwin = {
     system.stateVersion = 5;
     nix.enable = false;
-
     system = {
       defaults = {
         screencapture.target = "clipboard";

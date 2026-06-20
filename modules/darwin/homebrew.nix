@@ -1,5 +1,5 @@
 {
-  flake.aspects.defaults.darwin = {
+  flake.aspects.homebrew.darwin = {
     homebrew = {
       enable = true;
       casks = [

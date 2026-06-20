@@ -10,10 +10,11 @@
       modules =
         with inputs.self.aspects;
         [
+          defaults.darwin
           nix.darwin
           psivaram.darwin
           home-manager.darwin
-          defaults.darwin
+          homebrew.darwin
         ]
         ++ extraModules;
     };
