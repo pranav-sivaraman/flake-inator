@@ -30,7 +30,6 @@
           };
           systemd = {
             users.root.shell = "/bin/systemd-tty-ask-password-agent";
-            # Automatically use the same network configuration as the main system
             network.networks = config.systemd.network.networks;
           };
         };

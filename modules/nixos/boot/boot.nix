@@ -1,15 +1,10 @@
 { lib, ... }:
 {
-  imports = [
-    ./remote-unlock.nix
-  ];
-
   flake.aspects.boot = {
     nixos = {
       system.stateVersion = "25.05";
-
       boot = {
-        initrd.systemd.enable = lib.mkForce true;
+        initrd.systemd.enable = true;
         loader = {
           systemd-boot.enable = lib.mkDefault true;
           efi.canTouchEfiVariables = lib.mkDefault true;
