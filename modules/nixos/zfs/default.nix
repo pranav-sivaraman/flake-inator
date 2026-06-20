@@ -1,9 +1,4 @@
 {
-  imports = [
-    ./rpool.nix
-    ./snapshots.nix
-  ];
-
   flake.aspects.zfs = {
     nixos =
       { lib, pkgs, ... }:
