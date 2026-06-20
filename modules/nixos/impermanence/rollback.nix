@@ -3,7 +3,6 @@
     nixos =
       { config, ... }:
       {
-        # TODO: may need to setup some guard/type checking for rpool?
         boot.initrd.systemd.services.rollback = {
           description = "Rollback ZFS datasets to a pristine state";
           wantedBy = [
