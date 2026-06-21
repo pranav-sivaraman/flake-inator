@@ -60,18 +60,12 @@
               nixosModule =
                 {
                   config,
-                  pkgs,
-                  lib,
                   ...
                 }:
                 {
                   services.immich = {
                     enable = true;
                     host = config.networking.primaryIp;
-                  };
-
-                  services.postgresql = {
-                    package = pkgs.postgresql_14; # Remove once immich creates a DB backup on the latest version
                   };
 
                   preservation.preserveAt."/persist".directories = [
@@ -81,12 +75,6 @@
                       group = "redis-immich";
                       mode = "0700";
                     }
-                    # {
-                    #   directory = "/var/lib/immich";
-                    #   user = "immich";
-                    #   group = "immich";
-                    #   mode = "0700";
-                    # }
                   ];
                 };
             };
