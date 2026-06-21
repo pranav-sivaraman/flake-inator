@@ -9,10 +9,10 @@
     };
   };
 
-  clan.inventory.instances.storj = {
+  clan.inventory.instances.b2 = {
     module.input = "self";
     module.name = "backups";
-    roles.client.settings.repositoryUrl = "s3:https://gateway.storjshare.io/backup";
+    roles.client.settings.repositoryUrl = "s3:s3.us-east-005.backblazeb2.com";
     roles.client.machines.agentn = { };
   };
 
