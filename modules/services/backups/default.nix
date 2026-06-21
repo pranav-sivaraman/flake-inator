@@ -290,7 +290,11 @@
 
                   services.postgresqlBackup.enable = lib.mkIf config.services.postgresql.enable true;
                   preservation.preserveAt."/persist".directories = lib.mkIf config.services.postgresql.enable [
-                    "${config.services.postgresqlBackup.location}"
+                    {
+                      directory = "${config.services.postgresqlBackup.location}";
+                      user = "postgres";
+                      group = "postgres";
+                    }
                   ];
                 };
             };
