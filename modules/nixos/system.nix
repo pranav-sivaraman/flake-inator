@@ -16,6 +16,7 @@
       sops.gnupg.sshKeyPaths = [
         "/persist/etc/ssh/ssh_host_rsa_key"
       ];
+      time.timeZone = "America/New_York";
     };
   };
 }
