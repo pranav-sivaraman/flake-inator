@@ -7,7 +7,6 @@
         "yubico-authenticator"
         "google-chrome"
         "kobo"
-        "calibre"
         "tailscale-app"
         "steam"
         "prismlauncher"
