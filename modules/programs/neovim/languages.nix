@@ -4,10 +4,16 @@
       { lib, pkgs, ... }:
       {
         programs.nvf.settings.vim = {
-          lsp.servers.neocmakelsp.cmd = lib.mkForce [
-            "${lib.getExe pkgs.neocmakelsp}"
-            "stdio"
-          ];
+          lsp.servers = {
+            neocmakelsp.cmd = lib.mkForce [
+              "${lib.getExe pkgs.neocmakelsp}"
+              "stdio"
+            ];
+
+            rust-analyzer.init_options = {
+              files.excludeDirs = [ ".direnv" ];
+            };
+          };
 
           languages = {
             enableTreesitter = true;
@@ -33,22 +39,14 @@
             make.enable = true;
             cmake.enable = true;
             clang.enable = true;
-            rust = {
-              enable = true;
-              lsp.opts = ''
-                ['rust-analyzer'] = {
-                  files = {
-                    excludeDirs = { ".direnv" },
-                  },
-                },
-              '';
-            };
-            # markdown.enable = true; # TODO: enable when cached
+            rust.enable = true;
+            markdown.enable = true;
             typst.enable = true;
             toml.enable = true;
             lua.enable = true;
             yaml.enable = true;
           };
+
         };
       };
   };
