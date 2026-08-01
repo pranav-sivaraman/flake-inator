@@ -8,6 +8,9 @@
       programs = {
         pi-coding-agent = {
           enable = true;
+          settings.packages = [
+            "git:github.com/ayghri/i-have-adhd"
+          ];
         };
       };
     };
