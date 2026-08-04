@@ -9,20 +9,23 @@
     networking.primaryIp = "192.168.1.3";
     networking.headscaleIp = "100.64.0.1";
     nixpkgs.hostPlatform = "x86_64-linux";
-    imports = with inputs.self.aspects; [
-      agentc.nixos
-      boot.nixos
-      firewall.nixos
-      home-manager.nixos
-      impermanence.nixos
-      monitoring.nixos
-      networkd.nixos
-      nix.nixos
-      vpn.nixos
-      psivaram.nixos
-      defaults.nixos
-      ssh.nixos
-      zfs.nixos
-    ];
+    imports =
+      (with inputs.self.aspects; [
+        agentc.nixos
+        defaults.nixos
+        boot.nixos
+        firewall.nixos
+        impermanence.nixos
+        monitoring.nixos
+        networkd.nixos
+        nix.nixos
+        vpn.nixos
+        ssh.nixos
+        zfs.nixos
+      ])
+      ++ [
+        inputs.self.modules.nixos.default
+        inputs.self.modules.nixos.psivaram
+      ];
   };
 }
