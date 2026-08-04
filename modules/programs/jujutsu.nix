@@ -1,7 +1,9 @@
-{ ... }:
 {
-  flake.aspects.shell.homeManager =
-    { pkgs, ... }:
+  flake.modules.homeManager.default =
+    { pkgs, config, ... }:
+    let
+      username = config.home.username;
+    in
     {
       home.packages = [ pkgs.watchman ];
       programs.difftastic.enable = true;
@@ -37,8 +39,8 @@
             paginate = "never";
           };
           user = {
-            name = "Pranav Sivaraman";
-            email = "pranavsivaraman@gmail.com";
+            name = config.userData.${username}.name;
+            email = config.userData.${username}.email;
           };
           aliases = {
             l = [

@@ -1,19 +1,19 @@
 {
-  flake.aspects.shell.homeManager =
+  flake.modules.homeManager.default =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
-        fastmod
         sccache
         cmake
         ninja
         gnumake
+        fastmod
         shellcheck
         age-plugin-yubikey
-        texliveFull
         shfmt
         nix-output-monitor
         nvd
+        texliveFull
       ];
     };
 }

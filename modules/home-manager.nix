@@ -7,20 +7,15 @@
 
   flake.modules.nixos.default = {
     imports = [ inputs.home-manager.nixosModules.home-manager ];
-    home-manager.sharedModules = [
-      inputs.self.modules.homeManager.default
-    ];
   };
 
   flake.modules.darwin.default = {
     imports = [ inputs.home-manager.darwinModules.home-manager ];
-    home-manager.sharedModules = [
-      inputs.self.modules.homeManager.default
-    ];
   };
 
   flake.modules.homeManager.default = {
-    backupFileExtension = "bak";
     xdg.enable = true;
+    home.stateVersion = "26.11";
+    programs.home-manager.enable = true;
   };
 }

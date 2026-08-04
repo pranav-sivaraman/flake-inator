@@ -1,5 +1,5 @@
 {
-  flake.aspects.shell.homeManager = {
+  flake.modules.homeManager.default = {
     programs.uv = {
       enable = true;
       settings = {

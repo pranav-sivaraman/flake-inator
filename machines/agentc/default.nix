@@ -19,13 +19,12 @@
         monitoring.nixos
         networkd.nixos
         nix.nixos
-        vpn.nixos
-        ssh.nixos
         zfs.nixos
       ])
       ++ [
         inputs.self.modules.nixos.default
         inputs.self.modules.nixos.psivaram
+        inputs.self.modules.nixos.vpn
       ];
   };
 }

@@ -4,6 +4,11 @@
     modules = with self.modules.darwin; [
       default
       psivaram
+      {
+        home-manager.users.psivaram.imports = [
+          self.modules.homeManager.desktop
+        ];
+      }
     ];
   };
 }

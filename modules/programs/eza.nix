@@ -1,9 +1,9 @@
 {
   flake.modules.homeManager.default = {
-    programs.direnv = {
+    programs.eza = {
       enable = true;
-      nix-direnv.enable = true;
-      silent = true;
+      icons = "auto";
+      colors = "auto";
     };
   };
 }

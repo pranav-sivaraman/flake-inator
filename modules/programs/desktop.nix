@@ -1,5 +1,5 @@
 {
-  flake.aspects.desktop.homeManager =
+  flake.modules.homeManager.desktop =
     { lib, pkgs, ... }:
     {
       home.packages =
@@ -9,7 +9,6 @@
           zotero
         ]
         ++ lib.optionals pkgs.stdenv.isDarwin [
-          aldente
           monodraw
         ];
       programs = {

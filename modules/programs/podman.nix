@@ -1,5 +1,5 @@
 {
-  flake.aspects.shell.homeManager = {
+  flake.modules.homeManager.default = {
     # Rosetta support for x86_64 container emulation on Apple Silicon (macOS Tahoe+):
     # After first build, run:
     #   podman machine ssh "sudo touch /etc/containers/enable-rosetta"
