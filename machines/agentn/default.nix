@@ -12,7 +12,6 @@
         agentn.nixos
         boot.nixos
         impermanence.nixos
-        zfs.nixos
       ])
       ++ [
         inputs.self.modules.nixos.default
