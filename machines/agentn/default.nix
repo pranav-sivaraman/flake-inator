@@ -7,14 +7,11 @@
   };
   clan.machines.agentn = {
     nixpkgs.hostPlatform = "x86_64-linux";
-    imports =
-      (with inputs.self.aspects; [
-        agentn.nixos
-      ])
-      ++ [
-        inputs.self.modules.nixos.default
-        inputs.self.modules.nixos.psivaram
-        inputs.self.modules.nixos.vpn
-      ];
+    imports = with inputs.self.modules.nixos; [
+      default
+      agentn
+      psivaram
+      vpn
+    ];
   };
 }
