@@ -65,7 +65,7 @@
                 {
                   services.immich = {
                     enable = true;
-                    host = config.networking.primaryIp;
+                    host = config.networkingData.${config.system.name}.staticIp;
                   };
 
                   preservation.preserveAt."/persist".directories = [

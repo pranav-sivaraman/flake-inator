@@ -45,7 +45,7 @@
                     data:
                     let
                       inherit (data) route;
-                      upstreamHost = self.nixosConfigurations.${route.machineName}.config.networking.primaryIp;
+                      upstreamHost = config.networkingData.${route.machineName}.staticIp;
                     in
                     ''
                       @${route.subdomain} host ${route.subdomain}.${config.clan.core.settings.domain}

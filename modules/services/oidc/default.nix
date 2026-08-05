@@ -53,7 +53,7 @@
                 services.pocket-id = {
                   enable = true;
                   settings = {
-                    HOST = config.networking.primaryIp;
+                    HOST = config.networkingData.${config.system.name}.staticIp;
                     TRUST_PROXY = true;
                     APP_URL = "https://${subdomain}.${config.clan.core.settings.domain}";
                     ANALYTICS_DISABLED = true;

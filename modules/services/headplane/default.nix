@@ -112,7 +112,7 @@
                   enable = true;
                   settings = {
                     server = {
-                      host = config.networking.primaryIp;
+                      host = config.networkingData.${config.system.name}.staticIp;
                       inherit port;
                       cookie_secret_path = config.clan.core.vars.generators."headplane-cookie-secret".files.secret.path;
                       base_url = "https://${subdomain}.${config.clan.core.settings.domain}";

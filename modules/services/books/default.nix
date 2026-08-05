@@ -75,7 +75,7 @@ _: {
                   enable = true;
                   tokenKeyFile = config.clan.core.vars.generators.kavita-tokenKeyFile.files.tokenKey.path;
                   settings = {
-                    IpAddresses = config.networking.primaryIp;
+                    IpAddresses = config.networkingData.${config.system.name}.staticIp;
                     OpenIdConnectSettings = {
                       Authority = "https://pocket-id.${config.clan.core.settings.domain}/";
                       ClientId = "f5d03c86-ed61-4403-a40f-a899bb5abff0";

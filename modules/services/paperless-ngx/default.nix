@@ -123,7 +123,7 @@
                   };
                   services.paperless = {
                     enable = true;
-                    address = config.networking.primaryIp;
+                    address = config.networkingData.${config.system.name}.staticIp;
                     domain = "${subdomain}.${config.clan.core.settings.domain}";
                     database.createLocally = true;
                     configureTika = true;

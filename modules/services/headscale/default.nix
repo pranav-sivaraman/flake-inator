@@ -51,7 +51,7 @@
                   allExports = clanLib.selectExports (_scope: true) exports;
                   routeExports = lib.filterAttrs (_scope: data: data ? route && data.route != null) allExports;
                   privateRouteExports = lib.filterAttrs (_scope: data: !(data.route.public or false)) routeExports;
-                  internalCaddyIp = config.networking.headscaleIp;
+                  internalCaddyIp = config.networkingData.${config.system.name}.headscaleIp;
                 in
                 {
                   clan.core.vars.generators."headscale-oidc" = {
@@ -83,7 +83,7 @@
                     enable = true;
                     settings = {
                       server_url = "https://${subdomain}.${config.clan.core.settings.domain}";
-                      listen_addr = "${config.networking.primaryIp}:${toString port}";
+                      listen_addr = "${config.networkingData.${config.system.name}.staticIp}:${toString port}";
                       oidc = {
                         issuer = "https://pocket-id.${config.clan.core.settings.domain}";
                         client_id = "598c195e-0712-451c-96a2-e9cd39c4bec3";

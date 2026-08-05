@@ -318,7 +318,7 @@
                       export:
                       let
                         serverMachineName = lib.head (lib.attrNames (roles.server.machines or { }));
-                        serverMachine = self.nixosConfigurations.${serverMachineName}.config.networking.primaryIp;
+                        serverMachine = config.networkingData.${serverMachineName}.staticIp;
                         credsPath =
                           config.clan.core.vars.generators."smb-creds-${instanceName}-${export.user}".files.creds.path;
                       in
