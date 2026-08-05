@@ -18,6 +18,7 @@
         };
       };
 
+      # TODO: grab admin user's SSH keys?
       users.users.root.openssh.authorizedKeys.keys =
         config.users.users.psivaram.openssh.authorizedKeys.keys;
     };

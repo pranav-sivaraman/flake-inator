@@ -12,7 +12,6 @@
     imports =
       (with inputs.self.aspects; [
         agentc.nixos
-        defaults.nixos
         boot.nixos
         firewall.nixos
         impermanence.nixos
