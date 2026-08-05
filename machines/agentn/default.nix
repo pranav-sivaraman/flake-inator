@@ -11,7 +11,6 @@
       (with inputs.self.aspects; [
         agentn.nixos
         boot.nixos
-        impermanence.nixos
       ])
       ++ [
         inputs.self.modules.nixos.default
