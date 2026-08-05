@@ -10,7 +10,6 @@
     imports =
       (with inputs.self.aspects; [
         agentc.nixos
-        boot.nixos
       ])
       ++ [
         inputs.self.modules.nixos.default
