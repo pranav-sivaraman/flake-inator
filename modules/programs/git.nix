@@ -1,5 +1,6 @@
 {
-  flake.modules.homeManager.default = { config, ... }:
+  flake.modules.homeManager.default =
+    { config, ... }:
     let
       username = config.home.username;
     in

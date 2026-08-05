@@ -5,11 +5,11 @@
       casks = [
         "flux-app"
         "yubico-authenticator"
-        # "google-chrome"
-        # "kobo"
-        # "tailscale-app"
-        # "steam"
-        # "prismlauncher"
+        # TODO: guard this
+        "kobo"
+        "tailscale-app"
+        "steam"
+        "prismlauncher"
       ];
       onActivation = {
         cleanup = "uninstall";

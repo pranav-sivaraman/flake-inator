@@ -18,7 +18,6 @@
         impermanence.nixos
         monitoring.nixos
         networkd.nixos
-        nix.nixos
         zfs.nixos
       ])
       ++ [
