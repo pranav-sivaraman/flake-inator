@@ -12,7 +12,6 @@
         agentc.nixos
         boot.nixos
         impermanence.nixos
-        monitoring.nixos
         zfs.nixos
       ])
       ++ [
