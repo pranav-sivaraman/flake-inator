@@ -25,10 +25,6 @@
       url = "github:vic/import-tree";
     };
 
-    flake-aspects = {
-      url = "github:vic/flake-aspects";
-    };
-
     clan-core = {
       url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
