@@ -1,5 +1,5 @@
 {
   flake.modules.homeManager.default = { pkgs, ... }: {
-    programs.man.generateCaches = pkgs.hostPlatform.isLinux;
+    programs.man.generateCaches = pkgs.stdenv.hostPlatform.isLinux;
   };
 }

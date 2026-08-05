@@ -5,12 +5,12 @@
     default = { };
   };
 
-  config.flake.factory.user = username: sshKeys: {
-    nixos."${username}" = {
+  config.flake.factory.user = username: {
+    nixos."${username}" = { config, ... }: {
       users.users.${username} = {
         isNormalUser = true;
         description = username;
-        openssh.authorizedKeys.keys = sshKeys;
+        openssh.authorizedKeys.keys = config.userData.${username}.sshKeys;
       };
       home-manager.users.${username} = {
         imports = [
