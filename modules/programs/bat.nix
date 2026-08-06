@@ -1,6 +1,10 @@
 { inputs, ... }:
 {
-  # TODO: flake-file for rose-pine theme
+  flake-file.inputs.rose-pine-tmtheme = {
+    url = "github:rose-pine/tm-theme";
+    flake = false;
+  };
+
   flake.modules.homeManager.default = {
     programs.bat = {
       enable = true;

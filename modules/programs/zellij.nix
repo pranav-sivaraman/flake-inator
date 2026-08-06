@@ -3,7 +3,17 @@ let
   pluginPath = "file:${inputs.vim-zellij-navigator}";
 in
 {
-  # TODO: use flake-file for pluginPath
+  flake-file.inputs = {
+    vim-zellij-navigator = {
+      # TODO: change this to git? or built in packages
+      url = "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm";
+      flake = false;
+    };
+    rose-pine-zellij = {
+      url = "github:rose-pine/zellij";
+      flake = false;
+    };
+  };
   flake.modules.homeManager.default = {
     programs.zellij = {
       enable = true;

@@ -1,5 +1,10 @@
 { inputs, ... }:
 {
+  flake-file.inputs.clan-core = {
+    url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
+    inputs.nix-darwin.follows = "nix-darwin";
+  };
+
   imports = [
     inputs.clan-core.flakeModules.default
   ];

@@ -1,98 +1,56 @@
+# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# Use `nix run .#write-flake` to regenerate it.
 {
-  description = "Behold my flake-inator!";
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      inputs.import-tree [
+        ./modules
+        ./machines
+      ]
+    );
 
   inputs = {
-    nixpkgs = {
-      url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    clan-core = {
+      url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
+      inputs.nix-darwin.follows = "nix-darwin";
     };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    flake-file.url = "github:vic/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-
-    import-tree = {
-      url = "github:vic/import-tree";
-    };
-
-    clan-core = {
-      url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.systems.follows = "systems";
-      inputs.nix-darwin.follows = "nix-darwin";
-    };
-
-    impermanence = {
-      url = "github:nix-community/preservation";
-    };
-
-    nvf = {
-      url = "github:notashelf/nvf";
+    headplane.url = "github:tale/headplane";
+    home-manager.url = "github:nix-community/home-manager";
+    import-tree.url = "github:vic/import-tree";
+    nix-auto-follow = {
+      url = "github:fzakaria/nix-auto-follow";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    systems = {
-      url = "github:nix-systems/default";
-    };
-
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
-
-    headplane = {
-      url = "github:tale/headplane";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.inputs.systems.follows = "systems";
-    };
-
+    nix-darwin.url = "github:nix-darwin/nix-darwin";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nur.url = "github:nix-community/NUR";
+    nvf.url = "github:notashelf/nvf";
+    preservation.url = "github:nix-community/preservation";
     rose-pine-btop = {
       url = "github:rose-pine/btop";
       flake = false;
     };
-
     rose-pine-fish = {
       url = "github:rose-pine/fish";
       flake = false;
     };
-
     rose-pine-tmtheme = {
       url = "github:rose-pine/tm-theme";
       flake = false;
     };
-
     rose-pine-zellij = {
       url = "github:rose-pine/zellij";
       flake = false;
     };
-
     vim-zellij-navigator = {
       url = "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm";
       flake = false;
     };
   };
-
-  outputs =
-    inputs@{ flake-parts, import-tree, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } (
-      { ... }:
-      {
-        imports = [
-          (import-tree ./modules)
-          (import-tree ./machines)
-        ];
-      }
-    );
 }

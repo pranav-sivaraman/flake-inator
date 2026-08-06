@@ -1,8 +1,11 @@
 { inputs, ... }:
 {
-  # TODO: flake-file add preservation
+  flake-file.inputs.preservation = {
+    url = "github:nix-community/preservation";
+  };
+
   flake.modules.nixos.default = _: {
-    imports = [ inputs.impermanence.nixosModules.preservation ];
+    imports = [ inputs.preservation.nixosModules.preservation ];
     preservation = {
       enable = true;
       preserveAt."/persist" = {

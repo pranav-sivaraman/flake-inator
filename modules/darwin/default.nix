@@ -1,7 +1,7 @@
 {
-  # flake-file.inputs.nix-darwin = {
-  #   url = "github:nix-darwin/nix-darwin";
-  # };
+  flake-file.inputs.nix-darwin = {
+    url = "github:nix-darwin/nix-darwin";
+  };
 
   flake.modules.darwin.default = {
     system.stateVersion = 7;

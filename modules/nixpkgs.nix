@@ -4,7 +4,7 @@ let
   };
 in
 {
-  # flake-file.inputs.nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
+  flake-file.inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
   flake.modules.nixos.default = sharedNixpkgsConfig;
   flake.modules.darwin.default = sharedNixpkgsConfig;

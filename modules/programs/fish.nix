@@ -1,6 +1,10 @@
 { inputs, lib, ... }:
 {
-  # TODO: flake-file for rose pine theme for fish
+  flake-file.inputs.rose-pine-fish = {
+    url = "github:rose-pine/fish";
+    flake = false;
+  };
+
   flake.modules.homeManager.default =
     _:
     let

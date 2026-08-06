@@ -3,6 +3,10 @@ let
   firefox-addons = system: inputs.nur.legacyPackages.${system}.repos.rycee.firefox-addons;
 in
 {
+  flake-file.inputs.nur = {
+    url = "github:nix-community/NUR";
+  };
+
   flake.modules.homeManager.desktop =
     { pkgs, ... }:
     let

@@ -1,5 +1,9 @@
 { inputs, ... }:
 {
+  flake-file.inputs.headplane = {
+    url = "github:tale/headplane";
+  };
+
   clan.inventory.instances.headplane = {
     module.input = "self";
     module.name = "headplane";

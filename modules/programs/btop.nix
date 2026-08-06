@@ -1,6 +1,10 @@
 { inputs, ... }:
 {
-  # TODO: flake-file the input
+  flake-file.inputs.rose-pine-btop = {
+    url = "github:rose-pine/btop";
+    flake = false;
+  };
+
   flake.modules.homeManager.default = {
     programs.btop = {
       enable = true;
