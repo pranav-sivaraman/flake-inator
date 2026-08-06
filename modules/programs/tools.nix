@@ -14,6 +14,7 @@
         nix-output-monitor
         nvd
         texliveFull
+        nono
       ];
     };
 }
