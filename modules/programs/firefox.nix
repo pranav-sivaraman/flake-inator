@@ -1,6 +1,7 @@
 { inputs, ... }:
 let
   firefox-addons = system: inputs.nur.legacyPackages.${system}.repos.rycee.firefox-addons;
+  search-nixos = "https://search.nixos.org";
 in
 {
   flake-file.inputs.nur = {
@@ -70,7 +71,7 @@ in
               "Nix Packages" = {
                 urls = [
                   {
-                    template = "https://searchix.ovh/packages/nixpkgs/search";
+                    template = "${search-nixos}/packages?channel=unstable";
                     params = [
                       {
                         name = "query";
@@ -86,7 +87,7 @@ in
               "NixOS Options" = {
                 urls = [
                   {
-                    template = "https://searchix.ovh/options/nixos/search";
+                    template = "${search-nixos}/options?channel=unstable&type=options";
                     params = [
                       {
                         name = "query";
@@ -102,7 +103,7 @@ in
               "Darwin Options" = {
                 urls = [
                   {
-                    template = "https://searchix.ovh/options/darwin/search";
+                    template = "${search-nixos}/options?channel=unstable&source=darwin&type=options";
                     params = [
                       {
                         name = "query";
@@ -118,7 +119,7 @@ in
               "Home Manager Options" = {
                 urls = [
                   {
-                    template = "https://searchix.ovh/options/home-manager/search";
+                    template = "${search-nixos}/options?channel=unstable&source=home_manager&type=options";
                     params = [
                       {
                         name = "query";
