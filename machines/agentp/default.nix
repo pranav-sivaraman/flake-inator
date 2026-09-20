@@ -30,6 +30,8 @@
         graphics.enable = true;
         nvidia.open = true;
       };
+      home-manager.users.psivaram.imports = [ inputs.self.modules.homeManager.desktop ];
+
       services = {
         xserver = {
           # enable = true;
