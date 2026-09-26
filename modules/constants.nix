@@ -65,6 +65,10 @@
           staticIp = "192.168.1.3";
           headscaleIp = "100.64.0.1";
         };
+        agentp = {
+          staticIp = "192.168.1.4";
+          headscaleIp = "100.64.0.3";
+        };
       };
     };
 }
