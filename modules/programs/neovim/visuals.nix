@@ -27,46 +27,26 @@
         indent-blankline = {
           enable = true;
           setupOpts.scope.highlight = [
-            "RainbowRed"
-            "RainbowYellow"
-            "RainbowBlue"
-            "RainbowOrange"
-            "RainbowGreen"
-            "RainbowViolet"
-            "RainbowCyan"
+            "RainbowDelimiterRed"
+            "RainbowDelimiterYellow"
+            "RainbowDelimiterBlue"
+            "RainbowDelimiterOrange"
+            "RainbowDelimiterGreen"
+            "RainbowDelimiterViolet"
+            "RainbowDelimiterCyan"
           ];
         };
       };
 
-      luaConfigRC.rainbow-delimiters-integration =
-        inputs.nvf.lib.nvim.dag.entryBefore [ "pluginConfigs" ]
-          ''
-            local rainbow_colors = {
-              { name = "RainbowRed", color = "#E06C75" },
-              { name = "RainbowYellow", color = "#E5C07B" },
-              { name = "RainbowBlue", color = "#61AFEF" },
-              { name = "RainbowOrange", color = "#D19A66" },
-              { name = "RainbowGreen", color = "#98C379" },
-              { name = "RainbowViolet", color = "#C678DD" },
-              { name = "RainbowCyan", color = "#56B6C2" },
-            }
-
-            local highlight = {}
-            for _, hl in ipairs(rainbow_colors) do
-              table.insert(highlight, hl.name)
-            end
-
-            local hooks = require "ibl.hooks"
-            -- Create highlight groups before indent-blankline setup and reset on colorscheme change
-            hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-              for _, hl in ipairs(rainbow_colors) do
-                vim.api.nvim_set_hl(0, hl.name, { fg = hl.color })
-              end
-            end)
-
-            vim.g.rainbow_delimiters = { highlight = highlight }
-            hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
-          '';
+      # Register the rainbow-delimiters/IBL integration after nvf lazy-loads
+      # and configures IBL. This is the same integration used by AstroNvim.
+      lazy.plugins.indent-blankline-nvim.after = ''
+        local hooks = require("ibl.hooks")
+        hooks.register(
+          hooks.type.SCOPE_HIGHLIGHT,
+          hooks.builtin.scope_highlight_from_extmark
+        )
+      '';
     };
   };
 }
