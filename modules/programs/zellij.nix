@@ -20,6 +20,7 @@ in
       settings = {
         show_startup_tips = false;
         theme = "rose-pine";
+        mouse_scroll_resize = false;
       };
       extraConfig = ''
         keybinds {
