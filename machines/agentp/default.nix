@@ -15,18 +15,28 @@
     ];
   };
 
-  flake.modules.nixos.agentp = {
-    hardware = {
-      graphics.enable = true;
-      nvidia.open = true;
-    };
-    services = {
-      xserver = {
-        # enable = true;
-        videoDrivers = [ "nvidia" ];
+  flake.modules.nixos.agentp =
+    { lib, ... }:
+    {
+      # TODO: move into module
+      networking.networkmanager.enable = lib.mkForce true;
+      systemd.network.enable = lib.mkForce false;
+      preservation.preserveAt."/persist".directories = [
+        "/etc/NetworkManager/system-connections"
+        "/var/lib/NetworkManager"
+      ];
+
+      hardware = {
+        graphics.enable = true;
+        nvidia.open = true;
       };
-      desktopManager.plasma6.enable = true;
-      displayManager.plasma-login-manager.enable = true;
+      services = {
+        xserver = {
+          # enable = true;
+          videoDrivers = [ "nvidia" ];
+        };
+        displayManager.gdm.enable = true;
+        desktopManager.gnome.enable = true;
+      };
     };
-  };
 }
