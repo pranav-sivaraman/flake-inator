@@ -7,7 +7,7 @@
     {
       programs.nh = {
         enable = true;
-        darwinFlake = pkgs.lib.mkIf pkgs.stdenv.isDarwin flakePath;
+        darwinFlake = pkgs.lib.mkIf pkgs.stdenv.hostPlatform.isDarwin flakePath;
       };
     };
 }

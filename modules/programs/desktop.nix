@@ -8,7 +8,7 @@
           slack
           zotero
         ]
-        ++ lib.optionals pkgs.stdenv.isDarwin [
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
           monodraw
         ];
       programs = {

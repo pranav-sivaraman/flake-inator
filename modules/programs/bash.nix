@@ -1,7 +1,7 @@
 {
   flake.modules.homeManager.default =
     { lib, pkgs, ... }:
-    lib.mkIf pkgs.stdenv.isLinux {
+    lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       programs.bash = {
         enable = true;
         historyControl = [

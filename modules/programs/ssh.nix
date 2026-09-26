@@ -23,7 +23,7 @@
     in
     lib.mkMerge [
       {
-        home.packages = lib.optionals pkgs.stdenv.isDarwin [ ssh-askpass-mac ];
+        home.packages = lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ ssh-askpass-mac ];
 
         programs.ssh = {
           enable = true;
@@ -53,7 +53,7 @@
         };
 
       }
-      (lib.mkIf pkgs.stdenv.isDarwin {
+      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
         launchd.agents.ssh-agent.config.EnvironmentVariables = {
           SSH_ASKPASS = "${ssh-askpass-mac}/bin/ssh-askpass";
           SSH_ASKPASS_REQUIRE = "prefer";

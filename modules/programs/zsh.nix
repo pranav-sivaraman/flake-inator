@@ -6,7 +6,7 @@
       config,
       ...
     }:
-    lib.mkIf pkgs.stdenv.isDarwin {
+    lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
       programs.zsh = {
         enable = true;
         dotDir = "${config.xdg.configHome}/zsh";
