@@ -9,8 +9,9 @@
             "stdio"
           ];
 
-          rust-analyzer.init_options = {
+          rust-analyzer.settings."rust-analyzer" = {
             files.excludeDirs = [ ".direnv" ];
+            check.command = "clippy";
           };
         };
 
