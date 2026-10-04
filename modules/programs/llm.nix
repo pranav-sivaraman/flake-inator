@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.default =
-    { config, ... }:
+    { config, pkgs, ... }:
     {
       home = {
         sessionVariables = {
@@ -12,6 +12,15 @@
         pi-coding-agent = {
           enable = true;
           configDir = "${config.xdg.configHome}/pi/agent";
+          settings = {
+            packages = [
+              "npm:@earendil-works/pi-voice"
+            ];
+          };
+          extraPackages = with pkgs; [
+            nodejs
+            ffmpeg
+          ];
         };
       };
     };
