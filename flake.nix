@@ -29,6 +29,7 @@
     };
     nix-darwin.url = "github:nix-darwin/nix-darwin";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs-zotero.url = "github:NixOS/nixpkgs/7a0f122f5090cf4c2ade2a13a0e229d4e19ba71f";
     nur.url = "github:nix-community/NUR";
     nvf.url = "github:notashelf/nvf";
     preservation.url = "github:nix-community/preservation";
