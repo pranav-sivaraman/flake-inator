@@ -14,6 +14,7 @@
             "cmd-5" = "workspace 5";
             "cmd-6" = "workspace 6";
             "cmd-7" = "workspace 7";
+            "alt-shift-tab" = "move-workspace-to-monitor --wrap-around next";
           };
           on-window-detected = [
             {
