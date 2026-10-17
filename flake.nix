@@ -23,6 +23,7 @@
     headplane.url = "github:tale/headplane";
     home-manager.url = "github:nix-community/home-manager";
     import-tree.url = "github:denful/import-tree";
+    llm-agents.url = "github:numtide/llm-agents.nix";
     nix-auto-follow = {
       url = "github:fzakaria/nix-auto-follow";
       inputs.nixpkgs.follows = "nixpkgs";
