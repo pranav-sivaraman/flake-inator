@@ -20,6 +20,8 @@
           package = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi;
           configDir = "${config.xdg.configHome}/pi/agent";
           settings = {
+            defaultProvider = "openrouter";
+            defaultModel = "deepseek/deepseek-v4.1-flash-1017";
             packages = [
               "npm:@earendil-works/pi-voice"
             ];
