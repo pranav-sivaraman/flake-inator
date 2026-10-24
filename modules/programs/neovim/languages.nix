@@ -24,7 +24,7 @@
           python = {
             enable = true;
             format.type = [ "ruff" ];
-            lsp.servers = [ "ty" ];
+            lsp.servers = [ "pyrefly" ];
           };
 
           nix = {
