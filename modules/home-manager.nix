@@ -7,10 +7,12 @@
 
   flake.modules.nixos.default = {
     imports = [ inputs.home-manager.nixosModules.home-manager ];
+    home-manager.backupFileExtension = "backup";
   };
 
   flake.modules.darwin.default = {
     imports = [ inputs.home-manager.darwinModules.home-manager ];
+    home-manager.backupFileExtension = "backup";
   };
 
   flake.modules.homeManager.default = {
