@@ -26,6 +26,10 @@
         enable = true;
         interactiveShellInit = ''
           fish_config theme choose "Rosé Pine"
+
+          if set -q REX_BIN_DIR
+              fish_add_path --path --prepend --move $REX_BIN_DIR
+          end
         '';
         functions = {
           ndf = {
