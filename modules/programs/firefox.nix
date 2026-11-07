@@ -54,7 +54,7 @@ in
             ublock-origin
             sponsorblock
             bitwarden
-            bypass-paywalls-clean
+            #bypass-paywalls-clean
             refined-github
             web-clipper-obsidian
             reddit-enhancement-suite
