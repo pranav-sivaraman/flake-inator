@@ -71,6 +71,10 @@
         ];
         forwardPorts = [
           {
+            # Bind loopback only: qemu's hostfwd listens on every interface when
+            # host.address is left empty, which exposes the guest's sshd to
+            # whatever network the laptop happens to be on.
+            host.address = "127.0.0.1";
             host.port = 2222;
             guest.port = 22;
           }
