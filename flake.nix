@@ -24,6 +24,10 @@
     home-manager.url = "github:nix-community/home-manager";
     import-tree.url = "github:denful/import-tree";
     llm-agents.url = "github:numtide/llm-agents.nix";
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-auto-follow = {
       url = "github:fzakaria/nix-auto-follow";
       inputs.nixpkgs.follows = "nixpkgs";
