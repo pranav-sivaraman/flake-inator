@@ -29,6 +29,7 @@
           extraPackages = with pkgs; [
             ffmpeg
             firefox-devtools-mcp
+            nodejs
           ];
         };
       };
