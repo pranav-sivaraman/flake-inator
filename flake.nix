@@ -38,6 +38,7 @@
     nur.url = "github:nix-community/NUR";
     nvf.url = "github:notashelf/nvf";
     preservation.url = "github:nix-community/preservation";
+    rex.url = "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz";
     rose-pine-btop = {
       url = "github:rose-pine/btop";
       flake = false;

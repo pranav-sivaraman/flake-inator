@@ -54,6 +54,21 @@
 
       }
       (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+        # The MicroVM guest, through microvm.nix's host -> guest forward of port
+        # 2222. The socket forward is what Rex on the Mac talks to: it is the
+        # guest's shared Rex server socket, forwarded to a local socket. `%d` is
+        # the local home directory.
+        programs.ssh.settings.devbox = {
+          HostName = "127.0.0.1";
+          Port = 2222;
+          User = "psivaram";
+
+          # Without this, a stale local socket or a guest whose Rex service is
+          # down leaves a half-working connection instead of failing.
+          ExitOnForwardFailure = true;
+          LocalForward = [ "%d/.ssh/devbox-rex.sock /run/rex/server.sock" ];
+        };
+
         launchd.agents.ssh-agent.config.EnvironmentVariables = {
           SSH_ASKPASS = "${ssh-askpass-mac}/bin/ssh-askpass";
           SSH_ASKPASS_REQUIRE = "prefer";
